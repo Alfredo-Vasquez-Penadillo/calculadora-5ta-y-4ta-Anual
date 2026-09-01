@@ -98,6 +98,18 @@ main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:1
 @media print{body *{visibility:hidden!important}.laboral-view,.laboral-view *{visibility:visible!important}.laboral-view{display:block!important;position:absolute;left:0;top:0;width:100%;background:#fff}.lab-noprint{display:none!important}.lab-contract{border:0;box-shadow:none}}
 </style>
 
+
+<style>
+@media print{
+  body.print-contract-only *{visibility:hidden!important}
+  body.print-contract-only #laboralView,body.print-contract-only #laboralView *{visibility:visible!important}
+  body.print-contract-only .lab-print-hide,body.print-contract-only #lab-contrato .lab-noprint{display:none!important}
+  body.print-contract-only #laboralView{display:block!important;position:absolute;left:0;top:0;width:100%;background:#fff}body.print-contract-only .laboral-head{display:none!important}body.print-contract-only .laboral-wrap{padding:0!important}
+  body.print-contract-only #lab-contrato{display:block!important}
+  body.print-contract-only #contractPreview{border:0;box-shadow:none}
+  body.print-contract-only #contractContent{border:0;padding:0}
+}
+</style>
 </head>
 <body>
 
@@ -159,21 +171,21 @@ main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:1
 
 
 
+
 <div id="laboralView" class="laboral-view">
-  <div class="laboral-head">
-    <div class="laboral-head-inner">
-      <div class="laboral-eyebrow">ALVAPEN · Gestión Laboral</div>
-      <h1>Trabajador del hogar</h1>
-      <p>Calcula beneficios y obligaciones, genera la boleta de pago, prepara el contrato y determina la liquidación al cese.</p>
-    </div>
-  </div>
+  <div class="laboral-head"><div class="laboral-head-inner">
+    <div class="laboral-eyebrow">ALVAPEN · Gestión Laboral</div>
+    <h1>Trabajador del hogar</h1>
+    <p>Una herramienta integral para calcular beneficios, obligaciones del empleador, boleta de pago, contratos y liquidación al cese.</p>
+  </div></div>
+
   <div class="laboral-wrap">
-    <div class="laboral-toolbar lab-noprint">
+    <div class="laboral-toolbar lab-print-hide">
       <button class="lab-back" onclick="showPortal()">← Volver al portal ALVAPEN</button>
-      <strong>Gestión laboral · Ley N.º 31047</strong>
+      <span class="lab-status">● Ley N.º 31047 · D.S. N.º 009-2021-TR</span>
     </div>
 
-    <div class="lab-grid lab-noprint">
+    <div class="lab-grid lab-print-hide">
       <button class="lab-tab active" data-lab-tab="beneficios">📊 Beneficios</button>
       <button class="lab-tab" data-lab-tab="obligaciones">✅ Obligaciones</button>
       <button class="lab-tab" data-lab-tab="boleta">🧾 Boleta</button>
@@ -183,218 +195,161 @@ main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:1
 
     <section class="lab-panel active" id="lab-beneficios">
       <div class="lab-card">
-        <h2>Calculadora de beneficios y costo del empleador</h2>
-        <p class="lab-hint">La herramienta está diseñada para trabajo del hogar con o sin residencia. La jornada parcial y los beneficios aplicables se identifican según las horas ingresadas.</p>
+        <div class="lab-section-title"><div><h2>Calculadora de beneficios laborales</h2><p>Ingresa los datos del trabajador y la herramienta calcula automáticamente.</p></div></div>
         <div class="lab-fields">
-          <label class="wide">Remuneración mensual
-            <input id="lab-salary" type="number" min="0" step="0.01" value="1130">
-          </label>
-          <label>RMV
-            <input id="lab-rmv" type="number" min="0" step="0.01" value="1130">
-          </label>
-          <label>Fecha de inicio
-            <input id="lab-start" type="date" value="2026-01-01">
-          </label>
-          <label>Fecha de cálculo / cese
-            <input id="lab-end" type="date" value="2026-12-31">
-          </label>
-          <label>Horas diarias promedio
-            <input id="lab-hours" type="number" min="0" max="24" step="0.01" value="8">
-          </label>
-          <label>Días por semana
-            <input id="lab-days" type="number" min="1" max="7" step="1" value="6">
-          </label>
-          <label>Asignación familiar
-            <select id="lab-family"><option value="0">No</option><option value="113">Sí · S/ 113</option></select>
-          </label>
-          <label>Pensión
-            <select id="lab-pension"><option value="0">No calcular retención</option><option value="13">ONP · 13%</option><option value="custom">AFP · tasa ingresada</option></select>
-          </label>
-          <label>Tasa AFP
-            <input id="lab-afp" type="number" min="0" step="0.01" value="12.99">
-          </label>
-          <label>Horas extras 25%
-            <input id="lab-ot25" type="number" min="0" step="0.01" value="0">
-          </label>
-          <label>Horas extras 35%
-            <input id="lab-ot35" type="number" min="0" step="0.01" value="0">
-          </label>
-          <label>Horas feriado / descanso
-            <input id="lab-holiday" type="number" min="0" step="0.01" value="0">
-          </label>
+          <label>Remuneración mensual<input id="lab-salary" type="number" min="0" step="0.01" value="1130"></label>
+          <label>Asignación familiar<input id="lab-family" type="number" min="0" step="0.01" value="0"></label>
+          <label>RMV<input id="lab-rmv" type="number" min="0" step="0.01" value="1130"></label>
+          <label>Fecha de inicio<input id="lab-start" type="date" value="2026-01-01"></label>
+          <label>Fecha de cálculo<input id="lab-end" type="date" value="2026-12-31"></label>
+          <label>Horas diarias<input id="lab-hours" type="number" min="0" max="24" step="0.01" value="8"></label>
+          <label>Días trabajados por semana<input id="lab-days" type="number" min="1" max="7" step="1" value="6"></label>
+          <label>Seguro de salud<select id="lab-health"><option value="essalud">EsSalud · 9%</option><option value="eps">EPS · bonificación 6.75%</option></select></label>
+          <label>Sistema de pensiones<select id="lab-pension"><option value="none">Sin retención en esta simulación</option><option value="onp">ONP · 13%</option><option value="afp">AFP · tasa personalizada</option></select></label>
+          <label>Tasa AFP<input id="lab-afp" type="number" min="0" step="0.01" value="12.99"></label>
+          <label>Conceptos regulares computables<input id="lab-regular" type="number" min="0" step="0.01" value="0"></label><label>Gratificación diciembre anterior percibida<input id="lab-prev-grati" type="number" min="0" step="0.01" value="1130"></label>
+          <label>Horas extras 25% en el periodo<input id="lab-ot25" type="number" min="0" step="0.01" value="0"></label>
+          <label>Horas extras 35% en el periodo<input id="lab-ot35" type="number" min="0" step="0.01" value="0"></label>
         </div>
         <div class="lab-checks">
           <label class="lab-check"><input id="lab-residence" type="checkbox"> Con residencia</label>
-          <label class="lab-check"><input id="lab-eligible-cts" type="checkbox" checked> Calcular CTS (promedio ≥ 4 h)</label>
-          <label class="lab-check"><input id="lab-include-grati-bonus" type="checkbox" checked> Bonificación extraordinaria 9%</label>
+          <label class="lab-check"><input id="lab-cts-eligible" type="checkbox" checked> Jornada promedio ≥ 4 h: CTS</label>
+          <label class="lab-check"><input id="lab-holiday" type="checkbox"> Trabajo en feriado sin descanso sustitutorio</label>
         </div>
+        <div class="lab-info">Para jornada completa, la remuneración no puede ser inferior a la RMV. Para trabajo por horas o fracción, la remuneración es proporcional. La alimentación y alojamiento que corresponda son condiciones de trabajo y no forman parte de la remuneración. </div>
       </div>
 
       <div class="lab-card">
-        <h2>Resultado anual / mensual referencial</h2>
+        <h2>Resultados</h2>
         <div class="lab-result-grid">
-          <div class="lab-metric"><span>Remuneración computable mensual</span><strong id="lab-rem">S/ 0.00</strong></div>
-          <div class="lab-metric"><span>EsSalud 9% · empleador</span><strong id="lab-essalud">S/ 0.00</strong></div>
+          <div class="lab-metric"><span>Remuneración computable</span><strong id="lab-rem">S/ 0.00</strong></div>
+          <div class="lab-metric"><span>EsSalud · empleador</span><strong id="lab-essalud">S/ 0.00</strong></div>
           <div class="lab-metric"><span>Pensión · trabajador</span><strong id="lab-pension-out">S/ 0.00</strong></div>
           <div class="lab-metric"><span>Costo mensual ordinario</span><strong id="lab-cost">S/ 0.00</strong></div>
         </div>
         <table class="lab-table">
-          <thead><tr><th>Beneficio / obligación</th><th>Base</th><th>Resultado referencial</th></tr></thead>
+          <thead><tr><th>Concepto</th><th>Base</th><th>Resultado</th></tr></thead>
           <tbody>
-            <tr><td>Gratificación julio</td><td>Remuneración mensual × meses / 6</td><td id="lab-grati-jul">S/ 0.00</td></tr>
-            <tr><td>Gratificación diciembre</td><td>Remuneración mensual × meses / 6</td><td id="lab-grati-dec">S/ 0.00</td></tr>
-            <tr><td>Bonificación extraordinaria 9%</td><td>Sobre gratificación</td><td id="lab-grati-bonus">S/ 0.00</td></tr>
-            <tr><td>CTS semestral referencial</td><td>Rem. computable + 1/6 grati</td><td id="lab-cts">S/ 0.00</td></tr>
+            <tr><td>Gratificación Fiestas Patrias</td><td>1/6 de la remuneración computable × meses completos</td><td id="lab-grati-jul">S/ 0.00</td></tr>
+            <tr><td>Bonificación extraordinaria julio</td><td>9% EsSalud / 6.75% EPS</td><td id="lab-bonus-jul">S/ 0.00</td></tr>
+            <tr><td>Gratificación Navidad</td><td>1/6 de la remuneración computable × meses completos</td><td id="lab-grati-dec">S/ 0.00</td></tr>
+            <tr><td>Bonificación extraordinaria diciembre</td><td>9% EsSalud / 6.75% EPS</td><td id="lab-bonus-dec">S/ 0.00</td></tr>
+            <tr><td>CTS · depósito semestral</td><td>50% de la remuneración computable + 1/6 de la gratificación percibida, proporcional</td><td id="lab-cts">S/ 0.00</td></tr>
             <tr><td>Vacaciones anuales</td><td>30 días</td><td id="lab-vac">S/ 0.00</td></tr>
-            <tr><td>Horas extras</td><td>Valor hora + sobretasa</td><td id="lab-overtime">S/ 0.00</td></tr>
-            <tr><td>Trabajo en feriado/descanso</td><td>Valor de labor + 100%</td><td id="lab-holiday-out">S/ 0.00</td></tr>
+            <tr><td>Horas extras</td><td>25% primeras 2 h / 35% siguientes</td><td id="lab-overtime">S/ 0.00</td></tr>
+            <tr><td>Feriado trabajado sin descanso sustitutorio</td><td>Día trabajado + sobretasa 100%</td><td id="lab-holiday-out">S/ 0.00</td></tr>
           </tbody>
         </table>
         <div class="lab-black">
-          <h3>Caja negra · costo del empleador</h3>
+          <h3>Caja Negra · costo anual estimado</h3>
           <table><tbody>
             <tr><td>12 remuneraciones</td><td id="lab-cost-salary">S/ 0.00</td></tr>
             <tr><td>EsSalud anual</td><td id="lab-cost-health">S/ 0.00</td></tr>
-            <tr><td>Gratificaciones</td><td id="lab-cost-grati">S/ 0.00</td></tr>
+            <tr><td>2 gratificaciones</td><td id="lab-cost-grati">S/ 0.00</td></tr>
+            <tr><td>2 bonificaciones extraordinarias</td><td id="lab-cost-bonus">S/ 0.00</td></tr>
             <tr><td>CTS</td><td id="lab-cost-cts">S/ 0.00</td></tr>
             <tr><td>Vacaciones</td><td id="lab-cost-vac">S/ 0.00</td></tr>
             <tr><td><strong>Costo anual referencial</strong></td><td id="lab-cost-total"><strong>S/ 0.00</strong></td></tr>
           </tbody></table>
         </div>
-        <div class="lab-note">Referencial: si existen variaciones salariales, conceptos regulares, periodos incompletos, depósitos de CTS ya efectuados, vacaciones gozadas, licencias o una situación especial de cese, debe ajustarse la información para la liquidación final.</div>
+        <div class="lab-note">La CTS se calcula separadamente para mayo y noviembre: para mayo se incorpora 1/6 de la gratificación de diciembre anterior y para noviembre 1/6 de la gratificación de julio. Para una liquidación por cese se usa la última gratificación percibida que corresponda al periodo. En una liquidación por cese se usa la última gratificación percibida que corresponda al periodo de CTS.</div>
       </div>
     </section>
 
     <section class="lab-panel" id="lab-obligaciones">
       <div class="lab-card">
-        <h2>Obligaciones del empleador</h2>
-        <p class="lab-hint">Lista de control basada en la Ley N.º 31047, su Reglamento y los formatos oficiales proporcionados.</p>
+        <h2>Obligaciones y derechos esenciales</h2>
+        <p class="lab-hint">Lista de control para que el empleador no omita pasos laborales, previsionales o documentarios.</p>
         <div class="lab-obligations">
-          <div class="lab-ob"><b>📌 Contrato y registro</b><small>Celebrar el contrato y registrarlo en el Registro del Trabajo del Hogar dentro del plazo aplicable. Entregar constancia al trabajador.</small></div>
-          <div class="lab-ob"><b>💵 Remuneración</b><small>Pagar la remuneración pactada, respetando la RMV y la proporcionalidad cuando corresponda.</small></div>
-          <div class="lab-ob"><b>🧾 Boleta de pago</b><small>Emitir y entregar la boleta con ingresos, deducciones, aportes, periodo y firmas.</small></div>
-          <div class="lab-ob"><b>🏥 EsSalud</b><small>Afiliar y efectuar el aporte mensual a EsSalud a cargo del empleador.</small></div>
-          <div class="lab-ob"><b>🏦 Pensiones</b><small>Registrar, retener y pagar el aporte previsional elegido por la persona trabajadora.</small></div>
-          <div class="lab-ob"><b>🎁 Gratificaciones</b><small>Julio y diciembre, con cálculo proporcional cuando corresponda.</small></div>
-          <div class="lab-ob"><b>🏦 CTS</b><small>Depósitos en mayo y noviembre; CTS trunca al cese cuando corresponda.</small></div>
-          <div class="lab-ob"><b>🏖️ Vacaciones</b><small>30 días calendario por año; récord trunco proporcional.</small></div>
-          <div class="lab-ob"><b>⏱️ Jornada y extras</b><small>Máximo 8 horas diarias/48 semanales; horas extras voluntarias y registradas en boleta.</small></div>
-          <div class="lab-ob"><b>🛡️ Seguridad y salud</b><small>Brindar condiciones seguras, medios adecuados y capacitación mínima en riesgos.</small></div>
-          <div class="lab-ob"><b>📚 Educación</b><small>Brindar facilidades para educación básica o formación técnica/profesional.</small></div>
-          <div class="lab-ob"><b>📤 Cese</b><small>Pagar beneficios de la liquidación dentro de las 48 horas y entregar constancia de cese.</small></div>
+          <div class="lab-ob"><b>📄 Contrato escrito</b><small>Debe celebrarse por escrito y contener la información mínima legal.</small></div>
+          <div class="lab-ob"><b>🗂️ Registro</b><small>El empleador registra el contrato en el aplicativo del MTPE dentro de 3 días hábiles.</small></div>
+          <div class="lab-ob"><b>💵 Remuneración</b><small>No inferior a la RMV para jornada completa; proporcional para trabajo por horas.</small></div>
+          <div class="lab-ob"><b>🧾 Boleta</b><small>Emitir y entregar boleta con periodo, ingresos, descuentos, aportes y firmas.</small></div>
+          <div class="lab-ob"><b>🏥 EsSalud</b><small>Afiliación regular y aporte a cargo del empleador.</small></div>
+          <div class="lab-ob"><b>🏦 Pensión</b><small>Afiliación al sistema elegido y retención/pago del aporte que corresponda.</small></div>
+          <div class="lab-ob"><b>🎁 Gratificación</b><small>Julio y diciembre: cada una equivalente a una remuneración mensual, proporcional por meses completos cuando corresponda.</small></div>
+          <div class="lab-ob"><b>➕ Bonificación extraordinaria</b><small>9% de la gratificación con EsSalud; 6.75% si corresponde EPS.</small></div>
+          <div class="lab-ob"><b>🏦 CTS</b><small>Depósito dentro de los primeros 15 días naturales de mayo y noviembre; incluye 1/6 de la gratificación percibida según el periodo.</small></div>
+          <div class="lab-ob"><b>🏖️ Vacaciones</b><small>30 días calendario por año; récord trunco por dozavos y treintavos.</small></div>
+          <div class="lab-ob"><b>⏱️ Jornada</b><small>Máximo 8 horas diarias y 48 semanales; horas extras voluntarias y pagadas con sobretasa.</small></div>
+          <div class="lab-ob"><b>📅 30 de marzo</b><small>Día de las Trabajadoras y Trabajadores del Hogar: feriado no laborable remunerado.</small></div>
+          <div class="lab-ob"><b>🤰 Maternidad</b><small>Protección desde la gestación y durante lactancia; el despido por maternidad es nulo.</small></div>
+          <div class="lab-ob"><b>🎓 Educación</b><small>El empleador debe facilitar el acceso a educación básica o formación técnica/profesional.</small></div>
+          <div class="lab-ob"><b>🏠 Residencia</b><small>Si existe residencia, el alojamiento debe ser adecuado y las condiciones deben respetar la dignidad.</small></div>
+          <div class="lab-ob"><b>📤 Cese</b><small>La liquidación y beneficios pendientes deben atenderse dentro de 48 horas del cese.</small></div>
         </div>
+        <div class="lab-note">La Ley N.º 27986 que enviaste es una norma histórica. Para el módulo vigente se toma como base la Ley N.º 31047 y su Reglamento, D.S. N.º 009-2021-TR. La Ley 27986 queda solo como referencia histórica.</div>
       </div>
-      <div class="lab-note">Registro: el MTPE señala que el contrato debe registrarse en el Registro del Trabajo del Hogar y que el contrato se adjunta en PDF. La página oficial del trámite indica 3 días hábiles para registrar el contrato y 3 días hábiles adicionales para entregar la constancia.</div>
     </section>
 
     <section class="lab-panel" id="lab-boleta">
       <div class="lab-card lab-noprint">
-        <h2>Generador de boleta de pago</h2>
-        <p class="lab-hint">La estructura sigue el formato referencial de boleta de pago de la persona trabajadora del hogar que nos proporcionaste.</p>
+        <h2>Boleta de pago</h2><p class="lab-hint">Generador basado en el formato referencial que proporcionaste.</p>
         <div class="lab-fields">
-          <label class="wide">Empleador<input id="bol-employer"></label>
-          <label>DNI / documento empleador<input id="bol-employer-id"></label>
+          <label class="wide">Empleador<input id="bol-employer"></label><label>Documento empleador<input id="bol-employer-id"></label>
           <label class="wide">Domicilio del servicio<input id="bol-address"></label>
-          <label>Trabajador<input id="bol-worker"></label>
-          <label>DNI / documento trabajador<input id="bol-worker-id"></label>
-          <label>Fecha de ingreso<input id="bol-start" type="date"></label>
-          <label>Sistema de pensiones<select id="bol-pension"><option>ONP</option><option>AFP</option></select></label>
+          <label>Trabajador<input id="bol-worker"></label><label>Documento trabajador<input id="bol-worker-id"></label>
+          <label>Fecha de ingreso<input id="bol-start" type="date"></label><label>Pensión<select id="bol-pension"><option>ONP</option><option>AFP</option></select></label>
           <label>Periodicidad<select id="bol-period"><option>Mensual</option><option>Quincenal</option><option>Semanal</option></select></label>
-          <label>Desde<input id="bol-from" type="date"></label>
-          <label>Hasta<input id="bol-to" type="date"></label>
-          <label>Remuneración básica<input id="bol-basic" type="number" value="1130" step="0.01"></label>
-          <label>Horas extras<input id="bol-ot" type="number" value="0" step="0.01"></label>
-          <label>Otros conceptos<input id="bol-other" type="number" value="0" step="0.01"></label>
-          <label>Pensión / deducciones<input id="bol-deduct" type="number" value="0" step="0.01"></label>
+          <label>Desde<input id="bol-from" type="date"></label><label>Hasta<input id="bol-to" type="date"></label>
+          <label>Remuneración básica<input id="bol-basic" type="number" value="1130" step=".01"></label><label>Horas extras<input id="bol-ot" type="number" value="0" step=".01"></label>
+          <label>Otros conceptos<input id="bol-other" type="number" value="0" step=".01"></label><label>Pensiones / deducciones<input id="bol-deduct" type="number" value="0" step=".01"></label>
           <label>Fecha de pago<input id="bol-paydate" type="date"></label>
         </div>
-        <div class="lab-actions"><button class="lab-btn" onclick="generateBoleta()">Generar boleta</button><button class="lab-btn secondary" onclick="window.print()">Imprimir / Guardar PDF</button></div>
+        <div class="lab-actions"><button class="lab-btn" onclick="generateBoleta()">Actualizar boleta</button><button class="lab-btn secondary" onclick="window.print()">Imprimir / PDF</button></div>
       </div>
-      <div id="boletaPreview" class="lab-card">
-        <h2 style="text-align:center">FORMATO REFERENCIAL DE BOLETA DE PAGO DE LA PERSONA TRABAJADORA DEL HOGAR</h2>
-        <div id="boletaContent" class="lab-contract"></div>
-      </div>
+      <div class="lab-card"><div id="boletaContent" class="lab-contract"></div></div>
     </section>
 
     <section class="lab-panel" id="lab-contrato">
       <div class="lab-card lab-noprint">
-        <h2>Generador automatizado de contrato</h2>
-        <p class="lab-hint">Se han tomado como base los tres modelos referenciales que nos enviaste: con residencia, sin residencia y tiempo parcial sin residencia.</p>
+        <h2>Contrato automatizado</h2><p class="lab-hint">Selecciona la modalidad y completa los datos. El PDF/impresión se limita al contrato generado.</p>
         <div class="lab-fields">
           <label>Modalidad<select id="con-mode"><option value="sin">Sin residencia</option><option value="res">Con residencia</option><option value="parcial">Tiempo parcial sin residencia</option></select></label>
-          <label class="wide">Trabajador<input id="con-worker"></label>
-          <label>DNI trabajador<input id="con-worker-id"></label>
-          <label>Domicilio trabajador<input id="con-worker-address"></label>
-          <label>Nacionalidad trabajador<input id="con-worker-nationality"></label>
-          <label>Fecha nacimiento<input id="con-worker-birth" type="date"></label>
-          <label>Profesión / oficio<input id="con-worker-job"></label>
-          <label>Empleador<input id="con-employer"></label>
-          <label>DNI empleador<input id="con-employer-id"></label>
-          <label>Domicilio del servicio<input id="con-address"></label>
-          <label>Nacionalidad empleador<input id="con-employer-nationality"></label>
-          <label>Fecha de firma<input id="con-sign" type="date"></label>
-          <label>Inicio de relación<input id="con-start" type="date"></label>
-          <label>Término (si corresponde)<input id="con-end" type="date"></label>
-          <label>Remuneración mensual<input id="con-salary" type="number" value="1130" step="0.01"></label>
-          <label>Oportunidad de pago<select id="con-pay"><option>Mensual</option><option>Quincenal</option><option>Semanal</option></select></label>
-          <label>Modalidad de pago<select id="con-method"><option>Transferencia bancaria</option><option>Efectivo</option></select></label>
-          <label>Banco<input id="con-bank"></label>
-          <label>Cuenta / CCI<input id="con-account"></label>
-          <label>Horario de ingreso<input id="con-in"></label>
-          <label>Horario de término<input id="con-out"></label>
-          <label>Descanso semanal<input id="con-rest" value="Domingo"></label>
-          <label>Horas diarias<input id="con-hours" type="number" value="8" step="0.01"></label>
-          <label>Horas semanales<input id="con-weekhours" type="number" value="48" step="0.01"></label>
-          <label class="wide">Otros datos / antecedentes<input id="con-background"></label>
-          <label class="wide">Otras funciones acordadas<textarea id="con-other"></textarea></label>
+          <label>Plazo<select id="con-term"><option value="indef">Indeterminado</option><option value="fijo">Plazo fijo · completar causa</option></select></label>
+          <label class="wide">Trabajador<input id="con-worker"></label><label>DNI / documento<input id="con-worker-id"></label>
+          <label>Domicilio trabajador<input id="con-worker-address"></label><label>Nacionalidad<input id="con-worker-nationality"></label><label>Fecha nacimiento<input id="con-worker-birth" type="date"></label><label>Sexo<select id="con-worker-sex"><option>Femenino</option><option>Masculino</option><option>Otro</option></select></label><label>Estado civil<input id="con-worker-marital"></label><label>Profesión / oficio<input id="con-worker-job"></label>
+          <label class="wide">Antecedentes de servicios previos<input id="con-background"></label>
+          <label class="wide">Empleador<input id="con-employer"></label><label>DNI / documento empleador<input id="con-employer-id"></label>
+          <label>Domicilio del servicio<input id="con-address"></label><label>Nacionalidad empleador<input id="con-employer-nationality"></label><label>Fecha nacimiento empleador<input id="con-employer-birth" type="date"></label><label>Sexo empleador<select id="con-employer-sex"><option>Femenino</option><option>Masculino</option><option>Otro</option></select></label><label>Estado civil empleador<input id="con-employer-marital"></label><label>Profesión / oficio empleador<input id="con-employer-job"></label>
+          <label>Fecha de firma<input id="con-sign" type="date"></label><label>Inicio de relación<input id="con-start" type="date"></label><label>Fin (si plazo fijo)<input id="con-end" type="date"></label>
+          <label>Remuneración<input id="con-salary" type="number" value="1130" step=".01"></label><label>Pago<select id="con-pay"><option>Mensual</option><option>Quincenal</option><option>Semanal</option></select></label><label>Medio de pago<select id="con-method"><option>Transferencia bancaria</option><option>Efectivo</option></select></label><label>Banco<input id="con-bank"></label><label>Cuenta / CCI<input id="con-account"></label>
+          <label>Horas diarias<input id="con-hours" type="number" value="8" step=".01"></label><label>Horas semanales<input id="con-weekhours" type="number" value="48" step=".01"></label><label>Horario ingreso<input id="con-in"></label><label>Horario término<input id="con-out"></label><label>Descanso semanal<input id="con-rest" value="Domingo"></label>
+          <label class="wide">Causa objetiva, si es plazo fijo<input id="con-cause"></label>
+          <label class="wide">Funciones adicionales / otros<input id="con-other"></label>
+          <label class="wide">Facilidades educativas acordadas<input id="con-education"></label>
         </div>
         <div class="lab-checks">
-          <label class="lab-check"><input type="checkbox" id="task-clean" checked> Limpieza / mantenimiento</label>
-          <label class="lab-check"><input type="checkbox" id="task-cook"> Cocina</label>
-          <label class="lab-check"><input type="checkbox" id="task-laundry"> Lavado / planchado</label>
-          <label class="lab-check"><input type="checkbox" id="task-care"> Cuidado de personas / mascotas</label>
+          <label class="lab-check"><input type="checkbox" id="task-clean" checked> Limpieza / mantenimiento</label><label class="lab-check"><input type="checkbox" id="task-cook"> Cocina</label><label class="lab-check"><input type="checkbox" id="task-laundry"> Lavado / planchado</label><label class="lab-check"><input type="checkbox" id="task-care"> Asistencia / cuidado</label><label class="lab-check"><input type="checkbox" id="task-other"> Otros</label>
         </div>
-        <div class="lab-actions"><button class="lab-btn gold" onclick="generateContrato()">Generar contrato</button><button class="lab-btn secondary" onclick="window.print()">Imprimir / Guardar PDF</button></div>
+        <div class="lab-actions"><button class="lab-btn gold" onclick="generateContrato()">Generar contrato</button><button class="lab-btn secondary" onclick="printContractOnly()">Generar PDF / imprimir solo contrato</button></div>
       </div>
-      <div id="contractPreview" class="lab-card">
-        <div id="contractContent" class="lab-contract"></div>
-      </div>
+      <div id="contractPreview" class="lab-card"><div id="contractContent" class="lab-contract"></div></div>
     </section>
 
     <section class="lab-panel" id="lab-liquidacion">
       <div class="lab-card">
-        <h2>Liquidación de beneficios sociales</h2>
-        <p class="lab-hint">Selecciona el motivo del cese. La indemnización se activa únicamente cuando corresponda a un despido arbitrario y el supuesto legal sea aplicable.</p>
+        <h2>Liquidación de beneficios sociales</h2><p class="lab-hint">La indemnización solo se activa cuando el motivo y el supuesto legal corresponden a despido arbitrario.</p>
         <div class="lab-fields">
-          <label>Motivo del cese<select id="liq-reason"><option value="renuncia">Renuncia voluntaria</option><option value="despido">Despido arbitrario</option><option value="causa">Despido con causa justa</option><option value="mutuo">Mutuo disenso</option><option value="plazo">Término de contrato</option></select></label>
-          <label>Remuneración al cese<input id="liq-salary" type="number" value="1130" step="0.01"></label>
-          <label>Asignación familiar<input id="liq-family" type="number" value="0" step="0.01"></label>
-          <label>Fecha ingreso<input id="liq-start" type="date" value="2024-01-01"></label>
-          <label>Fecha cese<input id="liq-end" type="date" value="2026-09-01"></label>
-          <label>Última gratificación percibida<input id="liq-lastgrati" type="number" value="1130" step="0.01"></label>
-          <label>CTS ya depositada/pagada del periodo<input id="liq-cts-paid" type="number" value="0" step="0.01"></label>
-          <label>Vacaciones gozadas del último periodo (días)<input id="liq-vac-used" type="number" value="0" step="0.01"></label>
-          <label>Días de remuneración pendientes<input id="liq-days-pay" type="number" value="0" step="0.01"></label>
-          <label>Horas diarias promedio<input id="liq-hours" type="number" value="8" step="0.01"></label>
+          <label>Motivo<select id="liq-reason"><option value="renuncia">Renuncia voluntaria</option><option value="despido">Despido arbitrario</option><option value="causa">Despido con causa justa</option><option value="mutuo">Mutuo acuerdo</option><option value="plazo">Término de contrato</option></select></label>
+          <label>Remuneración al cese<input id="liq-salary" type="number" value="1130" step=".01"></label><label>Asignación familiar<input id="liq-family" type="number" value="0" step=".01"></label>
+          <label>Fecha ingreso<input id="liq-start" type="date" value="2024-01-01"></label><label>Fecha cese<input id="liq-end" type="date" value="2026-09-01"></label><label>Horas diarias promedio<input id="liq-hours" type="number" value="8" step=".01"></label>
+          <label>Última gratificación percibida<input id="liq-lastgrati" type="number" value="1130" step=".01"></label><label>CTS ya depositada/pagada<input id="liq-cts-paid" type="number" value="0" step=".01"></label>
+          <label>Vacaciones gozadas del último periodo (días)<input id="liq-vac-used" type="number" value="0" step=".01"></label><label>Días de sueldo pendientes<input id="liq-days-pay" type="number" value="0" step=".01"></label>
+          <label>¿La CTS ya fue cancelada hasta el último depósito?<select id="liq-cts-status"><option value="no">No</option><option value="yes">Sí</option></select></label>
         </div>
-        <div class="lab-checks">
-          <label class="lab-check"><input type="checkbox" id="liq-cts" checked> Generar CTS trunca</label>
-          <label class="lab-check"><input type="checkbox" id="liq-indemnity"> Incluir indemnización</label>
-        </div>
-        <div class="lab-actions"><button class="lab-btn" onclick="calculateLiquidacion()">Calcular liquidación</button><button class="lab-btn secondary" onclick="window.print()">Imprimir / Guardar PDF</button></div>
+        <div class="lab-checks"><label class="lab-check"><input type="checkbox" id="liq-indemnity"> Incluir indemnización por despido arbitrario</label></div>
+        <div class="lab-actions"><button class="lab-btn" onclick="calculateLiquidacion()">Calcular liquidación</button><button class="lab-btn secondary" onclick="window.print()">Imprimir / PDF</button></div>
       </div>
       <div class="lab-card">
         <div class="lab-result-grid">
-          <div class="lab-metric"><span>Remuneración pendiente</span><strong id="liq-pay">S/ 0.00</strong></div>
-          <div class="lab-metric"><span>Gratificación trunca + 9%</span><strong id="liq-grati">S/ 0.00</strong></div>
-          <div class="lab-metric"><span>CTS trunca</span><strong id="liq-cts-out">S/ 0.00</strong></div>
-          <div class="lab-metric"><span>Vacaciones truncas</span><strong id="liq-vac">S/ 0.00</strong></div>
+          <div class="lab-metric"><span>Sueldo pendiente</span><strong id="liq-pay">S/ 0.00</strong></div><div class="lab-metric"><span>Gratificación trunca + bonificación</span><strong id="liq-grati">S/ 0.00</strong></div><div class="lab-metric"><span>CTS trunca</span><strong id="liq-cts-out">S/ 0.00</strong></div><div class="lab-metric"><span>Vacaciones truncas</span><strong id="liq-vac">S/ 0.00</strong></div>
         </div>
-        <div class="lab-result-grid">
-          <div class="lab-metric"><span>Indemnización</span><strong id="liq-indemnity-out">S/ 0.00</strong></div>
-          <div class="lab-metric"><span>Total liquidación</span><strong id="liq-total">S/ 0.00</strong></div>
-        </div>
-        <div class="lab-note">La indemnización se muestra como referencial. Para despido arbitrario se aplica la regla general supletoria de 1.5 remuneraciones por año completo, con fracciones por dozavos y treintavos y el tope legal de 12 remuneraciones, cuando el supuesto sea aplicable. No se activa por renuncia voluntaria.</div>
+        <div class="lab-result-grid"><div class="lab-metric"><span>Indemnización</span><strong id="liq-indemnity-out">S/ 0.00</strong></div><div class="lab-metric"><span>Total liquidación</span><strong id="liq-total">S/ 0.00</strong></div></div>
+        <div class="lab-black"><h3>Caja Negra · liquidación</h3><table><tbody>
+          <tr><td>Sueldo pendiente</td><td id="liq-b-pay">S/ 0.00</td></tr><tr><td>Gratificación trunca</td><td id="liq-b-grati">S/ 0.00</td></tr><tr><td>Bonificación extraordinaria</td><td id="liq-b-bonus">S/ 0.00</td></tr><tr><td>CTS trunca</td><td id="liq-b-cts">S/ 0.00</td></tr><tr><td>Vacaciones truncas</td><td id="liq-b-vac">S/ 0.00</td></tr><tr><td>Indemnización</td><td id="liq-b-ind">S/ 0.00</td></tr>
+        </tbody></table></div>
+        <div class="lab-note">Renuncia voluntaria: no genera indemnización por despido arbitrario. Despido arbitrario: puede generar indemnización, sujeta a la configuración del supuesto legal. La herramienta separa beneficios sociales de la indemnización para que el resultado sea transparente.</div>
       </div>
     </section>
   </div>
@@ -623,214 +578,101 @@ selectOptions();buildMonthlyInputs();employers.forEach(({id})=>fillMonthlyInputs
 </script>
 
 
+
 <script>
 const LAB_FMT=new Intl.NumberFormat('es-PE',{style:'currency',currency:'PEN',minimumFractionDigits:2});
-function labMoney(n){return LAB_FMT.format(Number(n)||0)}
-function labDate(v){return v?new Date(v+'T00:00:00'):null}
-function diffDays(a,b){return Math.max(0,Math.floor((b-a)/86400000)+1)}
-function completedMonthsInSemester(start,end,semesterStart,semesterEnd){
-  const a=new Date(Math.max(start.getTime(),semesterStart.getTime()));
-  const b=new Date(Math.min(end.getTime(),semesterEnd.getTime()));
-  if(a>b)return 0;
-  let months=0;
-  for(let y=a.getFullYear(),m=a.getMonth(); y<b.getFullYear() || (y===b.getFullYear()&&m<=b.getMonth());){
-    const first=new Date(y,m,1), last=new Date(y,m+1,0);
-    if(first>=a && last<=b) months++;
-    if(last>=b) break;
-    m++; if(m>11){m=0;y++}
-  }
-  return months;
-}
+const labMoney=n=>LAB_FMT.format(Number(n)||0);
+const labDate=v=>v?new Date(v+'T00:00:00'):null;
+function fullMonths(a,b){if(!a||!b||b<a)return 0;let y=a.getFullYear(),m=a.getMonth(),n=0;while(true){const first=new Date(y,m,1),last=new Date(y,m+1,0);if(first>=a&&last<=b)n++;if(last>=b)break;m++;if(m>11){m=0;y++}}return n}
+function daysInclusive(a,b){return a&&b&&b>=a?Math.floor((b-a)/86400000)+1:0}
+function semesterStart(d){return d.getMonth()<=5?new Date(d.getFullYear(),0,1):new Date(d.getFullYear(),6,1)}
+function bonusRate(){return document.getElementById('lab-health').value==='eps'?.0675:.09}
+function pensionRate(){const p=document.getElementById('lab-pension').value;return p==='onp'?.13:p==='afp'?(+document.getElementById('lab-afp').value||0)/100:0}
 function benefitData(){
-  const salary=+document.getElementById('lab-salary').value||0;
-  const family=+document.getElementById('lab-family').value||0;
-  const rem=salary+family;
-  const rmv=+document.getElementById('lab-rmv').value||1130;
-  const start=labDate(document.getElementById('lab-start').value)||new Date();
-  const end=labDate(document.getElementById('lab-end').value)||new Date();
-  const hours=+document.getElementById('lab-hours').value||0;
-  const days=+document.getElementById('lab-days').value||6;
-  const pensionSel=document.getElementById('lab-pension').value;
-  const pensionRate=pensionSel==='13'?0.13:(pensionSel==='custom'?((+document.getElementById('lab-afp').value||0)/100):0);
-  const pension=rem*pensionRate;
-  const essalud=rem*.09;
-  const day=rem/30, hour=hours?day/hours:0;
-  const ot25=(+document.getElementById('lab-ot25').value||0)*hour*1.25;
-  const ot35=(+document.getElementById('lab-ot35').value||0)*hour*1.35;
-  const holiday=(+document.getElementById('lab-holiday').value||0)*hour*2;
-  const julyMonths=completedMonthsInSemester(start,end,new Date(2026,0,1),new Date(2026,5,30));
-  const decMonths=completedMonthsInSemester(start,end,new Date(2026,6,1),new Date(2026,11,31));
-  const gratiJul=rem*julyMonths/6, gratiDec=rem*decMonths/6;
-  const bonus=(gratiJul+gratiDec)*.09;
-  const ctsEligible=document.getElementById('lab-eligible-cts').checked && hours*days/Math.max(days,1)>=4;
-  const ctsBase=rem+(gratiJul+gratiDec)/6;
-  const cts=ctsEligible?ctsBase:0;
-  const vac=rem;
-  const annualSalary=rem*12, annualHealth=essalud*12, annualGrati=gratiJul+gratiDec, annualCts=cts*1, annualVac=vac;
-  return {salary,family,rem,rmv,start,end,hours,days,pensionRate,pension,essalud,ot25,ot35,holiday,julyMonths,decMonths,gratiJul,gratiDec,bonus,ctsEligible,ctsBase,cts,vac,annualSalary,annualHealth,annualGrati,annualCts,annualVac,costTotal:annualSalary+annualHealth+annualGrati+annualCts+annualVac+bonus+ot25+ot35+holiday};
+ const salary=+document.getElementById('lab-salary').value||0,fam=+document.getElementById('lab-family').value||0,regular=+document.getElementById('lab-regular').value||0;
+ const rem=salary+fam+regular,start=labDate(document.getElementById('lab-start').value),end=labDate(document.getElementById('lab-end').value),hours=+document.getElementById('lab-hours').value||0,days=+document.getElementById('lab-days').value||6;
+ const jAvg=hours,health=bonusRate(),pRate=pensionRate(),pension=rem*pRate,ess=rem*.09;
+ const day=rem/30,hour=hours?day/hours:0,ot25=(+document.getElementById('lab-ot25').value||0)*hour*1.25,ot35=(+document.getElementById('lab-ot35').value||0)*hour*1.35;
+ let julMonths=0,decMonths=0;
+ if(start&&end){
+   const julEnd=new Date(end.getFullYear(),5,30), decStart=new Date(end.getFullYear(),6,1);
+   if(start<=julEnd) julMonths=fullMonths(start,end<julEnd?end:julEnd);
+   const dStart=start>decStart?start:decStart;
+   if(dStart<=end) decMonths=fullMonths(dStart,end);
+ }
+ const grJul=rem*julMonths/6,grDec=rem*decMonths/6,bonJul=grJul*health,bonDec=grDec*health;
+ const ctsEligible=document.getElementById('lab-cts-eligible').checked&&jAvg>=4;
+ // Projection of the two statutory deposits. For exact historical May computation, use the last Dec. grati in the liquidation module.
+ const prevGrati=+document.getElementById('lab-prev-grati').value||0;const ctsMay=ctsEligible?(rem+prevGrati/6)/2:0,ctsNov=ctsEligible?(rem+grJul/6)/2:0,ctsAnnual=ctsMay+ctsNov;
+ const vac=rem,holiday=document.getElementById('lab-holiday').checked?day*2:0;
+ return {rem,ess,pension,grJul,grDec,bonJul,bonDec,ctsAnnual,vac,ot25,ot35,holiday};
 }
 function calculateBenefits(){
-  const d=benefitData();
-  document.getElementById('lab-rem').textContent=labMoney(d.rem);
-  document.getElementById('lab-essalud').textContent=labMoney(d.essalud);
-  document.getElementById('lab-pension-out').textContent=labMoney(d.pension);
-  document.getElementById('lab-cost').textContent=labMoney(d.rem+d.essalud);
-  document.getElementById('lab-grati-jul').textContent=labMoney(d.gratiJul);
-  document.getElementById('lab-grati-dec').textContent=labMoney(d.gratiDec);
-  document.getElementById('lab-grati-bonus').textContent=labMoney(d.bonus);
-  document.getElementById('lab-cts').textContent=d.ctsEligible?labMoney(d.cts):'No corresponde / revisar jornada';
-  document.getElementById('lab-vac').textContent=labMoney(d.vac);
-  document.getElementById('lab-overtime').textContent=labMoney(d.ot25+d.ot35);
-  document.getElementById('lab-holiday-out').textContent=labMoney(d.holiday);
-  document.getElementById('lab-cost-salary').textContent=labMoney(d.annualSalary);
-  document.getElementById('lab-cost-health').textContent=labMoney(d.annualHealth);
-  document.getElementById('lab-cost-grati').textContent=labMoney(d.annualGrati+d.bonus);
-  document.getElementById('lab-cost-cts').textContent=labMoney(d.annualCts);
-  document.getElementById('lab-cost-vac').textContent=labMoney(d.annualVac);
-  document.getElementById('lab-cost-total').textContent=labMoney(d.costTotal);
+ const d=benefitData();
+ [['lab-rem',d.rem],['lab-essalud',d.ess],['lab-pension-out',d.pension],['lab-cost',d.rem+d.ess],['lab-grati-jul',d.grJul],['lab-bonus-jul',d.bonJul],['lab-grati-dec',d.grDec],['lab-bonus-dec',d.bonDec],['lab-cts',d.ctsAnnual],['lab-vac',d.vac],['lab-overtime',d.ot25+d.ot35],['lab-holiday-out',d.holiday]].forEach(([id,v])=>document.getElementById(id).textContent=labMoney(v));
+ document.getElementById('lab-cost-salary').textContent=labMoney(d.rem*12);document.getElementById('lab-cost-health').textContent=labMoney(d.ess*12);document.getElementById('lab-cost-grati').textContent=labMoney(d.grJul+d.grDec);document.getElementById('lab-cost-bonus').textContent=labMoney(d.bonJul+d.bonDec);document.getElementById('lab-cost-cts').textContent=labMoney(d.ctsAnnual);document.getElementById('lab-cost-vac').textContent=labMoney(d.vac);document.getElementById('lab-cost-total').textContent=labMoney(d.rem*12+d.ess*12+d.grJul+d.grDec+d.bonJul+d.bonDec+d.ctsAnnual+d.vac+d.ot25+d.ot35+d.holiday);
 }
-function initLaboralDefaults(){
-  const today=new Date().toISOString().slice(0,10);
-  ['bol-paydate','con-sign'].forEach(id=>{const el=document.getElementById(id);if(el&&!el.value)el.value=today});
-  ['bol-start','con-start'].forEach(id=>{const el=document.getElementById(id);if(el&&!el.value)el.value=document.getElementById('lab-start').value});
-  ['bol-basic','con-salary','liq-salary'].forEach(id=>{const el=document.getElementById(id);if(el&&!el.value)el.value=document.getElementById('lab-salary').value});
-  calculateBenefits(); generateBoleta(); generateContrato(); calculateLiquidacion();
-}
-document.querySelectorAll('[data-lab-tab]').forEach(btn=>btn.addEventListener('click',()=>{
-  document.querySelectorAll('[data-lab-tab]').forEach(b=>b.classList.toggle('active',b===btn));
-  document.querySelectorAll('.lab-panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('lab-'+btn.dataset.labTab).classList.add('active');
-  if(btn.dataset.labTab==='beneficios')calculateBenefits();
-}));
+function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function initLaboralDefaults(){const today=new Date().toISOString().slice(0,10);['bol-paydate','con-sign'].forEach(id=>{const e=document.getElementById(id);if(e&&!e.value)e.value=today});if(!document.getElementById('lab-prev-grati').value)document.getElementById('lab-prev-grati').value=document.getElementById('lab-salary').value;calculateBenefits();generateBoleta();generateContrato();calculateLiquidacion()}
+document.querySelectorAll('[data-lab-tab]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-lab-tab]').forEach(b=>b.classList.toggle('active',b===btn));document.querySelectorAll('.lab-panel').forEach(p=>p.classList.remove('active'));document.getElementById('lab-'+btn.dataset.labTab).classList.add('active')}));
 document.querySelectorAll('#lab-beneficios input,#lab-beneficios select').forEach(e=>{e.addEventListener('input',calculateBenefits);e.addEventListener('change',calculateBenefits)});
 
 function generateBoleta(){
-  const emp=document.getElementById('bol-employer').value||'____________________________';
-  const empid=document.getElementById('bol-employer-id').value||'________________';
-  const addr=document.getElementById('bol-address').value||'____________________________';
-  const worker=document.getElementById('bol-worker').value||'____________________________';
-  const wid=document.getElementById('bol-worker-id').value||'________________';
-  const start=document.getElementById('bol-start').value||'__/__/____';
-  const pension=document.getElementById('bol-pension').value;
-  const period=document.getElementById('bol-period').value;
-  const from=document.getElementById('bol-from').value||'__/__/____', to=document.getElementById('bol-to').value||'__/__/____';
-  const basic=+document.getElementById('bol-basic').value||0, ot=+document.getElementById('bol-ot').value||0, other=+document.getElementById('bol-other').value||0, deduct=+document.getElementById('bol-deduct').value||0;
-  const total=basic+ot+other, ess=basic*.09;
-  document.getElementById('boletaContent').innerHTML=`
-  <div style="border:1px solid #CBD5E1">
-  <h3 style="text-align:center;margin:0;padding:12px;background:#E5E7EB">DATOS DE LA PERSONA EMPLEADORA DEL HOGAR</h3>
-  <p><b>Nombre(s) y apellidos:</b> ${esc(emp)} &nbsp;&nbsp; <b>Documento:</b> ${esc(empid)}</p><p><b>Domicilio donde se presta el servicio:</b> ${esc(addr)}</p>
-  <h3 style="text-align:center;margin:0;padding:12px;background:#E5E7EB">DATOS DE LA PERSONA TRABAJADORA DEL HOGAR</h3>
-  <p><b>Nombre(s) y apellidos:</b> ${esc(worker)} &nbsp;&nbsp; <b>Documento:</b> ${esc(wid)}</p><p><b>Fecha de ingreso:</b> ${esc(start)} &nbsp;&nbsp; <b>Sistema de pensiones:</b> ${esc(pension)}</p>
-  <h3 style="text-align:center;margin:0;padding:12px;background:#E5E7EB">PERIODICIDAD DEL PAGO</h3><p>${esc(period)} &nbsp;&nbsp; <b>Periodo:</b> ${esc(from)} al ${esc(to)}</p>
-  <h3 style="text-align:center;margin:0;padding:12px;background:#E5E7EB">DETALLE DE INGRESOS, DEDUCCIONES Y APORTES</h3>
-  <table class="lab-table"><tr><th>INGRESOS</th><th>DEDUCCIONES / APORTACIONES</th></tr>
-  <tr><td>Remuneración básica: ${labMoney(basic)}<br>Horas extras: ${labMoney(ot)}<br>Otros conceptos: ${labMoney(other)}<br><b>TOTAL: ${labMoney(total)}</b></td>
-  <td>Pensiones: ${labMoney(deduct)}<br>EsSalud 9% (empleador): ${labMoney(ess)}<br><b>TOTAL A PAGAR: ${labMoney(total-deduct)}</b></td></tr></table>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:70px;text-align:center"><div>________________________<br>Persona empleadora</div><div>________________________<br>Persona trabajadora del hogar</div></div>
-  <p style="text-align:center;margin-top:25px"><b>Fecha de pago:</b> ${esc(document.getElementById('bol-paydate').value||'__/__/____')}</p>
-  </div>`;
+ const g=id=>document.getElementById(id).value||'________________';const basic=+document.getElementById('bol-basic').value||0,ot=+document.getElementById('bol-ot').value||0,other=+document.getElementById('bol-other').value||0,deduct=+document.getElementById('bol-deduct').value||0,total=basic+ot+other;
+ document.getElementById('boletaContent').innerHTML=`<h1 style="text-align:center;font-size:18px">FORMATO REFERENCIAL DE BOLETA DE PAGO DE LA PERSONA TRABAJADORA DEL HOGAR</h1><table class="lab-table"><tr><th colspan="2">DATOS DE LA PERSONA EMPLEADORA DEL HOGAR</th></tr><tr><td><b>Nombre:</b> ${esc(g('bol-employer'))}<br><b>Domicilio:</b> ${esc(g('bol-address'))}</td><td><b>Documento:</b> ${esc(g('bol-employer-id'))}</td></tr><tr><th colspan="2">DATOS DE LA PERSONA TRABAJADORA DEL HOGAR</th></tr><tr><td><b>Nombre:</b> ${esc(g('bol-worker'))}<br><b>Fecha de ingreso:</b> ${esc(g('bol-start'))}</td><td><b>Documento:</b> ${esc(g('bol-worker-id'))}<br><b>Sistema de pensiones:</b> ${esc(g('bol-pension'))}</td></tr><tr><th colspan="2">PERIODICIDAD DEL PAGO Y PERIODO</th></tr><tr><td>${esc(g('bol-period'))}</td><td>${esc(g('bol-from'))} al ${esc(g('bol-to'))}</td></tr><tr><th>INGRESOS</th><th>DEDUCCIONES / APORTACIONES</th></tr><tr><td>Remuneración básica: ${labMoney(basic)}<br>Horas extras: ${labMoney(ot)}<br>Otros conceptos: ${labMoney(other)}<br><b>TOTAL: ${labMoney(total)}</b></td><td>Pensiones: ${labMoney(deduct)}<br>EsSalud 9% empleador: ${labMoney(basic*.09)}<br><b>TOTAL A PAGAR: ${labMoney(total-deduct)}</b></td></tr></table><div class="lab-sign"><div>____________________________<br>Persona empleadora</div><div>____________________________<br>Persona trabajadora del hogar</div></div><p style="text-align:center"><b>Fecha de pago:</b> ${esc(g('bol-paydate'))}</p>`;
 }
-function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 
 function generateContrato(){
-  const mode=document.getElementById('con-mode').value;
-  const worker=document.getElementById('con-worker').value||'____________________________';
-  const wid=document.getElementById('con-worker-id').value||'________________';
-  const wadd=document.getElementById('con-worker-address').value||'____________________________';
-  const wn=document.getElementById('con-worker-nationality').value||'________________';
-  const birth=document.getElementById('con-worker-birth').value||'__/__/____';
-  const job=document.getElementById('con-worker-job').value||'________________';
-  const emp=document.getElementById('con-employer').value||'____________________________';
-  const eid=document.getElementById('con-employer-id').value||'________________';
-  const addr=document.getElementById('con-address').value||'____________________________';
-  const en=document.getElementById('con-employer-nationality').value||'________________';
-  const sign=document.getElementById('con-sign').value||'__/__/____';
-  const start=document.getElementById('con-start').value||'__/__/____';
-  const end=document.getElementById('con-end').value||'________________';
-  const salary=+document.getElementById('con-salary').value||0;
-  const pay=document.getElementById('con-pay').value, method=document.getElementById('con-method').value;
-  const bank=document.getElementById('con-bank').value||'________________', account=document.getElementById('con-account').value||'________________';
-  const hin=document.getElementById('con-in').value||'________________', hout=document.getElementById('con-out').value||'________________';
-  const rest=document.getElementById('con-rest').value||'Domingo', hours=document.getElementById('con-hours').value||'8', wh=document.getElementById('con-weekhours').value||'48';
-  const bg=document.getElementById('con-background').value||'No registra antecedentes laborales previos declarados.';
-  const other=document.getElementById('con-other').value||'';
-  const tasks=[['Limpieza/mantenimiento/cuidado del hogar','task-clean'],['Cocina/ayudante de cocina','task-cook'],['Lavado/planchado de ropa u otros similares','task-laundry'],['Asistencia/cuidado de niñas/os, personas adultas mayores, personas enfermas, personas con discapacidad, otras personas dependientes y/o mascotas','task-care']].filter(x=>document.getElementById(x[1]).checked).map(x=>'☒ '+x[0]).join('<br>') || '☐ Otras funciones: '+esc(other);
-  const modality=mode==='res'?'prestación de servicios con residencia':(mode==='parcial'?'prestación de servicios a tiempo parcial sin residencia':'prestación de servicios sin residencia');
-  const housing=mode==='res'?'<p>La persona empleadora se obliga a otorgar alojamiento adecuado y alimentación consistente en desayuno, almuerzo y cena, conforme al modelo referencial aplicable.</p>':'';
-  const partial=mode==='parcial'?'<p><b>Jornada parcial:</b> se deja constancia de las horas y días pactados, aplicándose la proporcionalidad de la remuneración cuando corresponda.</p>':'';
-  document.getElementById('contractContent').innerHTML=`
-  <h1>MODELO AUTOMATIZADO DE CONTRATO DE TRABAJO DEL HOGAR</h1>
-  <p><b>Persona trabajadora:</b> ${esc(worker)} · ${esc(wid)} · Nacionalidad: ${esc(wn)} · Nacimiento: ${esc(birth)} · Oficio: ${esc(job)}</p>
-  <p><b>Domicilio de la persona trabajadora:</b> ${esc(wadd)}</p>
-  <p><b>Persona empleadora:</b> ${esc(emp)} · ${esc(eid)} · Nacionalidad: ${esc(en)}</p>
-  <p><b>Domicilio de prestación:</b> ${esc(addr)}</p>
-  <p><b>Firma:</b> ${esc(sign)} · <b>Inicio:</b> ${esc(start)} · <b>Término:</b> ${esc(end)}</p>
-  <div class="clause"><h2>Primera.- Lugar de prestación</h2><p>La persona trabajadora del hogar realizará las labores acordadas en el domicilio indicado, que constituye la residencia o casa-habitación de la persona empleadora y/o sus familiares.</p></div>
-  <div class="clause"><h2>Segunda.- Labores contratadas</h2><p>${tasks}</p></div>
-  <div class="clause"><h2>Tercera.- Remuneración, pago y boleta</h2><p>La persona trabajadora recibirá una remuneración de <b>${labMoney(salary)}</b>, pagada con periodicidad <b>${esc(pay)}</b> mediante <b>${esc(method)}</b>. Banco: ${esc(bank)}. Cuenta/CCI: ${esc(account)}.</p><p>La persona empleadora emitirá y entregará la boleta de pago con el detalle de ingresos, retenciones y aportaciones.</p></div>
-  <div class="clause"><h2>Cuarta.- Jornada, horario y descanso</h2><p>La jornada ordinaria es de <b>${esc(hours)} horas diarias</b> y <b>${esc(wh)} horas semanales</b>. Ingreso: ${esc(hin)}. Término: ${esc(hout)}. Descanso semanal: ${esc(rest)}. El trabajo extraordinario es voluntario y se registra y remunera conforme a la normativa aplicable.</p></div>
-  ${housing}
-  ${partial}
-  <div class="clause"><h2>Quinta.- Beneficios laborales</h2><p>La persona trabajadora del hogar tiene derecho a los beneficios laborales que correspondan conforme a la Ley N.º 31047, su Reglamento y normas complementarias, incluyendo, según corresponda, gratificaciones, CTS, vacaciones, seguridad social y pensiones.</p></div>
-  <div class="clause"><h2>Sexta.- Seguridad y salud</h2><p>La persona empleadora proporcionará los implementos, equipos y condiciones necesarias para garantizar la seguridad y salud en el trabajo, de acuerdo con las actividades, modalidad, jornada y horario.</p></div>
-  <div class="clause"><h2>Séptima.- Seguridad social</h2><p>La persona empleadora afilia a la persona trabajadora al Seguro Social de Salud y al sistema de pensiones elegido, efectuando los registros, aportes y retenciones que correspondan.</p></div>
-  <div class="clause"><h2>Octava.- Educación y trato digno</h2><p>Se brindarán las facilidades que correspondan para el ejercicio del derecho a la educación y se respetarán la dignidad, igualdad y no discriminación de la persona trabajadora.</p></div>
-  <div class="clause"><h2>Novena.- Registro del contrato</h2><p>La persona empleadora registrará el contrato en el Registro del Trabajo del Hogar del MTPE dentro del plazo aplicable y entregará la constancia correspondiente.</p></div>
-  <div class="clause"><h2>Décima.- Normativa aplicable</h2><p>En todo lo no previsto se aplica la Ley N.º 31047, su Reglamento y normas complementarias, y de forma supletoria las disposiciones del régimen laboral de la actividad privada en lo que resulte aplicable.</p></div>
-  <p style="margin-top:28px"><b>Antecedentes declarados:</b> ${esc(bg)}</p>
-  <div class="lab-sign"><div>____________________________<br>LA PERSONA EMPLEADORA</div><div>____________________________<br>LA PERSONA TRABAJADORA DEL HOGAR</div></div>
-  <p style="font-size:10px;margin-top:25px">Documento generado por ALVAPEN a partir de los modelos referenciales proporcionados y la normativa indicada. Revisar datos y adecuación del caso antes de firmar.</p>`;
+ const g=id=>document.getElementById(id).value||'________________';
+ const mode=g('con-mode'),term=g('con-term'),w=g('con-worker'),wid=g('con-worker-id'),wa=g('con-worker-address'),wn=g('con-worker-nationality'),wb=g('con-worker-birth'),ws=g('con-worker-sex'),wm=g('con-worker-marital'),wj=g('con-worker-job'),bg=g('con-background'),e=g('con-employer'),eid=g('con-employer-id'),ea=g('con-address'),en=g('con-employer-nationality'),eb=g('con-employer-birth'),es=g('con-employer-sex'),em=g('con-employer-marital'),ej=g('con-employer-job'),sign=g('con-sign'),start=g('con-start'),end=g('con-end'),salary=+g('con-salary')||0,pay=g('con-pay'),method=g('con-method'),bank=g('con-bank'),account=g('con-account'),hours=g('con-hours'),wh=g('con-weekhours'),hin=g('con-in'),hout=g('con-out'),rest=g('con-rest'),cause=g('con-cause'),other=g('con-other'),edu=g('con-education');
+ const tasks=[['Limpieza/Mantenimiento/cuidado del hogar','task-clean'],['Cocina/ayudante de cocina','task-cook'],['Lavado/planchado de ropa u otros similares','task-laundry'],['Asistencia/cuidado de niñas/os y adolescentes y/o adultas mayores y/o personas enfermas y/o personas con discapacidad y/o otras personas dependientes del hogar y/o mascotas domésticas','task-care'],['Otros','task-other']].filter(x=>document.getElementById(x[1]).checked).map(x=>'☒ '+x[0]).join('<br>')||'☐ Ninguna seleccionada';
+ const modality=mode==='res'?'prestación de servicios con residencia':mode==='parcial'?'prestación de servicios a tiempo parcial sin residencia':'prestación de servicios sin residencia';
+ const fixed=term==='fijo'?`<p><b>Fecha de término:</b> ${esc(end)}. <b>Causa objetiva:</b> ${esc(cause)}</p>`:'<p><b>Fecha de término:</b> Contrato a plazo indeterminado.</p>';
+ const residence=mode==='res'?`<div class="clause"><h2>Quinta.- Modalidad con residencia</h2><p>La modalidad de prestación es con residencia. La persona empleadora se obliga a otorgar alojamiento adecuado, que asegure la dignidad de la persona trabajadora del hogar, y alimentación adecuada conforme a la modalidad pactada. Estas condiciones de trabajo no forman parte de la remuneración.</p><p>La persona trabajadora disfrutará del descanso diario mínimo y del descanso semanal obligatorio conforme a la normativa aplicable.</p></div>`:'';
+ const partial=mode==='parcial'?`<div class="clause"><h2>Modalidad a tiempo parcial</h2><p>La prestación se realiza a tiempo parcial sin residencia. La remuneración pactada se determina de manera proporcional a la jornada, respetando la unidad mínima vinculada a la RMV.</p></div>`:'';
+ document.getElementById('contractContent').innerHTML=`
+ <h1>MODELO REFERENCIAL DE CONTRATO DE TRABAJO DEL HOGAR</h1>
+ <h2>DATOS DE LA PERSONA TRABAJADORA DEL HOGAR</h2>
+ <p><b>Nombre(s) y apellido(s):</b> ${esc(w)}</p>
+ <p><b>Domicilio actual:</b> ${esc(wa)}</p>
+ <p><b>Documento de identidad:</b> ${esc(wid)} · <b>Nacionalidad:</b> ${esc(wn)} · <b>Fecha de nacimiento:</b> ${esc(wb)}</p>
+ <p><b>Sexo:</b> ${esc(ws)} · <b>Estado civil:</b> ${esc(wm)} · <b>Profesión u oficio:</b> ${esc(wj)}</p>
+ <p><b>Antecedentes:</b> ${esc(bg)}</p>
+ <h2>DATOS DE LA PERSONA EMPLEADORA</h2>
+ <p><b>Nombre(s) y apellido(s):</b> ${esc(e)}</p>
+ <p><b>Domicilio:</b> ${esc(ea)}</p>
+ <p><b>Documento de identidad:</b> ${esc(eid)} · <b>Nacionalidad:</b> ${esc(en)} · <b>Fecha de nacimiento:</b> ${esc(eb)}</p>
+ <p><b>Sexo:</b> ${esc(es)} · <b>Estado civil:</b> ${esc(em)} · <b>Profesión u oficio:</b> ${esc(ej)}</p>
+ <h2>FECHAS Y MODALIDAD</h2>
+ <p><b>Fecha de firma:</b> ${esc(sign)} · <b>Fecha de inicio:</b> ${esc(start)} · <b>Modalidad:</b> ${esc(modality)}</p>${fixed}
+ <div class="clause"><h2>Primera.- Lugar de prestación</h2><p>La persona trabajadora del hogar realizará las labores acordadas en el/los siguiente(s) domicilio(s): <b>${esc(ea)}</b>, que constituye(n) la(s) residencia(s) o casa-habitación(es) de la persona empleadora y/o de sus familiares.</p></div>
+ <div class="clause"><h2>Segunda.- Labores contratadas</h2><p>La persona empleadora contrata los servicios de la persona trabajadora del hogar para realizar las labores que se detallan:</p><p>${tasks}</p></div>
+ <div class="clause"><h2>Tercera.- Remuneración, oportunidad y modalidad de pago</h2><p>La persona trabajadora del hogar recibirá una remuneración de <b>${labMoney(salary)}</b>, pagada en forma <b>${esc(pay)}</b> mediante <b>${esc(method)}</b>. Banco: ${esc(bank)}. Número de cuenta/CCI: ${esc(account)}.</p><p>La persona empleadora emitirá y entregará la boleta de pago como constancia del pago realizado. La boleta contendrá el periodo correspondiente, conceptos remunerativos, retenciones, aportaciones y las firmas de ambas partes o huella digital, según corresponda.</p></div>
+ <div class="clause"><h2>Cuarta.- Jornada, horario, descanso y sobretiempo</h2><p>La jornada ordinaria es de <b>${esc(hours)} horas diarias</b>, que en la semana hacen un total de <b>${esc(wh)} horas</b>. El horario de ingreso se fija a las <b>${esc(hin)}</b> y de término a las <b>${esc(hout)}</b>. El descanso semanal obligatorio se fija para el día <b>${esc(rest)}</b>.</p><p>El trabajo en horas extraordinarias es voluntario, salvo los supuestos legalmente previstos, y se remunera con las sobretasas aplicables al régimen general de la actividad privada. El trabajo en día feriado se regirá por las reglas aplicables, pudiendo corresponder descanso sustitutorio o pago con la sobretasa legal.</p></div>
+ ${residence}${partial}
+ <div class="clause"><h2>Quinta.- Beneficios laborales</h2><p>La persona trabajadora del hogar tiene derecho a las gratificaciones legales de Fiestas Patrias y Navidad, CTS, vacaciones, descansos remunerados y demás beneficios reconocidos por la Ley N.º 31047, su Reglamento y normas complementarias.</p><p>Las gratificaciones corresponden a una remuneración mensual cada una, con el cálculo proporcional que corresponda. La bonificación extraordinaria se determina según la cobertura de salud aplicable.</p></div>
+ <div class="clause"><h2>Sexta.- Seguridad y salud en el trabajo</h2><p>La persona empleadora proporcionará los implementos, equipos, uniformes, herramientas y condiciones de trabajo necesarios para garantizar la seguridad y salud en el trabajo de acuerdo con las actividades, modalidad, jornada y horario.</p></div>
+ <div class="clause"><h2>Séptima.- Seguridad social y pensiones</h2><p>La persona empleadora afilia a la persona trabajadora del hogar al Seguro Social de Salud y al sistema de pensiones elegido, efectuando los aportes y retenciones que correspondan conforme a la normativa vigente.</p></div>
+ <div class="clause"><h2>Octava.- Educación</h2><p>La persona trabajadora comunica sus necesidades educativas y las partes acuerdan las siguientes facilidades para permitir el acceso a la educación básica obligatoria o a la educación superior, formación técnica o profesional: <b>${esc(edu)}</b>.</p></div>
+ <div class="clause"><h2>Novena.- Registro y entrega del contrato</h2><p>El contrato se celebra por duplicado. La persona empleadora registra el contrato en el aplicativo web correspondiente del Ministerio de Trabajo y Promoción del Empleo dentro del plazo legal y entrega la constancia respectiva a la persona trabajadora.</p></div>
+ <div class="clause"><h2>Décima.- Derechos fundamentales y normativa aplicable</h2><p>Las partes se obligan a respetar la dignidad, igualdad, no discriminación, integridad y demás derechos fundamentales de la persona trabajadora del hogar. En todo lo no previsto se aplica la Ley N.º 31047, su Reglamento y normas complementarias y, de forma supletoria, las disposiciones del régimen laboral de la actividad privada que resulten aplicables.</p></div>
+ <div class="lab-sign"><div>____________________________<br>LA PERSONA EMPLEADORA</div><div>____________________________<br>LA PERSONA TRABAJADORA DEL HOGAR</div></div>
+ <p style="font-size:10px;margin-top:25px">Documento generado automáticamente por ALVAPEN con base en los modelos referenciales de contrato proporcionados y la normativa aplicable. Revisar los datos antes de firmar.</p>`;
 }
-
+function printContractOnly(){generateContrato();document.body.classList.add('print-contract-only');window.print();setTimeout(()=>document.body.classList.remove('print-contract-only'),500)}
 function calculateLiquidacion(){
-  const reason=document.getElementById('liq-reason').value;
-  const salary=+document.getElementById('liq-salary').value||0, family=+document.getElementById('liq-family').value||0;
-  const rem=salary+family;
-  const start=labDate(document.getElementById('liq-start').value)||new Date(), end=labDate(document.getElementById('liq-end').value)||new Date();
-  const lastGrati=+document.getElementById('liq-lastgrati').value||0;
-  const ctsPaid=+document.getElementById('liq-cts-paid').value||0;
-  const vacUsed=+document.getElementById('liq-vac-used').value||0;
-  const daysPay=+document.getElementById('liq-days-pay').value||0;
-  const hours=+document.getElementById('liq-hours').value||8;
-  const monthsTotal=Math.max(0,(end.getFullYear()-start.getFullYear())*12+(end.getMonth()-start.getMonth()));
-  const dayEnd=end.getDate();
-  const semStart=end.getMonth()<=5?new Date(end.getFullYear(),0,1):new Date(end.getFullYear(),6,1);
-  const gratiMonths=completedMonthsInSemester(start,end,semStart,end);
-  const grati=gratiMonths>=1?rem*gratiMonths/6:0;
-  const gratiBonus=grati*.09;
-  const ctsEligible=document.getElementById('liq-cts').checked && hours>=4 && monthsTotal>=1;
-  const ctsStart=end.getMonth()<=3?new Date(end.getFullYear()-1,10,1):new Date(end.getMonth()<=9?end.getFullYear():end.getFullYear(),end.getMonth()<=9?4:10,1);
-  // Use the applicable semester start (Nov 1 for Jan-Apr; May 1 for May-Oct; Nov 1 for Nov-Dec)
-  let periodStart;
-  if(end.getMonth()<=3) periodStart=new Date(end.getFullYear()-1,10,1);
-  else if(end.getMonth()<=9) periodStart=new Date(end.getFullYear(),4,1);
-  else periodStart=new Date(end.getFullYear(),10,1);
-  if(start>periodStart) periodStart=start;
-  const totalPeriodDays=diffDays(periodStart,end);
-  const ctsMonths=Math.floor(totalPeriodDays/30), ctsDays=totalPeriodDays%30;
-  const ctsBase=rem+(lastGrati/6);
-  const cts=ctsEligible?Math.max(0,ctsBase/12*ctsMonths+ctsBase/360*ctsDays-ctsPaid):0;
-  const serviceDays=Math.max(0,diffDays(start,end));
-  const vacDays=Math.max(0,serviceDays/360*30-vacUsed);
-  const vac=rem/30*vacDays;
-  const pay=rem/30*daysPay;
-  let indemnity=0;
-  const include=document.getElementById('liq-indemnity').checked;
-  if(reason==='despido'&&include&&hours>=4){
-    const years=Math.floor(serviceDays/360), remDays=serviceDays-years*360;
-    indemnity=Math.min(12*rem,rem*1.5*(years+Math.floor(remDays/30)/12+(remDays%30)/360));
-  }
-  const total=pay+grati+gratiBonus+cts+vac+indemnity;
-  document.getElementById('liq-pay').textContent=labMoney(pay);
-  document.getElementById('liq-grati').textContent=labMoney(grati+gratiBonus);
-  document.getElementById('liq-cts-out').textContent=labMoney(cts);
-  document.getElementById('liq-vac').textContent=labMoney(vac);
-  document.getElementById('liq-indemnity-out').textContent=labMoney(indemnity);
-  document.getElementById('liq-total').textContent=labMoney(total);
+ const reason=document.getElementById('liq-reason').value,salary=+document.getElementById('liq-salary').value||0,fam=+document.getElementById('liq-family').value||0,rem=salary+fam,start=labDate(document.getElementById('liq-start').value),end=labDate(document.getElementById('liq-end').value),lastG=+document.getElementById('liq-lastgrati').value||0,ctsPaid=+document.getElementById('liq-cts-paid').value||0,vacUsed=+document.getElementById('liq-vac-used').value||0,daysPay=+document.getElementById('liq-days-pay').value||0,hours=+document.getElementById('liq-hours').value||8;
+ const semStart=end.getMonth()<=5?new Date(end.getFullYear(),0,1):new Date(end.getFullYear(),6,1),gs=start>semStart?start:semStart,gm=fullMonths(gs,end),grati=rem*gm/6,bonus=grati*bonusRate();
+ let ps;if(end.getMonth()<=3)ps=new Date(end.getFullYear()-1,10,1);else if(end.getMonth()<=9)ps=new Date(end.getFullYear(),4,1);else ps=new Date(end.getFullYear(),10,1);if(start>ps)ps=start;
+ const pd=daysInclusive(ps,end),cm=Math.floor(pd/30),cd=pd%30,ctsBase=rem+lastG/6,cts=Math.max(0,ctsBase/12*cm+ctsBase/360*cd-ctsPaid);
+ const sd=daysInclusive(start,end),vacDays=Math.max(0,sd/360*30-vacUsed),vac=rem/30*vacDays,pay=rem/30*daysPay;
+ let ind=0;if(reason==='despido'&&document.getElementById('liq-indemnity').checked){const years=Math.floor(sd/360),rest=sd-years*360;ind=Math.min(12*rem,1.5*rem*(years+Math.floor(rest/30)/12+(rest%30)/360))}
+ const total=pay+grati+bonus+cts+vac+ind;
+ [['liq-pay',pay],['liq-grati',grati+bonus],['liq-cts-out',cts],['liq-vac',vac],['liq-indemnity-out',ind],['liq-total',total],['liq-b-pay',pay],['liq-b-grati',grati],['liq-b-bonus',bonus],['liq-b-cts',cts],['liq-b-vac',vac],['liq-b-ind',ind]].forEach(([id,v])=>document.getElementById(id).textContent=labMoney(v));
 }
-document.querySelectorAll('#lab-liquidacion input,#lab-liquidacion select').forEach(e=>e.addEventListener('change',calculateLiquidacion));
+document.querySelectorAll('#lab-liquidacion input,#lab-liquidacion select').forEach(e=>e.addEventListener('input',calculateLiquidacion));
 </script>
+
 
 </body>
 </html>
