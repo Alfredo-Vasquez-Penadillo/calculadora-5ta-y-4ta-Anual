@@ -67,7 +67,11 @@ ${[
 </div>
 <div class="deductions-block"><h3>Gastos deducibles adicionales</h3><p>Ingresa el gasto total efectivamente pagado en el año. La calculadora aplica el porcentaje de cada rubro y respeta el límite conjunto de 3 UIT.</p>
 <div class="deduct-grid">
-${[['rent','Alquileres','30%'],['food','Restaurantes, bares y hoteles','15%'],['medical','Médicos y odontólogos','30%'],['professional','Profesiones, oficios, arte o ciencia','30%'],['household','EsSalud de trabajador(a) del hogar','100%']].map(x=>`<label>${x[1]} <span>${x[2]}</span><div class="currency-wrap"><span>S/</span><input id="expense-${x[0]}" type="number" min="0" step="0.01" value="0"></div><small>Deducible: <strong id="expense-${x[0]}-deductible">—</strong></small></label>`).join('')}
+<label>Alquileres <span>30%</span><div class="currency-wrap"><span>S/</span><input id="expense-rent" type="number" min="0" step="0.01" value="0"></div><small>Deducible: <strong id="expense-rent-deductible">—</strong></small></label>
+<label>Restaurantes, bares y hoteles <span>15%</span><div class="currency-wrap"><span>S/</span><input id="expense-food" type="number" min="0" step="0.01" value="0"></div><small>Deducible: <strong id="expense-food-deductible">—</strong></small></label>
+<label>Médicos y odontólogos <span>30%</span><div class="currency-wrap"><span>S/</span><input id="expense-medical" type="number" min="0" step="0.01" value="0"></div><small>Deducible: <strong id="expense-medical-deductible">—</strong></small></label>
+<label>Profesiones, oficios, arte o ciencia <span>30%</span><div class="currency-wrap"><span>S/</span><input id="expense-professional" type="number" min="0" step="0.01" value="0"></div><small>Deducible: <strong id="expense-professional-deductible">—</strong></small></label>
+<label>EsSalud de trabajador(a) del hogar <span>100%</span><div class="currency-wrap"><span>S/</span><input id="expense-household" type="number" min="0" step="0.01" value="0"></div><small>Deducible: <strong id="expense-household-deductible">—</strong></small></label>
 </div><div class="deduction-total"><span>Total deducible antes del tope</span><strong id="additional-before-cap">—</strong></div></div></section>
 
 <section class="summary" id="resultados"><article class="card result-card"><h2>Determinación anual</h2>
