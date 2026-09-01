@@ -1,137 +1,164 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="ALVAPEN · Herramientas profesionales de contabilidad, tributación y gestión laboral en Perú.">
-<title>ALVAPEN · Calculadora Integral de Renta de Trabajo</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALVAPEN | Herramientas Profesionales</title>
 <style>
-:root{--ink:#243447;--muted:#667085;--navy:#102A43;--blue:#486581;--sky:#F3F6F9;--line:#D9E1E8;--good:#287D6B;--warn:#B7791F;--danger:#B54747;--paper:#fff;--page:#F6F8FA;--black:#172536;--gold:#C8A96B;--gold-soft:#F7F1E5}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 90% 0,#E8EDF2 0,transparent 32%),var(--page);color:var(--ink);font:15px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
-.hero{background:linear-gradient(118deg,#102A43 0%,#243B53 58%,#486581 130%);color:#fff;padding:34px 28px 38px;border-bottom:3px solid var(--gold)}
-.hero-inner,main,footer{max-width:1480px;margin:auto}.eyebrow{margin:0 0 8px;color:#D8C28F;font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}h1{margin:0;font-size:clamp(1.65rem,4vw,2.5rem);letter-spacing:-.035em}.hero p:last-child{margin:10px 0 0;color:#E6EDF3;max-width:780px}.author-line{margin:12px 0 0!important;color:#F1F5F9!important;font-size:.84rem}.hero-bottom{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:24px}.hero-tags,.quick-links{display:flex;flex-wrap:wrap;gap:8px}.hero-tags span{padding:5px 9px;border:1px solid rgb(200 169 107/.45);border-radius:999px;background:rgb(255 255 255/.07);color:#F4E9D0;font-size:.73rem;font-weight:700}.quick-links a{padding:7px 11px;border:1px solid rgb(255 255 255/.24);border-radius:7px;color:#fff;font-size:.78rem;font-weight:750;text-decoration:none;transition:.18s}.quick-links a:hover{background:rgb(255 255 255/.14);transform:translateY(-1px)}
-main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:14px 17px;border:1px solid var(--line);border-left:4px solid var(--gold);background:linear-gradient(90deg,#fff,#F8FAFC);border-radius:10px;color:#475569;box-shadow:0 3px 13px rgb(15 23 42/.035)}.section-title{display:flex;justify-content:space-between;align-items:end;gap:16px;margin:32px 0 14px;padding-bottom:10px;border-bottom:1px solid var(--line)}h2{margin:0;font-size:1.14rem;letter-spacing:-.015em}.hint{margin:0;color:var(--muted);font-size:.85rem}
-.employers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.card{background:var(--paper);border:1px solid var(--line);border-radius:15px;box-shadow:0 6px 20px rgb(15 23 42/.05);overflow:hidden;transition:.2s}.card:hover{box-shadow:0 12px 28px rgb(15 23 42/.08)}.employer-head{padding:15px 17px;background:#F8FAFC;border-bottom:1px solid var(--line);display:flex;gap:10px;justify-content:space-between;align-items:center}.employer-name{margin:0;font-size:1rem}.employer-card.leader{border-color:var(--gold);box-shadow:0 7px 22px rgb(16 42 67/.15)}.leader-badge{display:none;padding:3px 8px;border-radius:999px;color:#765C24;background:var(--gold-soft);font-size:.7rem;font-weight:800;white-space:nowrap}.leader .leader-badge{display:inline-block}
-.fields{padding:17px 18px 19px;display:grid;grid-template-columns:1fr 1fr;gap:13px}.fields .wide{grid-column:1/-1}label{display:block;color:#475569;font-size:.78rem;font-weight:700}input,select{display:block;width:100%;margin-top:5px;padding:10px 11px;border:1px solid #CBD5E1;border-radius:8px;background:#fff;color:var(--ink);font:inherit;outline:none}input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgb(72 101 129/.15)}.currency-wrap{position:relative}.currency-wrap span{position:absolute;left:11px;top:14px;color:#64748B;font-size:.82rem;pointer-events:none}.currency-wrap input{padding-left:34px}
-.family-choice,.monthly-choice{grid-column:1/-1;display:flex;align-items:center;gap:9px;padding:10px 11px;border:1px solid var(--line);border-radius:8px;background:#F8FAFC;color:#334E68;font-size:.8rem;cursor:pointer}.family-choice input,.monthly-choice input{display:inline-block;width:auto;margin:0;accent-color:var(--blue)}.family-choice small{margin-left:auto;color:#64748B;font-size:.72rem;font-weight:600}.monthly-panel{display:none;grid-column:1/-1;padding:13px;border:1px solid var(--line);border-radius:9px;background:#FAFBFC}.monthly-panel.active{display:block}.monthly-panel p{margin:0 0 10px;color:#475569;font-size:.76rem}.monthly-panel button{float:right;margin-top:-4px;padding:5px 8px;font-size:.72rem}.months-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px;clear:both}.month-cell{color:#64748B;font-size:.68rem;font-weight:700}.month-cell input{margin-top:3px;padding:7px 6px;font-size:.78rem}.regime-note{grid-column:1/-1;margin:-2px 0 0;color:#64748B;font-size:.76rem}.auto-pay{grid-column:1/-1;padding:12px 13px;border:1px solid var(--line);border-radius:9px;background:#F8FAFC}.auto-pay strong{display:block;color:#334E68;font-size:.8rem}.auto-pay span{display:block;margin-top:3px;color:#102A43;font-size:1.1rem;font-weight:800;font-variant-numeric:tabular-nums}.auto-pay small{display:block;margin-top:2px;color:#64748B;font-size:.74rem}
-.summary{display:grid;grid-template-columns:1.6fr .9fr;gap:18px;margin-top:26px}.fourth-card{margin-top:22px;padding:20px}.fourth-card h2{margin-bottom:5px}.fourth-card>p{margin:0 0 14px;color:#64748B;font-size:.84rem}.fourth-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.deductions-block{margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}.deductions-block h3{margin:0;font-size:.95rem}.deductions-block>p{margin:4px 0 13px;color:var(--muted);font-size:.8rem}.deduct-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:11px}.deduct-grid label{padding:10px;border:1px solid var(--line);border-radius:9px;background:#FBFCFD}.deduct-grid label span{display:inline-block;margin-left:4px;color:#486581;font-size:.68rem}.deduct-grid label input{margin-top:7px;padding:8px}.deduct-grid small{display:block;margin-top:6px;color:#667085;font-size:.71rem}.deduct-grid small strong{color:#334E68}.deduction-total{display:flex;justify-content:space-between;gap:18px;margin-top:13px;padding:11px 13px;border-radius:9px;background:#F3F6F9;color:#334E68;font-size:.82rem;font-weight:750}
-.result-card{padding:20px}.result-card h2{margin-bottom:14px}.metric{display:flex;justify-content:space-between;gap:20px;padding:9px 0;border-bottom:1px solid #EDF1F6;color:#475569}.metric:last-child{border-bottom:none}.metric strong{color:var(--ink);text-align:right;font-variant-numeric:tabular-nums}.metric.highlight{margin:9px -4px;padding:12px 10px;border-radius:9px;border:0;background:#F3F6F9;color:#334E68;font-weight:700}.metric.highlight strong{color:#102A43;font-size:1.05rem}.metric.negative strong{color:var(--good)}.metric.positive strong{color:var(--danger)}.suggestion{background:linear-gradient(145deg,#F3F6F9,#fff);border-color:var(--line)}.suggestion .big{margin:4px 0;color:#102A43;font-size:1.9rem;font-weight:800;letter-spacing:-.04em;font-variant-numeric:tabular-nums}.suggestion p{margin:8px 0;color:#475569}.subtle{color:var(--muted)!important;font-size:.82rem}
-.black-box{margin-top:22px;background:var(--black);color:#F8FAFC;border-radius:14px;overflow:hidden;box-shadow:0 10px 26px rgb(2 6 23/.18)}.black-head{padding:20px 21px;border-bottom:1px solid #304154}.black-head h2{color:#fff}.black-head p{margin:5px 0 0;color:#B7C3D0;font-size:.88rem}.brackets{display:grid;grid-template-columns:repeat(5,1fr)}.bracket{padding:18px;min-height:166px;border-right:1px solid #304154}.bracket:last-child{border:0}.bracket-rate{color:#D8C28F;font-size:1.3rem;font-weight:800}.bracket-limit{margin:4px 0 17px;color:#B7C3D0;font-size:.74rem;min-height:33px}.bracket-value{color:#fff;font-size:1rem;font-weight:800;font-variant-numeric:tabular-nums}.bracket-tax{margin-top:5px;color:#E5D3A6;font-size:.82rem;font-variant-numeric:tabular-nums}.black-foot{padding:14px 21px;background:#111C2F;color:#CBD5E1;font-size:.84rem}
-.legal-card{margin-top:26px;padding:22px}.legal-card>p{margin:6px 0 17px;color:var(--muted);font-size:.86rem}.legal-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.legal-item{padding:14px;border:1px solid #E2E8F0;border-radius:10px;background:#FBFCFD}.legal-item h3{margin:0 0 6px;color:#334E68;font-size:.84rem}.legal-item p{margin:0;color:#475569;font-size:.78rem}.legal-item a{display:inline-block;margin-top:9px;color:#486581;font-size:.76rem;font-weight:800;text-decoration:none}.legal-item a:hover{text-decoration:underline}.actions{display:flex;justify-content:flex-end;margin-top:18px}button{padding:10px 14px;border:1px solid #CBD5E1;border-radius:8px;background:#fff;color:#334155;cursor:pointer;font:inherit;font-weight:700}button:hover{border-color:var(--gold);background:#F8FAFC}footer{padding:0 20px 28px;color:#64748B;font-size:.76rem}
-@media(max-width:1100px){.employers{grid-template-columns:repeat(2,minmax(0,1fr))}.fourth-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.deduct-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.legal-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:760px){.hero{padding:27px 18px 29px}.hero-bottom{align-items:flex-start;flex-direction:column}.employers,.summary{grid-template-columns:1fr}.fourth-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.deduct-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.brackets{grid-template-columns:repeat(2,1fr)}.bracket:nth-child(2){border-right:0}.bracket:nth-child(3),.bracket:nth-child(4){border-top:1px solid #304154}.bracket:nth-child(4){border-right:0}.bracket:nth-child(5){border-top:1px solid #304154}}
-@media(max-width:480px){main{padding-inline:13px}.fields{grid-template-columns:1fr}.fields .wide{grid-column:auto}.fourth-grid,.deduct-grid,.legal-grid{grid-template-columns:1fr}.months-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.brackets{grid-template-columns:1fr}.bracket{min-height:auto;border-right:0!important;border-top:1px solid #304154}.bracket:first-child{border-top:0}.metric{font-size:.89rem}}
-@media print{body{background:#fff}.hero{padding:20px}main{padding:15px}.notice,.actions{display:none}.card,.black-box{box-shadow:none}}
+:root{
+  --navy:#102A43; --steel:#486581; --gold:#C8A96B; --bg:#F6F8FA;
+  --white:#fff; --text:#243447; --muted:#627D98; --line:#D9E2EC;
+  --shadow:0 12px 30px rgba(16,42,67,.08);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--text)}
+a{text-decoration:none;color:inherit}
+.container{max-width:1180px;margin:auto;padding:0 24px}
+header{background:linear-gradient(135deg,var(--navy),#163A59);color:#fff}
+.nav{height:76px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-size:25px;font-weight:800;letter-spacing:2px}
+.brand small{display:block;font-size:10px;letter-spacing:1.8px;font-weight:500;opacity:.72;margin-top:3px}
+.badge{border:1px solid rgba(200,169,107,.65);color:#f4dfae;padding:8px 13px;border-radius:999px;font-size:12px}
+.hero{padding:72px 0 78px}
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:55px;align-items:center}
+.eyebrow{color:var(--gold);font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+h1{font-size:52px;line-height:1.04;margin:13px 0 20px;letter-spacing:-1.5px}
+.hero p{font-size:18px;line-height:1.7;color:#d8e4ee;max-width:650px;margin:0}
+.hero-card{background:#fff;color:var(--text);border-radius:20px;padding:28px;box-shadow:0 18px 45px rgba(0,0,0,.16)}
+.hero-card .kpi{font-size:40px;font-weight:800;color:var(--navy)}
+.hero-card p{color:var(--muted);font-size:14px;line-height:1.5;margin-top:6px}
+.search{margin-top:28px;background:#fff;border-radius:12px;display:flex;align-items:center;padding:0 16px;box-shadow:0 8px 22px rgba(0,0,0,.12)}
+.search span{font-size:18px;color:var(--muted)}
+.search input{border:0;outline:0;width:100%;padding:15px 12px;font-size:14px}
+main{padding:58px 0 80px}
+.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:22px}
+.section-head h2{margin:0;color:var(--navy);font-size:26px}
+.section-head p{margin:6px 0 0;color:var(--muted);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--white);border:1px solid var(--line);border-radius:17px;padding:24px;min-height:190px;box-shadow:var(--shadow);transition:.18s;position:relative}
+.card:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(16,42,67,.12)}
+.card.available{border-color:#b7c7d6}
+.card.available:after{content:"DISPONIBLE";position:absolute;right:18px;top:18px;background:#edf3f7;color:var(--navy);font-size:9px;font-weight:800;padding:6px 8px;border-radius:999px;letter-spacing:.8px}
+.icon{font-size:27px;margin-bottom:14px}
+.card h3{margin:0 0 8px;color:var(--navy);font-size:18px}
+.card p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
+.card .action{display:inline-block;margin-top:18px;color:var(--navy);font-size:12px;font-weight:800}
+.card.soon{opacity:.82}
+.card.soon .action{color:var(--gold)}
+.feature{grid-column:span 3;background:linear-gradient(135deg,#fff,#f1f5f8);border-left:5px solid var(--gold);min-height:150px}
+.feature h3{font-size:22px}
+.feature p{max-width:850px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+.stat{background:#f7fafc;border:1px solid var(--line);border-radius:12px;padding:12px}
+.stat b{display:block;color:var(--navy);font-size:18px}.stat span{font-size:11px;color:var(--muted)}
+footer{background:var(--navy);color:#d9e2ec;padding:28px 0;font-size:12px}
+footer strong{color:#fff;letter-spacing:1px}
+@media(max-width:850px){.hero-grid{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.feature{grid-column:span 2}h1{font-size:42px}}
+@media(max-width:560px){.grid{grid-template-columns:1fr}.feature{grid-column:span 1}.stats{grid-template-columns:1fr}.nav{height:auto;padding:18px 0}}
 </style>
 </head>
 <body>
-<header class="hero"><div class="hero-inner">
-<p class="eyebrow">ALVAPEN · Estudio Contable · Tributario · Laboral</p>
-<h1>Calculadora Integral de Renta de Trabajo</h1>
-<p>Herramienta profesional para la proyección anual de rentas de cuarta y quinta categoría, incluyendo trabajadores con uno o más empleadores.</p>
-<p class="author-line">Desarrollado por <strong>Alfredo Vasquez Penadillo</strong> · Contador Público Colegiado N.º 69874</p>
-<div class="hero-bottom"><div class="hero-tags"><span>Proyección anual · 2026</span><span>UIT 2026: S/ 5,500</span><span>4ta + 5ta categoría</span></div><nav class="quick-links" aria-label="Navegación de la calculadora"><a href="#ingresos">Ingresos</a><a href="#resultados">Resultados</a><a href="#base-legal">Base legal</a></nav></div>
-</div></header>
-<main>
-<div class="notice">Ingresa o modifica cualquier importe: todos los resultados se actualizan automáticamente. Las gratificaciones se calculan según el régimen elegido y la bonificación extraordinaria según EsSalud (9%) o EPS (6.75%). Montos expresados en soles (S/).</div>
-<div class="section-title" id="ingresos"><h2>Datos por empleador</h2><p class="hint">La remuneración mensual se proyecta desde el mes de inicio hasta diciembre.</p></div>
-<section class="employers" id="employers">
-<script>
-document.write(`
-${[
-['adm','Empleador 1','Empresa A',6113,'2,882.53','ADM'],
-['asia','Empleador 2','Empresa B',10113,'7,455.84','Asia'],
-['pan','Empleador 3','Empresa C',3000,'0','Panadería']
-].map(e=>`<article class="card employer-card" data-id="${e[0]}"><div class="employer-head"><h3 class="employer-name" id="${e[0]}-name-title">${e[1]}</h3><span class="leader-badge">Mayor remuneración</span></div><div class="fields">
-<label class="wide">Nombre del empleador (opcional)<input id="${e[0]}-name" type="text" maxlength="60" placeholder="Ej. ${e[2]}"></label>
-<label class="wide">Remuneración mensual (sin asignación familiar)<div class="currency-wrap"><span>S/</span><input id="${e[0]}-salary" type="number" min="0" step="0.01" value="${e[3]}"></div></label>
-<label>Régimen laboral<select id="${e[0]}-regime"><option value="general">Régimen general</option><option value="small" selected>Pequeña empresa MYPE</option><option value="micro">Microempresa MYPE</option></select></label>
-<label>Mes de inicio<select id="${e[0]}-start"></select></label>
-<label>Retenciones acumuladas<div class="currency-wrap"><span>S/</span><input id="${e[0]}-withheld" type="number" min="0" step="0.01" value="${e[4]}"></div></label>
-<label>Seguro para bonificación<select id="${e[0]}-health"><option value="essalud" selected>EsSalud · 9%</option><option value="eps">EPS · 6.75%</option></select></label>
-<label class="family-choice"><input id="${e[0]}-family" type="checkbox"><span>Recibe asignación familiar</span><small id="${e[0]}-family-amount">—</small></label>
-<label class="monthly-choice"><input id="${e[0]}-monthly-mode" type="checkbox"><span>Usar sueldos brutos mes a mes</span></label>
-<div class="monthly-panel" id="${e[0]}-monthly-panel"></div><p class="regime-note" id="${e[0]}-regime-note"></p>
-<div class="auto-pay"><strong>Pago por gratificación de julio</strong><span id="${e[0]}-july-total">—</span><small id="${e[0]}-july-detail">—</small></div>
-<div class="auto-pay"><strong>Pago por gratificación de diciembre</strong><span id="${e[0]}-dec-total">—</span><small id="${e[0]}-dec-detail">—</small></div>
-</div></article>`).join('')}`);
-</script>
-</section>
-
-<section class="card fourth-card"><h2>Rentas de cuarta categoría</h2><p>Importes anuales. La deducción del 20% para el ejercicio individual se calcula automáticamente, con tope de 24 UIT.</p>
-<div class="fourth-grid">
-<label>Ingreso bruto por ejercicio individual<div class="currency-wrap"><span>S/</span><input id="fourth-professional" type="number" min="0" step="0.01" value="0"></div></label>
-<label>Otras rentas de cuarta categoría<div class="currency-wrap"><span>S/</span><input id="fourth-other" type="number" min="0" step="0.01" value="0"></div></label>
-<label>Retenciones de cuarta categoría<div class="currency-wrap"><span>S/</span><input id="fourth-withheld" type="number" min="0" step="0.01" value="0"></div></label>
-<div class="auto-pay"><strong>Renta neta de cuarta categoría</strong><span id="fourth-net">—</span><small id="fourth-detail">—</small></div>
+<header>
+<div class="container nav">
+  <div class="brand">ALVAPEN<small>ESTUDIO CONTABLE · TRIBUTARIO · LABORAL</small></div>
+  <div class="badge">Herramientas Profesionales</div>
 </div>
-<div class="deductions-block"><h3>Gastos deducibles adicionales</h3><p>Ingresa el gasto total efectivamente pagado en el año. La calculadora aplica el porcentaje de cada rubro y respeta el límite conjunto de 3 UIT.</p>
-<div class="deduct-grid">
-<label>Alquileres <span>30%</span><div class="currency-wrap"><span>S/</span><input id="expense-rent" type="number" min="0" step="0.01" value="0"></div><small>Deducible: <strong id="expense-rent-deductible">—</strong></small></label>
-<label>Restaurantes, bares y hoteles <span>15%</span><div class="currency-wrap"><span>S/</span><input id="expense-food" type="number" min="0" step="0.01" value="0"></div><small>Deducible: <strong id="expense-food-deductible">—</strong></small></label>
-<label>Médicos y odontólogos <span>30%</span><div class="currency-wrap"><span>S/</span><input id="expense-medical" type="number" min="0" step="0.01" value="0"></div><small>Deducible: <strong id="expense-medical-deductible">—</strong></small></label>
-<label>Profesiones, oficios, arte o ciencia <span>30%</span><div class="currency-wrap"><span>S/</span><input id="expense-professional" type="number" min="0" step="0.01" value="0"></div><small>Deducible: <strong id="expense-professional-deductible">—</strong></small></label>
-<label>EsSalud de trabajador(a) del hogar <span>100%</span><div class="currency-wrap"><span>S/</span><input id="expense-household" type="number" min="0" step="0.01" value="0"></div><small>Deducible: <strong id="expense-household-deductible">—</strong></small></label>
-</div><div class="deduction-total"><span>Total deducible antes del tope</span><strong id="additional-before-cap">—</strong></div></div></section>
+<div class="container hero">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow">Sistema profesional</div>
+      <h1>Contabilidad y gestión, más simple.</h1>
+      <p>Un espacio centralizado para calcular, analizar y preparar herramientas de uso contable, tributario y laboral.</p>
+      <div class="search"><span>⌕</span><input id="search" placeholder="Buscar una herramienta..." oninput="filterCards()"></div>
+    </div>
+    <div class="hero-card">
+      <div class="kpi">ALVAPEN</div>
+      <p>Herramientas diseñadas para convertir tareas repetitivas en procesos claros, verificables y reutilizables.</p>
+      <div class="stats">
+        <div class="stat"><b>1</b><span>Módulo disponible</span></div>
+        <div class="stat"><b>22</b><span>Herramientas proyectadas</span></div>
+        <div class="stat"><b>4</b><span>Áreas de trabajo</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
 
-<section class="summary" id="resultados"><article class="card result-card"><h2>Determinación anual</h2>
-<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px"><label>UIT 2026<div class="currency-wrap"><span>S/</span><input id="uit" type="number" min="0" step="1" value="5500"></div></label><label>RMV para asignación<div class="currency-wrap"><span>S/</span><input id="rmv" type="number" min="0" step="1" value="1130"></div></label></div>
-<div class="metric"><span>Renta bruta de quinta categoría</span><strong id="fifth-gross">—</strong></div><div class="metric"><span>Renta neta de cuarta categoría</span><strong id="fourth-summary">—</strong></div><div class="metric"><span>Renta de trabajo (4ta neta + 5ta)</span><strong id="gross">—</strong></div><div class="metric"><span>Deducción fija de 7 UIT</span><strong id="deduction">—</strong></div><div class="metric"><span>Deducción adicional sustentada (máx. 3 UIT)</span><strong id="additional-deduction">—</strong></div><div class="metric highlight"><span>Renta neta imponible</span><strong id="taxable">—</strong></div><div class="metric"><span>Impuesto anual calculado</span><strong id="annual-tax">—</strong></div><div class="metric"><span>Retenciones acumuladas (4ta + 5ta)</span><strong id="withheld">—</strong></div><div class="metric" id="balance-row"><span id="balance-label">Saldo pendiente de retener</span><strong id="balance">—</strong></div>
-</article><article class="card result-card suggestion"><h2>Retención recomendada</h2><p>El empleador con mayor remuneración mensual es:</p><p class="big" id="leader">—</p><p>Retención mensual referencial para completar el año:</p><p class="big" id="monthly-suggestion">—</p><p class="subtle" id="months-note">—</p><p class="subtle">Con rentas de cuarta categoría, el saldo es una proyección global para la declaración anual; la retención efectiva debe ser determinada por el empleador conforme a la normativa vigente.</p></article></section>
+<main class="container">
+  <div class="section-head">
+    <div><h2>Herramientas</h2><p>Selecciona un módulo para comenzar.</p></div>
+  </div>
 
-<section class="black-box" aria-label="Caja negra de tramos del impuesto"><div class="black-head"><h2>CAJA NEGRA · Aplicación de la escala progresiva</h2><p>Distribución exacta de la renta neta imponible dentro de cada tramo. Los límites se expresan en UIT y en soles.</p></div><div class="brackets" id="brackets"></div><div class="black-foot">La suma de los impuestos de cada tramo equivale al impuesto anual calculado.</div></section>
-<section class="card legal-card" id="base-legal"><h2>Base legal y criterios aplicados</h2><p>Resumen operativo para esta proyección 2026. La aplicación no reemplaza la determinación del empleador, SUNAT o un asesor tributario.</p><div class="legal-grid">
-<article class="legal-item"><h3>UIT e impuesto 2026</h3><p>UIT 2026: S/ 5,500, fijada por el D.S. N.º 301-2025-EF. La escala acumulativa aplicable es 8%, 14%, 17%, 20% y 30%.</p><a href="https://www.gob.pe/institucion/mef/noticias/1314665-mef-establece-en-s-5500-el-valor-de-la-uit-para-el-ano-2026" target="_blank" rel="noopener noreferrer">Ver publicación MEF</a></article>
-<article class="legal-item"><h3>Cuarta y quinta categoría</h3><p>Arts. 45, 46 y 53 del TUO de la LIR: 20% de cuarta hasta 24 UIT, deducción fija única de 7 UIT y deducción adicional sustentada hasta 3 UIT.</p><a href="https://orientacion.sunat.gob.pe/3068-07-declaracion-y-calculo-anual" target="_blank" rel="noopener noreferrer">Ver cálculo SUNAT</a></article>
-<article class="legal-item"><h3>Gratificaciones y MYPE</h3><p>Ley 27735 y Ley 30334. La pequeña empresa recibe media remuneración por gratificación; la microempresa no tiene este beneficio legal.</p><a href="https://www.gob.pe/institucion/mtpe/noticias/12211-ministerio-de-trabajo-recuerda-a-empleadores-que-pago-de-gratificaciones-vence-el-15-de-julio" target="_blank" rel="noopener noreferrer">Ver criterio MTPE</a></article>
-<article class="legal-item"><h3>Bonificación y familia</h3><p>La bonificación es 9% con EsSalud o 6.75% con EPS. La asignación familiar equivale al 10% de la RMV, si corresponde.</p><a href="https://www.gob.pe/institucion/mtpe/noticias/601761-quienes-tienen-derecho-a-percibir-la-asignacion-familiar" target="_blank" rel="noopener noreferrer">Ver asignación familiar</a></article>
-</div></section>
-<div class="actions"><button type="button" onclick="window.print()">Imprimir / Guardar PDF</button></div>
+  <div class="grid" id="cards">
+    <a class="card available feature" data-name="cuarta quinta categoria renta trabajo" href="https://alfredo-vasquez-penadillo.github.io/calculadora-5ta-y-4ta-Anual/">
+      <div class="icon">🧮</div>
+      <h3>Rentas de trabajo · 4ta + 5ta categoría</h3>
+      <p>Calculadora integral para proyectar rentas de cuarta y quinta categoría, determinar el impuesto anual, considerar deducciones y visualizar la <strong>Caja Negra</strong> de los tramos progresivos.</p>
+      <span class="action">ABRIR CALCULADORA →</span>
+    </a>
+
+    <a class="card soon" data-name="vacaciones" href="#" onclick="return false">
+      <div class="icon">🏖️</div><h3>Vacaciones</h3><p>Cálculo de vacaciones, días generados, gozados y truncos.</p><span class="action">PRÓXIMAMENTE</span>
+    </a>
+    <a class="card soon" data-name="liquidacion laboral" href="#" onclick="return false">
+      <div class="icon">💰</div><h3>Liquidación laboral</h3><p>Beneficios sociales y conceptos de liquidación al cese.</p><span class="action">PRÓXIMAMENTE</span>
+    </a>
+    <a class="card soon" data-name="cts" href="#" onclick="return false">
+      <div class="icon">🏦</div><h3>CTS</h3><p>Cálculo y proyección de depósitos de compensación por tiempo de servicios.</p><span class="action">PRÓXIMAMENTE</span>
+    </a>
+    <a class="card soon" data-name="gratificaciones" href="#" onclick="return false">
+      <div class="icon">🎁</div><h3>Gratificaciones</h3><p>Proyección y cálculo de gratificaciones y bonificaciones correspondientes.</p><span class="action">PRÓXIMAMENTE</span>
+    </a>
+    <a class="card soon" data-name="planilla" href="#" onclick="return false">
+      <div class="icon">👥</div><h3>Planilla</h3><p>Herramientas para remuneraciones, descuentos y conceptos laborales.</p><span class="action">PRÓXIMAMENTE</span>
+    </a>
+
+    <a class="card soon" data-name="igv" href="#" onclick="return false">
+      <div class="icon">🧾</div><h3>IGV</h3><p>Determinación y análisis de IGV mensual.</p><span class="action">PRÓXIMAMENTE</span>
+    </a>
+    <a class="card soon" data-name="renta" href="#" onclick="return false">
+      <div class="icon">📊</div><h3>Renta</h3><p>Herramientas para determinaciones y proyecciones del impuesto a la renta.</p><span class="action">PRÓXIMAMENTE</span>
+    </a>
+    <a class="card soon" data-name="sunat" href="#" onclick="return false">
+      <div class="icon">🔎</div><h3>SUNAT</h3><p>Apoyo para revisar requerimientos, esquela, fiscalizaciones y obligaciones.</p><span class="action">PRÓXIMAMENTE</span>
+    </a>
+    <a class="card soon" data-name="vinculacion economica" href="#" onclick="return false">
+      <div class="icon">🔗</div><h3>Vinculación económica</h3><p>Evaluación de supuestos y límites aplicables.</p><span class="action">PRÓXIMAMENTE</span>
+    </a>
+    <a class="card soon" data-name="retenciones percepciones" href="#" onclick="return false">
+      <div class="icon">📑</div><h3>Retenciones y percepciones</h3><p>Cálculo y revisión de operaciones sujetas a estos regímenes.</p><span class="action">PRÓXIMAMENTE</span>
+    </a>
+
+    <a class="card soon" data-name="contratos" href="#" onclick="return false">
+      <div class="icon">📄</div><h3>Contratos</h3><p>Plantillas y generadores de contratos laborales y de servicios.</p><span class="action">PRÓXIMAMENTE</span>
+    </a>
+    <a class="card soon" data-name="memorandums" href="#" onclick="return false">
+      <div class="icon">📝</div><h3>Memorándums</h3><p>Generación de documentos internos con formatos reutilizables.</p><span class="action">PRÓXIMAMENTE</span>
+    </a>
+    <a class="card soon" data-name="cartas escritos sunat" href="#" onclick="return false">
+      <div class="icon">✉️</div><h3>Cartas y escritos</h3><p>Documentos y escritos para trámites y procedimientos.</p><span class="action">PRÓXIMAMENTE</span>
+    </a>
+    <a class="card soon" data-name="fechas" href="#" onclick="return false">
+      <div class="icon">📅</div><h3>Cálculo de fechas</h3><p>Vencimientos, plazos y cálculo de períodos.</p><span class="action">PRÓXIMAMENTE</span>
+    </a>
+    <a class="card soon" data-name="conversores" href="#" onclick="return false">
+      <div class="icon">💵</div><h3>Conversores</h3><p>Conversiones y cálculos rápidos de uso diario.</p><span class="action">PRÓXIMAMENTE</span>
+    </a>
+    <a class="card soon" data-name="excel csv" href="#" onclick="return false">
+      <div class="icon">📊</div><h3>Excel / CSV</h3><p>Utilidades para transformar y preparar información.</p><span class="action">PRÓXIMAMENTE</span>
+    </a>
+  </div>
 </main>
-<footer><strong>ALVAPEN</strong> · Estudio Contable · Tributario · Laboral<br>Herramienta informativa para proyección de renta de cuarta y quinta categoría. UIT 2026: S/ 5,500 (D.S. N.º 301-2025-EF). Verifica siempre el cálculo final con tu empleador, SUNAT o asesor tributario.</footer>
+
+<footer><div class="container"><strong>ALVAPEN</strong> · Estudio Contable · Tributario · Laboral<br><span>Herramientas profesionales para simplificar el trabajo.</span></div></footer>
+
 <script>
-const months=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-const employers=[{id:'adm',name:'Empleador 1'},{id:'asia',name:'Empleador 2'},{id:'pan',name:'Empleador 3'}];
-const regimes={general:{factor:1,note:'Régimen general: remuneración computable ÷ 6 × meses completos del semestre.'},small:{factor:.5,note:'Pequeña empresa MYPE: remuneración computable ÷ 6 × meses completos × 50%.'},micro:{factor:0,note:'Microempresa MYPE: no corresponde gratificación legal ni bonificación extraordinaria.'}};
-const healthCoverage={essalud:{rate:.09,label:'EsSalud'},eps:{rate:.0675,label:'EPS'}};
-const fmt=new Intl.NumberFormat('es-PE',{style:'currency',currency:'PEN',minimumFractionDigits:2});
-const number=id=>Math.max(0,Number.parseFloat(document.getElementById(id).value)||0);
-function selectOptions(){employers.forEach(({id})=>{const select=document.getElementById(`${id}-start`);select.innerHTML=months.map((month,index)=>`<option value="${index+1}">${month}</option>`).join('');select.value=id==='pan'?'7':'1'})}
-function buildMonthlyInputs(){employers.forEach(({id})=>{const panel=document.getElementById(`${id}-monthly-panel`);panel.innerHTML=`<p>Estos importes reemplazan la proyección uniforme para la renta anual. Para gratificaciones se usa la remuneración computable de junio (julio) y noviembre (diciembre). <button type="button" data-fill-months="${id}">Rellenar con remuneración uniforme</button></p><div class="months-grid">${months.map((month,index)=>`<label class="month-cell">${month.slice(0,3)}<input id="${id}-month-${index+1}" type="number" min="0" step="0.01" value="0" aria-label="${month}, ${id}"></label>`).join('')}</div>`})}
-function fillMonthlyInputs(id){const salary=number(`${id}-salary`);const start=Number(document.getElementById(`${id}-start`).value);months.forEach((_,index)=>{document.getElementById(`${id}-month-${index+1}`).value=index+1>=start?salary:0})}
-function calculate(){
-const uit=number('uit'),familyAllowance=number('rmv')*.10;let fifthGross=0,withheld=0;
-const details=employers.map(({id,name})=>{
-const enteredName=document.getElementById(`${id}-name`).value.trim(),employerName=enteredName||name;
-const salary=number(`${id}-salary`),start=Number(document.getElementById(`${id}-start`).value),monthsWorked=Math.max(0,13-start);
-const regime=regimes[document.getElementById(`${id}-regime`).value],health=healthCoverage[document.getElementById(`${id}-health`).value];
-const hasFamilyAllowance=document.getElementById(`${id}-family`).checked,useMonthly=document.getElementById(`${id}-monthly-mode`).checked,family=hasFamilyAllowance?familyAllowance:0,computablePay=salary+family;
-const monthlyBase=months.map((_,index)=>number(`${id}-month-${index+1}`)),monthlyPay=monthlyBase.map(amount=>amount>0?amount+family:0);
-const julyMonths=useMonthly?monthlyBase.slice(0,6).filter(amount=>amount>0).length:Math.max(0,Math.min(6,7-start));
-const decMonths=useMonthly?monthlyBase.slice(6,12).filter(amount=>amount>0).length:Math.max(0,Math.min(6,13-Math.max(start,7)));
-const julyBasis=useMonthly?monthlyPay[5]:computablePay,decBasis=useMonthly?monthlyPay[10]:computablePay;
-const julyGrat=julyBasis/6*julyMonths*regime.factor,decGrat=decBasis/6*decMonths*regime.factor,julyBonus=julyGrat*health.rate,decBonus=decGrat*health.rate;
-const julyTotal=julyGrat+julyBonus,decTotal=decGrat+decBonus,extras=julyTotal+decTotal;
-const annual=(useMonthly?monthlyPay.reduce((sum,amount)=>sum+amount,0):computablePay*monthsWorked)+extras,retained=number(`${id}-withheld`);
-fifthGross+=annual;withheld+=retained;
-document.getElementById(`${id}-name-title`).textContent=employerName;document.getElementById(`${id}-monthly-panel`).classList.toggle('active',useMonthly);document.getElementById(`${id}-regime-note`).textContent=regime.note;document.getElementById(`${id}-family-amount`).textContent=hasFamilyAllowance?`+ ${fmt.format(family)} / mes`:`No incluido · ${fmt.format(familyAllowance)} disponible`;
-document.getElementById(`${id}-july-total`).textContent=fmt.format(julyTotal);document.getElementById(`${id}-dec-total`).textContent=fmt.format(decTotal);
-document.getElementById(`${id}-july-detail`).textContent=`${julyMonths} mes(es): gratificación ${fmt.format(julyGrat)} + ${health.label} ${(health.rate*100).toFixed(2)}%: ${fmt.format(julyBonus)}`;
-document.getElementById(`${id}-dec-detail`).textContent=`${decMonths} mes(es): gratificación ${fmt.format(decGrat)} + ${health.label} ${(health.rate*100).toFixed(2)}%: ${fmt.format(decBonus)}`;
-return{id,name:employerName,salary,annual}});
-const fourthProfessional=number('fourth-professional'),fourthOther=number('fourth-other'),fourthDeduction=Math.min(fourthProfessional*.20,24*uit),fourthNet=Math.max(0,fourthProfessional-fourthDeduction+fourthOther),fourthWithheld=number('fourth-withheld');
-withheld+=fourthWithheld;const gross=fifthGross+fourthNet,deduction=Math.min(7*uit,gross);
-const deductibleExpenses=[{id:'expense-rent',output:'expense-rent-deductible',rate:.30},{id:'expense-food',output:'expense-food-deductible',rate:.15},{id:'expense-medical',output:'expense-medical-deductible',rate:.30},{id:'expense-professional',output:'expense-professional-deductible',rate:.30},{id:'expense-household',output:'expense-household-deductible',rate:1}];
-const additionalBeforeCap=deductibleExpenses.reduce((sum,expense)=>{const deductible=number(expense.id)*expense.rate;document.getElementById(expense.output).textContent=fmt.format(deductible);return sum+deductible},0);
-const additionalDeduction=Math.min(additionalBeforeCap,3*uit,Math.max(0,gross-deduction)),taxable=Math.max(0,gross-deduction-additionalDeduction);
-const brackets=[{uit:5,rate:.08,label:'Hasta 5 UIT'},{uit:15,rate:.14,label:'Más de 5 hasta 20 UIT'},{uit:15,rate:.17,label:'Más de 20 hasta 35 UIT'},{uit:10,rate:.20,label:'Más de 35 hasta 45 UIT'},{uit:Infinity,rate:.30,label:'Más de 45 UIT'}];
-let remainder=taxable,annualTax=0;
-const pieces=brackets.map((bracket,index)=>{const cap=bracket.uit===Infinity?Infinity:bracket.uit*uit,taxableHere=Math.min(remainder,cap),tax=taxableHere*bracket.rate;remainder=Math.max(0,remainder-taxableHere);annualTax+=tax;let limit;if(index===0)limit=`0 a ${fmt.format(5*uit)} · 5 UIT`;else if(bracket.uit===Infinity)limit=`Desde ${fmt.format(45*uit)} · sin tope`;else{const previous=[5,20,35,45][index-1],ending=previous+bracket.uit;limit=`${fmt.format(previous*uit)} a ${fmt.format(ending*uit)} · ${bracket.uit} UIT`}return{...bracket,taxableHere,tax,limit}});
-const balance=annualTax-withheld,leader=details.reduce((highest,item)=>item.salary>highest.salary?item:highest,details[0]),now=new Date(),projectionMonth=now.getFullYear()===2026?now.getMonth()+1:9,remainingMonths=Math.max(1,13-projectionMonth),monthlySuggestion=Math.max(0,balance)/remainingMonths;
-document.getElementById('fourth-net').textContent=fmt.format(fourthNet);document.getElementById('fourth-detail').textContent=`Ingreso individual ${fmt.format(fourthProfessional)} − deducción 20% ${fmt.format(fourthDeduction)} + otras rentas ${fmt.format(fourthOther)}`;document.getElementById('fifth-gross').textContent=fmt.format(fifthGross);document.getElementById('fourth-summary').textContent=fmt.format(fourthNet);document.getElementById('gross').textContent=fmt.format(gross);document.getElementById('deduction').textContent=`− ${fmt.format(deduction)}`;document.getElementById('additional-before-cap').textContent=fmt.format(additionalBeforeCap);document.getElementById('additional-deduction').textContent=`− ${fmt.format(additionalDeduction)}`;document.getElementById('taxable').textContent=fmt.format(taxable);document.getElementById('annual-tax').textContent=fmt.format(annualTax);document.getElementById('withheld').textContent=`− ${fmt.format(withheld)}`;
-const balanceRow=document.getElementById('balance-row');balanceRow.className=`metric ${balance>.005?'positive':'negative'}`;document.getElementById('balance-label').textContent=balance>.005?'Saldo pendiente de retener':'Exceso de retenciones proyectado';document.getElementById('balance').textContent=fmt.format(Math.abs(balance));document.getElementById('leader').textContent=leader.name;document.getElementById('monthly-suggestion').textContent=fmt.format(monthlySuggestion);document.getElementById('months-note').textContent=balance>.005?`Saldo pendiente dividido entre ${remainingMonths} mes(es) restante(s), de ${months[projectionMonth-1]} a diciembre.`:'No se sugiere retención adicional: las retenciones acumuladas cubren el impuesto anual proyectado.';document.querySelectorAll('.employer-card').forEach(card=>card.classList.toggle('leader',card.dataset.id===leader.id&&leader.salary>0));document.getElementById('brackets').innerHTML=pieces.map(piece=>`<div class="bracket"><div class="bracket-rate">${(piece.rate*100).toFixed(0)}%</div><div class="bracket-limit">${piece.label}<br>${piece.limit}</div><div class="bracket-value">Base: ${fmt.format(piece.taxableHere)}</div><div class="bracket-tax">Impuesto: ${fmt.format(piece.tax)}</div></div>`).join('')
+function filterCards(){
+  const q=document.getElementById('search').value.toLowerCase().trim();
+  document.querySelectorAll('#cards .card').forEach(c=>{
+    c.style.display=(!q || c.dataset.name.includes(q))?'block':'none';
+  });
 }
-selectOptions();buildMonthlyInputs();employers.forEach(({id})=>fillMonthlyInputs(id));document.querySelectorAll('input,select').forEach(field=>{field.addEventListener('input',calculate);field.addEventListener('change',calculate)});document.querySelectorAll('[data-fill-months]').forEach(button=>button.addEventListener('click',()=>{fillMonthlyInputs(button.dataset.fillMonths);calculate()}));calculate();
 </script>
 </body>
 </html>
