@@ -1237,6 +1237,26 @@ body{
   .sunat-tc-footer{flex-direction:column}
 }
 </style>
+
+<style id="alvapen-empty-inputs-v35">
+input::placeholder,textarea::placeholder{color:#9aa6b2;opacity:.9}
+input:placeholder-shown,textarea:placeholder-shown{background:rgba(255,255,255,.97)}
+</style>
+
+<style id="alvapen-cts-v37">
+.lab-cts-help{margin-top:10px;padding:10px 13px;border-radius:12px;background:#f6f8fa;color:#64748b;font-size:11px;line-height:1.5}
+</style>
+
+<style id="alvapen-rmv-v38">
+.alv-rmv-note{
+  margin-top:6px;font-size:10px;color:#7b8794;line-height:1.35
+}
+.alv-rmv-note a{color:#0071e3;text-decoration:none;font-weight:700}
+input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
+  background:#f1f4f7!important;color:#263b53!important;
+  cursor:not-allowed!important;border-color:#d6dee7!important;
+}
+</style>
 </head>
 <body>
 
@@ -1484,13 +1504,13 @@ body{
 <p class="lab-hint alv-intro-final">Completa los datos de abajo. Los resultados se actualizarán automáticamente.</p>
 
 <div class="lab-fields">
-          <label>Remuneración mensual<input id="lab-salary" type="number" min="0" step="0.01" value="1130"></label>
+          <label>Remuneración mensual<input id="lab-salary" type="number" min="0" step="0.01" value=""></label>
           <label class="lab-check lab-family-compact"><input id="lab-family" type="checkbox"> <span>Asignación familiar</span><small>Automática: 10% de la RMV vigente</small></label>
-          <label>RMV vigente<input id="lab-rmv" type="number" min="0" step="0.01" value="1130"></label>
-          <label>Fecha de inicio<input id="lab-start" type="date" value="2026-01-01"></label>
-          <label>Fecha de cálculo<input id="lab-end" type="date" value="2026-12-31"></label>
-          <label>Horas diarias<input id="lab-hours" type="number" min="0" max="24" step="0.01" value="8"></label>
-          <label>Días trabajados por semana<input id="lab-days" type="number" min="1" max="7" step="1" value="6"></label>
+          <label>RMV vigente<input id="lab-rmv" type="number" min="0" step="0.01" value="1130" readonly><div class="alv-rmv-note">RMV vigente: S/ 1,130.00 · <a href="https://emprender.sunat.gob.pe/principales-impuestos/planilla/obligaciones-con-mis-trabajadores" target="_blank" rel="noopener">fuente SUNAT ↗</a></div></label>
+          <label>Fecha de inicio<input id="lab-start" type="date" value=""></label>
+          <label>Fecha de cálculo<input id="lab-end" type="date" value=""></label>
+          <label>Horas diarias<input id="lab-hours" type="number" min="0" max="24" step="0.01" value=""></label>
+          <label>Días trabajados por semana<input id="lab-days" type="number" min="1" max="7" step="1" value=""></label>
           <label>Seguro de salud<select id="lab-health"><option value="essalud">EsSalud · 9%</option><option value="eps">EPS · bonificación 6.75%</option></select></label>
           <label>Sistema de pensiones<select id="lab-pension"><option value="none">Sin retención</option><option value="onp">ONP · 13%</option><option value="afp">AFP · tasas SBS vigentes</option></select></label>
           <label>Esquema de comisión AFP<select id="lab-afp-mode">
@@ -1499,9 +1519,9 @@ body{
 </select></label>
 <label>AFP<select id="lab-afp"><option value="habitat">Hábitat</option><option value="integra">Integra</option><option value="prima">Prima</option><option value="profuturo">Profuturo</option></select></label>
           <div class="lab-info" id="lab-afp-rate-note">SBS: septiembre 2026 · se calcula 10% fondo + comisión sobre flujo + prima de seguro.</div>
-          <label>Conceptos regulares computables<input id="lab-regular" type="number" min="0" step="0.01" value="0"></label><label>Gratificación diciembre anterior percibida<input id="lab-prev-grati" type="number" min="0" step="0.01" value="1130"></label>
-          <label>Horas extras 25% en el periodo<input id="lab-ot25" type="number" min="0" step="0.01" value="0"></label>
-          <label>Horas extras 35% en el periodo<input id="lab-ot35" type="number" min="0" step="0.01" value="0"></label>
+          <label>Conceptos regulares computables<input id="lab-regular" type="number" min="0" step="0.01" value=""></label><label>Gratificación diciembre anterior percibida<input id="lab-prev-grati" type="number" min="0" step="0.01" value=""></label>
+          <label>Horas extras 25% en el periodo<input id="lab-ot25" type="number" min="0" step="0.01" value=""></label>
+          <label>Horas extras 35% en el periodo<input id="lab-ot35" type="number" min="0" step="0.01" value=""></label>
         </div>
         <div class="lab-checks">
           <label class="lab-check"><input id="lab-residence" type="checkbox"> Con residencia</label>
@@ -1555,7 +1575,7 @@ body{
               <tr><td>Gratificación – diciembre</td><td>Remuneración computable × meses completos / 6</td><td id="lab-dec-total">S/ 0.00</td><td>Primera quincena de diciembre</td></tr>
             </tbody>
           </table>
-          <div class="lab-note">La bonificación extraordinaria se muestra dentro del pago total de cada gratificación cuando está marcada. La CTS usa la gratificación efectivamente percibida: para mayo, diciembre anterior; para noviembre, julio.</div>
+          <div class="lab-note">La bonificación extraordinaria se muestra dentro del pago total de cada gratificación cuando está marcada. La CTS se calcula por el semestre correspondiente y se prorratea según los meses completos laborados; para mayo usa la gratificación de diciembre anterior y para noviembre, la gratificación de julio.</div>
         </div>
         <div class="lab-black">
           <h3>Caja Negra · costo anual estimado</h3>
@@ -1642,8 +1662,8 @@ body{
           <label>Fecha de ingreso<input id="bol-start" type="date"></label><label>Pensión<select id="bol-pension"><option>ONP</option><option>AFP</option></select></label>
           <label>Periodicidad<select id="bol-period"><option>Mensual</option><option>Quincenal</option><option>Semanal</option></select></label>
           <label>Desde<input id="bol-from" type="date"></label><label>Hasta<input id="bol-to" type="date"></label>
-          <label>Remuneración básica<input id="bol-basic" type="number" value="1130" step=".01"></label><label>Horas extras<input id="bol-ot" type="number" value="0" step=".01"></label>
-          <label>Otros conceptos<input id="bol-other" type="number" value="0" step=".01"></label><label>Pensiones / deducciones<input id="bol-deduct" type="number" value="0" step=".01"></label>
+          <label>Remuneración básica<input id="bol-basic" type="number" value="" step=".01"></label><label>Horas extras<input id="bol-ot" type="number" value="" step=".01"></label>
+          <label>Otros conceptos<input id="bol-other" type="number" value="" step=".01"></label><label>Pensiones / deducciones<input id="bol-deduct" type="number" value="" step=".01"></label>
           <label>Fecha de pago<input id="bol-paydate" type="date"></label>
         </div>
         <div class="lab-actions"><button class="lab-btn" onclick="generateBoleta()">Actualizar boleta</button><button class="lab-btn secondary" onclick="printBoletaOnlyV28()">Imprimir</button></div>
@@ -1663,8 +1683,8 @@ body{
           <label class="wide">Empleador<input id="con-employer"></label><label>DNI / documento empleador<input id="con-employer-id"></label>
           <label>Domicilio del servicio<input id="con-address"></label><label>Nacionalidad empleador<input id="con-employer-nationality"></label><label>Fecha nacimiento empleador<input id="con-employer-birth" type="date"></label><label>Sexo empleador<select id="con-employer-sex"><option>Femenino</option><option>Masculino</option><option>Otro</option></select></label><label>Estado civil empleador<input id="con-employer-marital"></label><label>Profesión / oficio empleador<input id="con-employer-job"></label>
           <label>Fecha de firma<input id="con-sign" type="date"></label><label>Inicio de relación<input id="con-start" type="date"></label><label>Fin (si plazo fijo)<input id="con-end" type="date"></label>
-          <label>Remuneración<input id="con-salary" type="number" value="1130" step=".01"></label><label>Pago<select id="con-pay"><option>Mensual</option><option>Quincenal</option><option>Semanal</option></select></label><label>Medio de pago<select id="con-method"><option>Transferencia bancaria</option><option>Efectivo</option></select></label><label>Banco<input id="con-bank"></label><label>Cuenta / CCI<input id="con-account"></label>
-          <label>Horas diarias<input id="con-hours" type="number" value="8" step=".01"></label><label>Horas semanales<input id="con-weekhours" type="number" value="48" step=".01"></label><label>Horario ingreso<input id="con-in"></label><label>Horario término<input id="con-out"></label><label>Descanso semanal<input id="con-rest" value="Domingo"></label>
+          <label>Remuneración<input id="con-salary" type="number" value="" step=".01"></label><label>Pago<select id="con-pay"><option>Mensual</option><option>Quincenal</option><option>Semanal</option></select></label><label>Medio de pago<select id="con-method"><option>Transferencia bancaria</option><option>Efectivo</option></select></label><label>Banco<input id="con-bank"></label><label>Cuenta / CCI<input id="con-account"></label>
+          <label>Horas diarias<input id="con-hours" type="number" value="" step=".01"></label><label>Horas semanales<input id="con-weekhours" type="number" value="" step=".01"></label><label>Horario ingreso<input id="con-in"></label><label>Horario término<input id="con-out"></label><label>Descanso semanal<input id="con-rest" value=""></label>
           <label class="wide">Causa objetiva, si es plazo fijo<input id="con-cause"></label>
           <label class="wide">Funciones adicionales / otros<input id="con-other"></label>
           <label class="wide">Facilidades educativas acordadas<input id="con-education"></label>
@@ -1682,10 +1702,10 @@ body{
         <h2>Liquidación de beneficios sociales</h2><p class="lab-hint">La indemnización se considera únicamente cuando corresponde a un despido arbitrario.</p>
         <div class="lab-fields">
           <label>Motivo<select id="liq-reason"><option value="renuncia">Renuncia voluntaria</option><option value="despido">Despido arbitrario</option><option value="causa">Despido con causa justa</option><option value="mutuo">Mutuo acuerdo</option><option value="plazo">Término de contrato</option></select></label>
-          <label>Remuneración al cese<input id="liq-salary" type="number" value="1130" step=".01"></label><label class="lab-check lab-family-compact"><input id="liq-family" type="checkbox"> <span>Asignación familiar</span><small>10% de la RMV vigente</small></label><label>RMV vigente<input id="liq-rmv" type="number" value="1130" step=".01"></label>
-          <label>Fecha ingreso<input id="liq-start" type="date" value="2024-01-01"></label><label>Fecha cese<input id="liq-end" type="date" value="2026-09-01"></label><label>Horas diarias promedio<input id="liq-hours" type="number" value="8" step=".01"></label>
-          <label>Última gratificación percibida<input id="liq-lastgrati" type="number" value="1130" step=".01"></label><label>CTS ya depositada/pagada<input id="liq-cts-paid" type="number" value="0" step=".01"></label>
-          <label>Vacaciones gozadas del último periodo (días)<input id="liq-vac-used" type="number" value="0" step=".01"></label><label>Días de sueldo pendientes<input id="liq-days-pay" type="number" value="0" step=".01"></label>
+          <label>Remuneración al cese<input id="liq-salary" type="number" value="" step=".01"></label><label class="lab-check lab-family-compact"><input id="liq-family" type="checkbox"> <span>Asignación familiar</span><small>10% de la RMV vigente</small></label><label>RMV vigente<input id="liq-rmv" type="number" value="1130" step=".01" readonly><div class="alv-rmv-note">RMV vigente: S/ 1,130.00 · <a href="https://emprender.sunat.gob.pe/principales-impuestos/planilla/obligaciones-con-mis-trabajadores" target="_blank" rel="noopener">fuente SUNAT ↗</a></div></label>
+          <label>Fecha ingreso<input id="liq-start" type="date" value=""></label><label>Fecha cese<input id="liq-end" type="date" value=""></label><label>Horas diarias promedio<input id="liq-hours" type="number" value="" step=".01"></label>
+          <label>Última gratificación percibida<input id="liq-lastgrati" type="number" value="" step=".01"></label><label>CTS ya depositada/pagada<input id="liq-cts-paid" type="number" value="" step=".01"></label>
+          <label>Vacaciones gozadas del último periodo (días)<input id="liq-vac-used" type="number" value="" step=".01"></label><label>Días de sueldo pendientes<input id="liq-days-pay" type="number" value="" step=".01"></label>
           <label>¿La CTS ya fue cancelada hasta el último depósito?<select id="liq-cts-status"><option value="no">No</option><option value="yes">Sí</option></select></label>
         </div>
         <div class="lab-checks"><label class="lab-check"><input type="checkbox" id="liq-indemnity"> Incluir indemnización por despido arbitrario</label></div>
@@ -1727,10 +1747,10 @@ body{
 <div class="employer-head"><h3 class="employer-name" id="adm-name-title">Empleador 1</h3><span class="leader-badge">Mayor remuneración</span></div>
 <div class="fields">
 <label class="wide">Nombre del empleador (opcional)<input id="adm-name" type="text" maxlength="60" placeholder="Ej. Empresa A"></label>
-<label class="wide">Remuneración mensual (sin asignación familiar)<div class="currency-wrap"><span>S/</span><input id="adm-salary" type="number" min="0" step="0.01" value="6113"></div></label>
+<label class="wide">Remuneración mensual (sin asignación familiar)<div class="currency-wrap"><span>S/</span><input id="adm-salary" type="number" min="0" step="0.01" value=""></div></label>
 <label>Régimen laboral<select id="adm-regime"><option value="general">Régimen general</option><option value="small" selected>Pequeña empresa MYPE</option><option value="micro">Microempresa MYPE</option></select></label>
 <label>Mes de inicio<select id="adm-start"></select></label>
-<label>Retenciones acumuladas<div class="currency-wrap"><span>S/</span><input id="adm-withheld" type="number" min="0" step="0.01" value="2,882.53"></div></label>
+<label>Retenciones acumuladas<div class="currency-wrap"><span>S/</span><input id="adm-withheld" type="number" min="0" step="0.01" value=""></div></label>
 <label>Seguro para bonificación<select id="adm-health"><option value="essalud" selected>EsSalud · 9%</option><option value="eps">EPS · 6.75%</option></select></label>
 <label class="family-choice"><input id="adm-family" type="checkbox"><span>Recibe asignación familiar</span><small id="adm-family-amount">—</small></label>
 <label class="monthly-choice"><input id="adm-monthly-mode" type="checkbox"><span>Usar sueldos brutos mes a mes</span></label>
@@ -1742,10 +1762,10 @@ body{
 <div class="employer-head"><h3 class="employer-name" id="asia-name-title">Empleador 2</h3><span class="leader-badge">Mayor remuneración</span></div>
 <div class="fields">
 <label class="wide">Nombre del empleador (opcional)<input id="asia-name" type="text" maxlength="60" placeholder="Ej. Empresa B"></label>
-<label class="wide">Remuneración mensual (sin asignación familiar)<div class="currency-wrap"><span>S/</span><input id="asia-salary" type="number" min="0" step="0.01" value="10113"></div></label>
+<label class="wide">Remuneración mensual (sin asignación familiar)<div class="currency-wrap"><span>S/</span><input id="asia-salary" type="number" min="0" step="0.01" value=""></div></label>
 <label>Régimen laboral<select id="asia-regime"><option value="general">Régimen general</option><option value="small" selected>Pequeña empresa MYPE</option><option value="micro">Microempresa MYPE</option></select></label>
 <label>Mes de inicio<select id="asia-start"></select></label>
-<label>Retenciones acumuladas<div class="currency-wrap"><span>S/</span><input id="asia-withheld" type="number" min="0" step="0.01" value="7,455.84"></div></label>
+<label>Retenciones acumuladas<div class="currency-wrap"><span>S/</span><input id="asia-withheld" type="number" min="0" step="0.01" value=""></div></label>
 <label>Seguro para bonificación<select id="asia-health"><option value="essalud" selected>EsSalud · 9%</option><option value="eps">EPS · 6.75%</option></select></label>
 <label class="family-choice"><input id="asia-family" type="checkbox"><span>Recibe asignación familiar</span><small id="asia-family-amount">—</small></label>
 <label class="monthly-choice"><input id="asia-monthly-mode" type="checkbox"><span>Usar sueldos brutos mes a mes</span></label>
@@ -1757,10 +1777,10 @@ body{
 <div class="employer-head"><h3 class="employer-name" id="pan-name-title">Empleador 3</h3><span class="leader-badge">Mayor remuneración</span></div>
 <div class="fields">
 <label class="wide">Nombre del empleador (opcional)<input id="pan-name" type="text" maxlength="60" placeholder="Ej. Empresa C"></label>
-<label class="wide">Remuneración mensual (sin asignación familiar)<div class="currency-wrap"><span>S/</span><input id="pan-salary" type="number" min="0" step="0.01" value="3000"></div></label>
+<label class="wide">Remuneración mensual (sin asignación familiar)<div class="currency-wrap"><span>S/</span><input id="pan-salary" type="number" min="0" step="0.01" value=""></div></label>
 <label>Régimen laboral<select id="pan-regime"><option value="general">Régimen general</option><option value="small" selected>Pequeña empresa MYPE</option><option value="micro">Microempresa MYPE</option></select></label>
 <label>Mes de inicio<select id="pan-start"></select></label>
-<label>Retenciones acumuladas<div class="currency-wrap"><span>S/</span><input id="pan-withheld" type="number" min="0" step="0.01" value="0"></div></label>
+<label>Retenciones acumuladas<div class="currency-wrap"><span>S/</span><input id="pan-withheld" type="number" min="0" step="0.01" value=""></div></label>
 <label>Seguro para bonificación<select id="pan-health"><option value="essalud" selected>EsSalud · 9%</option><option value="eps">EPS · 6.75%</option></select></label>
 <label class="family-choice"><input id="pan-family" type="checkbox"><span>Recibe asignación familiar</span><small id="pan-family-amount">—</small></label>
 <label class="monthly-choice"><input id="pan-monthly-mode" type="checkbox"><span>Usar sueldos brutos mes a mes</span></label>
@@ -1771,18 +1791,18 @@ body{
 
 <section class="card fourth-card"><h2>Rentas de cuarta categoría</h2><p>Importes anuales. La deducción del 20% para el ejercicio individual se calcula automáticamente, con tope de 24 UIT.</p>
 <div class="fourth-grid">
-<label>Ingreso bruto por ejercicio individual<div class="currency-wrap"><span>S/</span><input id="fourth-professional" type="number" min="0" step="0.01" value="0"></div></label>
-<label>Otras rentas de cuarta categoría<div class="currency-wrap"><span>S/</span><input id="fourth-other" type="number" min="0" step="0.01" value="0"></div></label>
-<label>Retenciones de cuarta categoría<div class="currency-wrap"><span>S/</span><input id="fourth-withheld" type="number" min="0" step="0.01" value="0"></div></label>
+<label>Ingreso bruto por ejercicio individual<div class="currency-wrap"><span>S/</span><input id="fourth-professional" type="number" min="0" step="0.01" value=""></div></label>
+<label>Otras rentas de cuarta categoría<div class="currency-wrap"><span>S/</span><input id="fourth-other" type="number" min="0" step="0.01" value=""></div></label>
+<label>Retenciones de cuarta categoría<div class="currency-wrap"><span>S/</span><input id="fourth-withheld" type="number" min="0" step="0.01" value=""></div></label>
 <div class="auto-pay"><strong>Renta neta de cuarta categoría</strong><span id="fourth-net">—</span><small id="fourth-detail">—</small></div>
 </div>
 <div class="deductions-block"><h3>Gastos deducibles adicionales</h3><p>Ingresa el gasto total efectivamente pagado en el año. La calculadora aplica el porcentaje de cada rubro y respeta el límite conjunto de 3 UIT.</p>
 <div class="deduct-grid">
-<label>Alquileres <span>30%</span><div class="currency-wrap"><span>S/</span><input id="expense-rent" type="number" min="0" step="0.01" value="0"></div><small>Deducible: <strong id="expense-rent-deductible">—</strong></small></label>
-<label>Restaurantes, bares y hoteles <span>15%</span><div class="currency-wrap"><span>S/</span><input id="expense-food" type="number" min="0" step="0.01" value="0"></div><small>Deducible: <strong id="expense-food-deductible">—</strong></small></label>
-<label>Médicos y odontólogos <span>30%</span><div class="currency-wrap"><span>S/</span><input id="expense-medical" type="number" min="0" step="0.01" value="0"></div><small>Deducible: <strong id="expense-medical-deductible">—</strong></small></label>
-<label>Profesiones, oficios, arte o ciencia <span>30%</span><div class="currency-wrap"><span>S/</span><input id="expense-professional" type="number" min="0" step="0.01" value="0"></div><small>Deducible: <strong id="expense-professional-deductible">—</strong></small></label>
-<label>EsSalud de trabajador(a) del hogar <span>100%</span><div class="currency-wrap"><span>S/</span><input id="expense-household" type="number" min="0" step="0.01" value="0"></div><small>Deducible: <strong id="expense-household-deductible">—</strong></small></label>
+<label>Alquileres <span>30%</span><div class="currency-wrap"><span>S/</span><input id="expense-rent" type="number" min="0" step="0.01" value=""></div><small>Deducible: <strong id="expense-rent-deductible">—</strong></small></label>
+<label>Restaurantes, bares y hoteles <span>15%</span><div class="currency-wrap"><span>S/</span><input id="expense-food" type="number" min="0" step="0.01" value=""></div><small>Deducible: <strong id="expense-food-deductible">—</strong></small></label>
+<label>Médicos y odontólogos <span>30%</span><div class="currency-wrap"><span>S/</span><input id="expense-medical" type="number" min="0" step="0.01" value=""></div><small>Deducible: <strong id="expense-medical-deductible">—</strong></small></label>
+<label>Profesiones, oficios, arte o ciencia <span>30%</span><div class="currency-wrap"><span>S/</span><input id="expense-professional" type="number" min="0" step="0.01" value=""></div><small>Deducible: <strong id="expense-professional-deductible">—</strong></small></label>
+<label>EsSalud de trabajador(a) del hogar <span>100%</span><div class="currency-wrap"><span>S/</span><input id="expense-household" type="number" min="0" step="0.01" value=""></div><small>Deducible: <strong id="expense-household-deductible">—</strong></small></label>
 </div><div class="deduction-total"><span>Total deducible antes del tope</span><strong id="additional-before-cap">—</strong></div></div></section>
 
 <section class="summary" id="resultados"><article class="card result-card"><h2>Determinación anual</h2>
@@ -1963,9 +1983,32 @@ function benefitData(){
  const includeBonus=document.getElementById('lab-include-bonus').checked;
  const bonJul=includeBonus?grJul*health:0,bonDec=includeBonus?grDec*health:0;
  const prevGrati=+document.getElementById('lab-prev-grati').value||0;
- const ctsEligible=document.getElementById('lab-cts-eligible').checked&&hours>=4;
- const ctsMay=ctsEligible?(rem+prevGrati/6)/2:0;
- const ctsNov=ctsEligible?(rem+grJul/6)/2:0;
+ const ctsEligible=document.getElementById('lab-cts-eligible').checked;
+ // CTS: el usuario confirma la elegibilidad con la casilla. La jornada
+ // promedio >= 4 h/día se informa como condición legal, pero no debe bloquear
+ // el cálculo cuando el campo de horas aún está vacío.
+ // Mayo: semestre noviembre-abril. Noviembre: semestre mayo-octubre.
+ // Se prorratea por meses completos efectivamente laborados en cada semestre.
+ let ctsMay=0, ctsNov=0;
+ if(ctsEligible && start && end){
+   const maySemStart=new Date(end.getFullYear()-1,10,1);
+   const maySemEnd=new Date(end.getFullYear(),3,30);
+   const mayStart=start>maySemStart?start:maySemStart;
+   const mayEnd=end<maySemEnd?end:maySemEnd;
+   const mayMonths=mayStart<=mayEnd?fullMonths(mayStart,mayEnd):0;
+   if(mayMonths>0){
+     ctsMay=(rem+prevGrati/6)*mayMonths/12;
+   }
+
+   const novSemStart=new Date(end.getFullYear(),4,1);
+   const novSemEnd=new Date(end.getFullYear(),9,31);
+   const novStart=start>novSemStart?start:novSemStart;
+   const novEnd=end<novSemEnd?end:novSemEnd;
+   const novMonths=novStart<=novEnd?fullMonths(novStart,novEnd):0;
+   if(novMonths>0){
+     ctsNov=(rem+grJul/6)*novMonths/12;
+   }
+ }
  const ctsAnnual=ctsMay+ctsNov;
  const vac=rem,holiday=document.getElementById('lab-holiday').checked?day*2:0;
  return {rem,fam,ess,pension,grJul,grDec,bonJul,bonDec,ctsMay,ctsNov,ctsAnnual,vac,ot25,ot35,holiday,includeBonus};
@@ -2026,6 +2069,12 @@ function generateContrato(){
 function printContractOnly(){generateContrato();document.body.classList.add('print-contract-only');window.print();setTimeout(()=>document.body.classList.remove('print-contract-only'),500)}
 function calculateLiquidacion(){
  const reason=document.getElementById('liq-reason').value,salary=+document.getElementById('liq-salary').value||0,rmv=+document.getElementById('liq-rmv').value||0,fam=document.getElementById('liq-family').checked?rmv*.10:0,rem=salary+fam,start=labDate(document.getElementById('liq-start').value),end=labDate(document.getElementById('liq-end').value),lastG=+document.getElementById('liq-lastgrati').value||0,ctsPaid=+document.getElementById('liq-cts-paid').value||0,vacUsed=+document.getElementById('liq-vac-used').value||0,daysPay=+document.getElementById('liq-days-pay').value||0;
+ if(!start||!end||end<start){
+   [['liq-pay',0],['liq-grati',0],['liq-cts-out',0],['liq-vac',0],['liq-indemnity-out',0],['liq-total',0],['liq-b-pay',0],['liq-b-grati',0],['liq-b-bonus',0],['liq-b-cts',0],['liq-b-vac',0],['liq-b-ind',0]].forEach(([id,v])=>{const e=document.getElementById(id);if(e)e.textContent=labMoney(v);});
+   const status=document.getElementById('liq-indemnity-status'); if(status) status.innerHTML='<strong>Completa las fechas de inicio y cese</strong> para calcular la liquidación.';
+   const ind=document.getElementById('liq-indemnity'); if(ind) ind.disabled=reason!=='despido';
+   return;
+ }
  const semStart=end.getMonth()<=5?new Date(end.getFullYear(),0,1):new Date(end.getFullYear(),6,1),gs=start>semStart?start:semStart,gm=fullMonths(gs,end),grati=rem*gm/6,bonus=grati*bonusRate();
  let ps;if(end.getMonth()<=3)ps=new Date(end.getFullYear()-1,10,1);else if(end.getMonth()<=9)ps=new Date(end.getFullYear(),4,1);else ps=new Date(end.getFullYear(),10,1);if(start>ps)ps=start;
  const pd=daysInclusive(ps,end),cm=Math.floor(pd/30),cd=pd%30,ctsBase=rem+lastG/6,cts=Math.max(0,ctsBase/12*cm+ctsBase/360*cd-ctsPaid);
@@ -2119,6 +2168,8 @@ document.getElementById('liq-reason').addEventListener('change',calculateLiquida
   function runLaboral(){
     try{
       if(typeof calculateBenefits==='function') calculateBenefits();
+      const statusBox=document.getElementById('lab-calc-status');
+      if(statusBox) statusBox.style.display='none';
       if(typeof calculateLiquidacion==='function') calculateLiquidacion();
       if(typeof generateBoleta==='function') generateBoleta();
       if(typeof generateContrato==='function') generateContrato();
@@ -3088,6 +3139,23 @@ function updateSunatTc(){
 function openSunatFromHash(){
   if(location.hash==='#sunat') showSunat();
 }
+</script>
+
+<script id="alvapen-rmv-v38-js">
+(function(){
+  const ALVAPEN_RMV_VIGENTE = 1130;
+  function enforceRMV(){
+    ['lab-rmv','liq-rmv'].forEach(function(id){
+      const el=document.getElementById(id);
+      if(!el) return;
+      el.value=ALVAPEN_RMV_VIGENTE;
+      el.readOnly=true;
+      el.setAttribute('aria-readonly','true');
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',enforceRMV);
+  else enforceRMV();
+})();
 </script>
 </body>
 </html>
