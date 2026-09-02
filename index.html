@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOC
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -238,6 +238,16 @@ main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:1
 @media(max-width:900px){.lab-tabs{grid-template-columns:repeat(3,1fr)!important}}
 @media(max-width:600px){.lab-tabs{grid-template-columns:1fr 1fr!important}.alv-payroll-guide{grid-template-columns:1fr}}
 </style>
+
+<style id="alvapen-planilla-layout-v23">
+.lab-grid{
+  display:grid!important;
+  grid-template-columns:repeat(6,minmax(0,1fr))!important;
+  gap:10px!important;
+}
+@media(max-width:1000px){.lab-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;}}
+@media(max-width:650px){.lab-grid{grid-template-columns:1fr 1fr!important;}}
+</style>
 </head>
 <body>
 
@@ -315,6 +325,7 @@ main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:1
 
     <div class="lab-grid lab-print-hide">
       <button class="lab-tab active" data-lab-tab="beneficios">📊 Beneficios y cálculos</button>
+      <button class="lab-tab" data-lab-tab="planilla">🧾 Planilla</button>
       <button class="lab-tab" data-lab-tab="obligaciones">✅ ¿Qué debe cumplir el empleador?</button>
       <button class="lab-tab" data-lab-tab="boleta">🧾 Boleta de pago</button>
       <button class="lab-tab" data-lab-tab="contrato">📄 Contrato</button>
@@ -1568,8 +1579,61 @@ function updateMiniPlanilla(){
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind);else bind();
 })();
 </script>
+<script>
+function printPlanillaOnlyV23(){
+  const p=document.getElementById('lab-planilla');
+  if(!p){alert('No se encontró la mini planilla.');return;}
+  if(typeof updateMiniPlanilla==='function') updateMiniPlanilla();
+  document.body.classList.add('print-planilla-only');
+  window.print();
+}
+window.addEventListener('afterprint',()=>document.body.classList.remove('print-planilla-only'));
+</script>
+<style>
+@media print{
+  body.print-planilla-only>*{display:none!important;}
+  body.print-planilla-only #laboralView{display:block!important;margin:0!important;padding:0!important;background:#fff!important;}
+  body.print-planilla-only #laboralView .laboral-head,
+  body.print-planilla-only #laboralView .laboral-toolbar,
+  body.print-planilla-only #laboralView .lab-tabs,
+  body.print-planilla-only #laboralView .lab-panel:not(#lab-planilla),
+  body.print-planilla-only #lab-planilla button{display:none!important;}
+  body.print-planilla-only #lab-planilla,
+  body.print-planilla-only #lab-planilla .lab-card{
+    display:block!important;width:100%!important;max-width:none!important;
+    margin:0!important;padding:0!important;border:0!important;box-shadow:none!important;
+    background:#fff!important;
+  }
+  body.print-planilla-only #lab-planilla h2,
+  body.print-planilla-only #lab-planilla p,
+  body.print-planilla-only #lab-planilla .alv-payroll-guide,
+  body.print-planilla-only #lab-planilla .lab-result-grid,
+  body.print-planilla-only #lab-planilla .alv-payroll-table,
+  body.print-planilla-only #lab-planilla .alv-payroll-note{display:block!important;visibility:visible!important;}
+  @page{margin:15mm;}
+}
+</style>
+<script>
+(function(){
+  function bindPlanillaV23(){
+    const btn=document.querySelector('.lab-tab[data-lab-tab="planilla"]');
+    const panel=document.getElementById('lab-planilla');
+    if(!btn || !panel || btn.dataset.v23bound) return;
+    btn.dataset.v23bound='1';
+    btn.addEventListener('click',function(){
+      document.querySelectorAll('.lab-tab').forEach(x=>x.classList.remove('active'));
+      document.querySelectorAll('.lab-panel').forEach(x=>x.classList.remove('active'));
+      btn.classList.add('active');
+      panel.classList.add('active');
+      if(typeof updateMiniPlanilla==='function') updateMiniPlanilla();
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',bindPlanillaV23);
+  else bindPlanillaV23();
+})();
+</script>
 </body>
-</html><button class="lab-tab" data-tab="planilla">🧾 Planilla</button>TYPE html>
+</html><button class="lab-tab" data-tab="planilla">🧾 Planilla</button>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
