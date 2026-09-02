@@ -320,7 +320,7 @@ main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:1
           <label>Otros conceptos<input id="bol-other" type="number" value="0" step=".01"></label><label>Pensiones / deducciones<input id="bol-deduct" type="number" value="0" step=".01"></label>
           <label>Fecha de pago<input id="bol-paydate" type="date"></label>
         </div>
-        <div class="lab-actions"><button class="lab-btn" onclick="generateBoleta()">Actualizar boleta</button><button class="lab-btn secondary" onclick="window.print()">Imprimir / PDF</button></div>
+        <div class="lab-actions"><button class="lab-btn" onclick="generateBoleta()">Actualizar boleta</button><button class="lab-btn secondary" onclick="printBoletaOnlyV11()">Imprimir</button></div>
       </div>
       <div class="lab-card"><div id="boletaContent" class="lab-contract"></div></div>
     </section>
@@ -346,7 +346,7 @@ main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:1
         <div class="lab-checks">
           <label class="lab-check"><input type="checkbox" id="task-clean" checked> Limpieza / mantenimiento</label><label class="lab-check"><input type="checkbox" id="task-cook"> Cocina</label><label class="lab-check"><input type="checkbox" id="task-laundry"> Lavado / planchado</label><label class="lab-check"><input type="checkbox" id="task-care"> Asistencia / cuidado</label><label class="lab-check"><input type="checkbox" id="task-other"> Otros</label>
         </div>
-        <div class="lab-actions"><button class="lab-btn gold" onclick="generateContrato()">Generar contrato</button><button class="lab-btn secondary" onclick="printContractOnly()">Generar PDF / imprimir solo contrato</button></div>
+        <div class="lab-actions"><button class="lab-btn gold" onclick="generateContrato()">Generar contrato</button><button class="lab-btn secondary" onclick="printContractOnly()">Imprimir</button></div>
       </div>
       <div id="contractPreview" class="lab-card"><div id="contractContent" class="lab-contract"></div></div>
     </section>
@@ -471,7 +471,7 @@ main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:1
 <article class="legal-item"><h3>Gratificaciones y MYPE</h3><p>Ley 27735 y Ley 30334. La pequeña empresa recibe media remuneración por gratificación; la microempresa no tiene este beneficio legal.</p><a href="https://www.gob.pe/institucion/mtpe/noticias/12211-ministerio-de-trabajo-recuerda-a-empleadores-que-pago-de-gratificaciones-vence-el-15-de-julio" target="_blank" rel="noopener noreferrer">Ver criterio MTPE</a></article>
 <article class="legal-item"><h3>Bonificación y familia</h3><p>La bonificación es 9% con EsSalud o 6.75% con EPS. La asignación familiar equivale al 10% de la RMV, si corresponde.</p><a href="https://www.gob.pe/institucion/mtpe/noticias/601761-quienes-tienen-derecho-a-percibir-la-asignacion-familiar" target="_blank" rel="noopener noreferrer">Ver asignación familiar</a></article>
 </div></section>
-<div class="actions"><button type="button" onclick="window.print()">Imprimir / Guardar PDF</button></div>
+
 </main>
 <footer><strong>ALVAPEN</strong> · Estudio Contable · Tributario · Laboral<br>Herramienta informativa para proyección de renta de cuarta y quinta categoría. UIT 2026: S/ 5,500 (D.S. N.º 301-2025-EF). Verifica siempre el cálculo final con tu empleador, SUNAT o asesor tributario.</footer>
 <script>
@@ -890,6 +890,142 @@ document.getElementById('liq-reason').addEventListener('change',calculateLiquida
   else bootALVAPENLaboral();
 })();
 </script>
+
+
+<script>
+/* ALVAPEN V10 · Impresión exclusiva del documento seleccionado */
+(function(){
+  function printOnly(selector, fallbackText){
+    const target=document.querySelector(selector);
+    if(!target){
+      alert('No se encontró el documento para imprimir.');
+      return;
+    }
+    document.body.classList.add('alvapen-print-document');
+    document.body.setAttribute('data-print-target', selector);
+    window.print();
+    setTimeout(function(){
+      document.body.classList.remove('alvapen-print-document');
+      document.body.removeAttribute('data-print-target');
+    }, 500);
+  }
+
+  window.printContractOnlyV10=function(){
+    printOnly('#contract-output', 'Contrato');
+  };
+
+  window.printBoletaOnlyV10=function(){
+    printOnly('#boleta-output', 'Boleta');
+  };
+
+  window.addEventListener('afterprint', function(){
+    document.body.classList.remove('alvapen-print-document');
+    document.body.removeAttribute('data-print-target');
+  });
+})();
+</script>
+<style>
+@media print {
+  /* Por defecto, la herramienta completa NO se imprime. */
+  body.alvapen-print-document > * {
+    display: none !important;
+  }
+
+  /* Contrato */
+  body.alvapen-print-document[data-print-target="#contract-output"] #contract-output {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    background: white !important;
+  }
+
+  /* Boleta */
+  body.alvapen-print-document[data-print-target="#boleta-output"] #boleta-output {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    background: white !important;
+  }
+
+  body.alvapen-print-document[data-print-target="#contract-output"] #contract-output *,
+  body.alvapen-print-document[data-print-target="#boleta-output"] #boleta-output * {
+    visibility: visible !important;
+  }
+
+  @page {
+    margin: 15mm;
+  }
+}
+</style>
+
+
+<script>
+/* ALVAPEN V11 · Imprimir únicamente la boleta */
+function printBoletaOnlyV11(){
+  const target=document.getElementById('boletaContent');
+  if(!target){
+    alert('Primero genera la boleta.');
+    return;
+  }
+  if(!target.innerHTML.trim()){
+    if(typeof generateBoleta==='function') generateBoleta();
+  }
+  document.body.classList.add('print-boleta-only');
+  window.print();
+  setTimeout(()=>document.body.classList.remove('print-boleta-only'),500);
+}
+window.addEventListener('afterprint',()=>document.body.classList.remove('print-boleta-only'));
+</script>
+<style>
+@media print {
+  body.print-boleta-only > * { display:none !important; }
+  body.print-boleta-only #laboralView {
+    display:block !important;
+    position:static !important;
+    width:100% !important;
+    margin:0 !important;
+    padding:0 !important;
+    background:#fff !important;
+  }
+  body.print-boleta-only #laboralView .laboral-head,
+  body.print-boleta-only #laboralView .laboral-toolbar,
+  body.print-boleta-only #laboralView .lab-tabs,
+  body.print-boleta-only #laboralView .lab-panel:not(#lab-boleta),
+  body.print-boleta-only #lab-boleta > .lab-card.lab-noprint,
+  body.print-boleta-only #lab-boleta > .lab-card:first-of-type {
+    display:none !important;
+  }
+  body.print-boleta-only #lab-boleta {
+    display:block !important;
+    margin:0 !important;
+    padding:0 !important;
+    background:#fff !important;
+  }
+  body.print-boleta-only #boletaContent {
+    display:block !important;
+    width:100% !important;
+    margin:0 !important;
+    padding:0 !important;
+    border:0 !important;
+    box-shadow:none !important;
+    background:#fff !important;
+  }
+  body.print-boleta-only #boletaContent * {
+    visibility:visible !important;
+  }
+  @page { margin:15mm; }
+}
+</style>
 
 </body>
 </html>
