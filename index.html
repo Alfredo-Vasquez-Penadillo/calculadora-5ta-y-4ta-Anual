@@ -191,6 +191,24 @@ main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:1
   .alv-steps .alv-step{min-height:auto!important;}
 }
 </style>
+
+<style id="alvapen-v19">
+.alv-unified-map{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
+ margin:0 0 14px;
+}
+.alv-unified-map>div{
+ padding:11px 13px;
+ border:1px solid #D9E2EC;
+ border-radius:10px;
+ background:#F7FAFC;
+}
+.alv-unified-map b{display:block;color:#163A5F;margin-bottom:3px;font-size:13px}
+.alv-unified-map span{display:block;color:#627D98;font-size:12px;line-height:1.4}
+@media(max-width:700px){.alv-unified-map{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 
@@ -255,9 +273,9 @@ main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:1
 
 <div id="laboralView" class="laboral-view">
   <div class="laboral-head"><div class="laboral-head-inner">
-    <div class="laboral-eyebrow">ALVAPEN · Gestión Laboral</div>
-    <h1>Trabajador del hogar</h1>
-    <p>Una herramienta integral para calcular beneficios, obligaciones del empleador, boleta de pago, contratos y liquidación al cese.</p>
+    <div class="laboral-eyebrow">ALVAPEN · Herramientas Profesionales</div>
+    <h1>Trabajador del hogar · Gestión integral</h1>
+    <p>Calcula beneficios, genera documentos y, cuando corresponda, integra la remuneración del trabajador del hogar con la renta de cuarta y quinta categoría.</p>
   </div></div>
 
   <div class="laboral-wrap">
@@ -276,7 +294,19 @@ main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:1
 
     <section class="lab-panel active" id="lab-beneficios">
       <div class="lab-card">
-        <div class="lab-section-title"><div><h2>Calculadora de beneficios laborales</h2>
+        <div class="lab-section-title"><div><h2>Gestión laboral del trabajador del hogar</h2>
+
+<div class="alv-module-choice">
+  <div class="alv-choice-title">¿Qué necesitas hacer?</div>
+  <div class="alv-choice-grid">
+    <button type="button" class="alv-choice active" data-choice="laboral">
+      <b>Gestión laboral</b><small>Beneficios, boleta, contrato y liquidación.</small>
+    </button>
+    <button type="button" class="alv-choice" data-choice="renta">
+      <b>Renta 4ta / 5ta</b><small>Integrar ingresos para la proyección anual.</small>
+    </button>
+  </div>
+</div>
 <div id="alvapen-help-v14" class="alv-help">
   <div class="alv-help-icon">?</div>
   <div class="alv-help-content">
@@ -300,8 +330,49 @@ main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:1
   </div>
 </div>
 
-<p class="lab-hint alv-intro-final">Ingresa los datos del trabajador y la herramienta calculará automáticamente sus beneficios.</p>
+<p class="lab-hint alv-intro-final">Completa los datos de abajo. Los resultados se actualizarán automáticamente.</p>
 
+<div class="lab-fields">
+          <label>Remuneración mensual<input id="lab-salary" type="number" min="0" step="0.01" value="1130"></label>
+          <label class="lab-check"><input id="lab-family" type="checkbox"> <span>Asignación familiar</span><small>Automática: 10% de la RMV vigente</small></label>
+          <label>RMV vigente<input id="lab-rmv" type="number" min="0" step="0.01" value="1130"></label>
+          <label>Fecha de inicio<input id="lab-start" type="date" value="2026-01-01"></label>
+          <label>Fecha de cálculo<input id="lab-end" type="date" value="2026-12-31"></label>
+          <label>Horas diarias<input id="lab-hours" type="number" min="0" max="24" step="0.01" value="8"></label>
+          <label>Días trabajados por semana<input id="lab-days" type="number" min="1" max="7" step="1" value="6"></label>
+          <label>Seguro de salud<select id="lab-health"><option value="essalud">EsSalud · 9%</option><option value="eps">EPS · bonificación 6.75%</option></select></label>
+          <label>Sistema de pensiones<select id="lab-pension"><option value="none">Sin retención</option><option value="onp">ONP · 13%</option><option value="afp">AFP · tasas SBS vigentes</option></select></label>
+          <label>Esquema de comisión AFP<select id="lab-afp-mode">
+<option value="mixta" selected>Comisión mixta / saldo</option>
+<option value="flujo">Comisión sobre remuneración (flujo)</option>
+</select></label>
+<label>AFP<select id="lab-afp"><option value="habitat">Hábitat</option><option value="integra">Integra</option><option value="prima">Prima</option><option value="profuturo">Profuturo</option></select></label>
+          <div class="lab-info" id="lab-afp-rate-note">SBS: septiembre 2026 · se calcula 10% fondo + comisión sobre flujo + prima de seguro.</div>
+          <label>Conceptos regulares computables<input id="lab-regular" type="number" min="0" step="0.01" value="0"></label><label>Gratificación diciembre anterior percibida<input id="lab-prev-grati" type="number" min="0" step="0.01" value="1130"></label>
+          <label>Horas extras 25% en el periodo<input id="lab-ot25" type="number" min="0" step="0.01" value="0"></label>
+          <label>Horas extras 35% en el periodo<input id="lab-ot35" type="number" min="0" step="0.01" value="0"></label>
+        </div>
+        <div class="lab-checks">
+          <label class="lab-check"><input id="lab-residence" type="checkbox"> Con residencia</label>
+          <label class="lab-check"><input id="lab-include-bonus" type="checkbox" checked> Bonificación extraordinaria</label>
+          <label class="lab-check"><input id="lab-cts-eligible" type="checkbox" checked> Jornada promedio ≥ 4 h: CTS</label>
+          <label class="lab-check"><input id="lab-holiday" type="checkbox"> Trabajo en feriado sin descanso sustitutorio</label>
+        </div>
+        <div class="lab-info" id="lab-residence-box"><strong>Sin residencia:</strong> la persona trabajadora no reside en el domicilio del empleador. Si marcas <b>Con residencia</b>, se activan las condiciones de alojamiento y alimentación adecuadas como condiciones de trabajo, sin formar parte de la remuneración.</div>
+        <div class="lab-info">Para jornada completa, la remuneración no puede ser inferior a la RMV. Para trabajo por horas o fracción, la remuneración es proporcional. La alimentación y alojamiento que corresponda son condiciones de trabajo y no forman parte de la remuneración. </div>
+      </div>
+
+      <div class="lab-card">
+        
+<div id="renta-laboral-integration" class="alv-integration">
+  <div>
+    <div class="alv-integration-title">Integrar con Renta de trabajo</div>
+    <div class="alv-integration-text">
+      La remuneración del trabajador del hogar es renta de quinta categoría. Puedes llevarla a la calculadora anual para integrarla con otros empleadores y, si corresponde, con rentas de cuarta categoría.
+    </div>
+  </div>
+  <button type="button" class="lab-btn secondary" onclick="integrarHogarEnRenta()">Integrar en Renta 4ta / 5ta →</button>
+</div>
 <h2>Resultados</h2><div id="alv-result-help-v14" class="alv-section-note"><b>¿Qué significa?</b> Aquí se muestran los importes que corresponden según los datos ingresados. Puedes modificar cualquier dato y los resultados se actualizarán automáticamente.</div>
         <div class="lab-result-grid">
           <div class="lab-metric"><span>Remuneración computable</span><strong id="lab-rem">S/ 0.00</strong></div>
@@ -313,10 +384,10 @@ main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:1
           <thead><tr><th>Concepto</th><th>Base</th><th>Resultado</th></tr></thead>
           <tbody>
             <tr><td>Gratificación Fiestas Patrias</td><td>1/6 de la remuneración computable × meses completos</td><td id="lab-grati-jul">S/ 0.00</td></tr>
-            <tr><td>Bonificación extraordinaria julio</td><td>9% EsSalud / 6.75% EPS</td><td id="lab-bonus-jul">S/ 0.00</td></tr>
+            <tr><td>Bonificación · julio</td><td>9% EsSalud / 6.75% EPS</td><td id="lab-bonus-jul">S/ 0.00</td></tr>
             <tr><td>Gratificación Navidad</td><td>1/6 de la remuneración computable × meses completos</td><td id="lab-grati-dec">S/ 0.00</td></tr>
-            <tr><td>Bonificación extraordinaria diciembre</td><td>9% EsSalud / 6.75% EPS</td><td id="lab-bonus-dec">S/ 0.00</td></tr>
-            <tr><td>CTS · depósito semestral</td><td>50% de la remuneración computable + 1/6 de la gratificación percibida, proporcional</td><td id="lab-cts">S/ 0.00</td></tr>
+            <tr><td>Bonificación · diciembre</td><td>9% EsSalud / 6.75% EPS</td><td id="lab-bonus-dec">S/ 0.00</td></tr>
+            <tr><td>CTS · mayo / noviembre</td><td>50% de la remuneración computable + 1/6 de la gratificación percibida, proporcional</td><td id="lab-cts">S/ 0.00</td></tr>
             <tr><td>Vacaciones anuales</td><td>30 días</td><td id="lab-vac">S/ 0.00</td></tr>
             <tr><td>Horas extras</td><td>25% primeras 2 h / 35% siguientes</td><td id="lab-overtime">S/ 0.00</td></tr>
             <tr><td>Feriado trabajado sin descanso sustitutorio</td><td>Día trabajado + sobretasa 100%</td><td id="lab-holiday-out">S/ 0.00</td></tr>
@@ -1184,6 +1255,119 @@ function printContractOnlyV12(){
   window.print();
 }
 </script>
+
+
+<script>
+function goToRentaCalculator(){
+  if(typeof showCalculator==='function'){
+    showCalculator();
+    setTimeout(()=>{
+      const target=document.getElementById('calculatorView');
+      if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+    },80);
+    return;
+  }
+  const target=document.getElementById('calculatorView');
+  if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+} 
+
+function integrarHogarEnRenta(){
+  const salary=Number(document.getElementById('lab-salary')?.value)||0;
+  const rmv=Number(document.getElementById('lab-rmv')?.value)||1130;
+  const family=document.getElementById('lab-family')?.checked;
+  const start=document.getElementById('lab-start')?.value||'';
+  if(!salary){
+    alert('Primero ingresa la remuneración del trabajador del hogar.');
+    return;
+  }
+  if(typeof showCalculator==='function') showCalculator();
+  setTimeout(()=>{
+    const slots=['adm','asia','pan'];
+    let slot=slots.find(p=>!(Number(document.getElementById(p+'-salary')?.value)||0));
+    if(!slot) slot='pan';
+    const sal=document.getElementById(slot+'-salary');
+    const fam=document.getElementById(slot+'-family');
+    const famAmt=document.getElementById(slot+'-family-amount');
+    const st=document.getElementById(slot+'-start');
+    if(sal) sal.value=salary;
+    if(fam) fam.checked=family;
+    if(famAmt) famAmt.value=family ? (rmv*.10).toFixed(2) : '0';
+    if(st && start) st.value=start.slice(0,7);
+    if(typeof calculate==='function') calculate();
+    const calc=document.getElementById('calculatorView');
+    if(calc) calc.scrollIntoView({behavior:'smooth',block:'start'});
+    alert('La remuneración del trabajador del hogar se incorporó como renta de quinta categoría. Revisa el empleador antes de continuar.');
+  },120);
+}
+(function(){
+  function bindChoices(){
+    document.querySelectorAll('.alv-choice').forEach(btn=>{
+      if(btn.dataset.v18) return;
+      btn.dataset.v18='1';
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll('.alv-choice').forEach(x=>x.classList.remove('active'));
+        btn.classList.add('active');
+        if(btn.dataset.choice==='renta') goToRentaCalculator();
+      });
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',bindChoices);
+  else bindChoices();
+})();
+</script>
+<style id="alvapen-v18">
+.alv-module-choice{
+  margin:0 0 14px;
+  padding:14px 16px;
+  border:1px solid #D9E2EC;
+  border-radius:12px;
+  background:#F7FAFC;
+}
+.alv-choice-title{
+  margin-bottom:9px;
+  font-size:14px;
+  font-weight:800;
+  color:#163A5F;
+}
+.alv-choice-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.alv-choice{
+  text-align:left;
+  padding:12px 14px;
+  border:1px solid #C7D4E0;
+  border-radius:10px;
+  background:#fff;
+  cursor:pointer;
+  color:#243B53;
+}
+.alv-choice.active{
+  border-color:#163A5F;
+  box-shadow:0 0 0 2px rgba(22,58,95,.08);
+}
+.alv-choice b{display:block;color:#163A5F;margin-bottom:3px}
+.alv-choice small{display:block;color:#627D98;line-height:1.35}
+.alv-integration{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  margin:16px 0;
+  padding:15px 16px;
+  border:1px solid #D9E2EC;
+  border-left:4px solid #C6A15B;
+  border-radius:11px;
+  background:#FFFBF3;
+}
+.alv-integration-title{font-weight:800;color:#163A5F;margin-bottom:3px}
+.alv-integration-text{font-size:13px;color:#52606D;line-height:1.45}
+@media(max-width:700px){
+ .alv-choice-grid{grid-template-columns:1fr}
+ .alv-integration{align-items:flex-start;flex-direction:column}
+}
+</style>
 
 </body>
 </html>
