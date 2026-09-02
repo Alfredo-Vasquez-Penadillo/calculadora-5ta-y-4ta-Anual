@@ -601,8 +601,13 @@ function updateResidenceBox(){
  const mode=document.getElementById('con-mode'); if(mode) mode.value=on?'res':'sinres';
 }
 function updateBonusLabel(){
- const on=document.getElementById('lab-include-bonus').checked;
- document.getElementById('lab-include-bonus').parentElement.querySelector('span').textContent=on?'Bonificación extraordinaria incluida':'Bonificación extraordinaria excluida';
+ const cb=document.getElementById('lab-include-bonus');
+ if(!cb) return;
+ const on=cb.checked;
+ const parent=cb.parentElement;
+ if(!parent) return;
+ const textNode=[...parent.childNodes].find(n=>n.nodeType===3 && n.textContent.trim());
+ if(textNode) textNode.textContent=on?' Bonificación extraordinaria incluida':' Bonificación extraordinaria excluida';
 }
 function benefitData(){
  const salary=+document.getElementById('lab-salary').value||0;
@@ -637,7 +642,7 @@ function benefitData(){
 function calculateBenefits(){
  updateAFPNote();updateResidenceBox();updateBonusLabel();
  const d=benefitData();
- [['lab-rem',d.rem],['lab-essalud',d.ess],['lab-pension-out',d.pension],['lab-cost',d.rem+d.ess],['lab-grati-jul',d.grJul],['lab-bonus-jul',d.bonJul],['lab-grati-dec',d.grDec],['lab-bonus-dec',d.bonDec],['lab-cts',d.ctsAnnual],['lab-vac',d.vac],['lab-overtime',d.ot25+d.ot35],['lab-holiday-out',d.holiday],['lab-cts-may',d.ctsMay],['lab-cts-nov',d.ctsNov],['lab-july-total',d.grJul+d.bonJul],['lab-dec-total',d.grDec+d.bonDec]].forEach(([id,v])=>document.getElementById(id).textContent=labMoney(v));
+ [['lab-rem',d.rem],['lab-essalud',d.ess],['lab-pension-out',d.pension],['lab-cost',d.rem+d.ess],['lab-grati-jul',d.grJul],['lab-bonus-jul',d.bonJul],['lab-grati-dec',d.grDec],['lab-bonus-dec',d.bonDec],['lab-cts',d.ctsAnnual],['lab-vac',d.vac],['lab-overtime',d.ot25+d.ot35],['lab-holiday-out',d.holiday],['lab-cts-may',d.ctsMay],['lab-cts-nov',d.ctsNov],['lab-july-total',d.grJul+d.bonJul],['lab-dec-total',d.grDec+d.bonDec]].forEach(([id,v])=>{const el=document.getElementById(id);if(el)el.textContent=labMoney(v);});
  document.getElementById('lab-cost-salary').textContent=labMoney(d.rem*12);
  document.getElementById('lab-cost-health').textContent=labMoney(d.ess*12);
  document.getElementById('lab-cost-grati').textContent=labMoney(d.grJul+d.grDec);
@@ -866,6 +871,23 @@ document.getElementById('liq-reason').addEventListener('change',calculateLiquida
       if(typeof calculateLiquidacion==='function') calculateLiquidacion();
     }
   });
+})();
+</script>
+
+
+<script>
+(function(){
+  function bootALVAPENLaboral(){
+    try{
+      if(typeof calculateBenefits==='function') calculateBenefits();
+    }catch(e){
+      console.error('ALVAPEN: error en cálculo de beneficios',e);
+      const st=document.getElementById('lab-calc-status');
+      if(st){st.style.display='block';st.textContent='Error en cálculo: '+e.message;}
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',bootALVAPENLaboral);
+  else bootALVAPENLaboral();
 })();
 </script>
 
