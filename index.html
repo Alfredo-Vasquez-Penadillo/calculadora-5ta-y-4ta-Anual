@@ -1441,6 +1441,34 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
 @media(max-width:760px){#planContableView .pcv-top{padding:22px 16px 14px}#planContableView .pcv-wrap{padding:0 16px}#planContableView h1{font-size:28px}#planContableView .pcv-hero{flex-direction:column;align-items:flex-start}#planContableView .pcv-grid,#planContableView .pcv-road,#planContableView .pcv-checks{grid-template-columns:1fr}}
 </style>
 
+
+<style id="alvapen-v44-sbs">
+#sunatView .alvapen-previsional-box{
+  max-width:1180px;margin:0 auto 20px;padding:22px 24px;border-radius:24px;
+  background:linear-gradient(135deg,#102A43,#163A5F);color:#fff;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  box-shadow:0 18px 45px rgba(16,42,67,.15)
+}
+#sunatView .previsional-kicker{font-size:10px;font-weight:900;letter-spacing:1.5px;color:#D8C28F}
+#sunatView .alvapen-previsional-box h2{margin:6px 0 5px;font-size:22px}
+#sunatView .alvapen-previsional-box p{margin:0;max-width:760px;color:#dbe5ee;font-size:13px;line-height:1.5}
+#sunatView .alvapen-previsional-box>a{
+  white-space:nowrap;background:#fff;color:#163A5F;text-decoration:none;
+  padding:12px 15px;border-radius:14px;font-weight:900
+}
+#sunatView .alvapen-sbs-afp{
+  border:1px solid rgba(198,161,91,.35)!important;
+  background:linear-gradient(135deg,rgba(16,42,67,.045),rgba(200,169,107,.08))!important
+}
+#sunatView .alvapen-sbs-afp .sunat-service-kicker{
+  color:#C6A15B;font-size:10px;font-weight:900;letter-spacing:1.2px
+}
+#sunatView .alvapen-sbs-afp .sunat-service-action{color:#0071e3;font-weight:800}
+@media(max-width:760px){
+  #sunatView .alvapen-previsional-box{margin-left:16px;margin-right:16px;flex-direction:column;align-items:flex-start}
+}
+</style>
+
 </head>
 <body>
 
@@ -1589,6 +1617,15 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
 
 
 <div id="sunatView" class="sunat-view" style="display:none">
+<div id="alvapen-previsional-box" class="alvapen-previsional-box">
+  <div>
+    <span class="previsional-kicker">SBS · SISTEMA PRIVADO DE PENSIONES</span>
+    <h2>Consulta previsional rápida</h2>
+    <p>Acceso directo al Reporte de Situación Previsional. La SBS indica que su constancia permite conocer la AFP de afiliación, código, tipo de comisión y otros datos; el reporte es informativo.</p>
+  </div>
+  <a href="https://servicios.sbs.gob.pe/ReporteSituacionPrevisional/Afil_Consulta.aspx" target="_blank" rel="noopener">Consultar afiliación AFP →</a>
+</div>
+
   <div class="sunat-top">
     <div class="sunat-nav">
       <button class="sunat-back" onclick="showPortal()">← Volver a ALVAPEN</button>
@@ -1619,6 +1656,17 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
         <a href="https://www.sunat.gob.pe/sol.html" target="_blank" rel="noopener">Sitio oficial ↗</a>
       </div>
       <div class="sunat-grid">
+
+      <a class="sunat-service-card alvapen-sbs-afp" href="https://servicios.sbs.gob.pe/ReporteSituacionPrevisional/Afil_Consulta.aspx" target="_blank" rel="noopener">
+        <div class="sunat-service-icon">◎</div>
+        <div class="sunat-service-content">
+          <span class="sunat-service-kicker">SBS · PENSIONES</span>
+          <h3>Consulta de Afiliación AFP</h3>
+          <p>Consulta el Reporte de Situación Previsional para verificar en qué AFP está afiliado un trabajador y sus datos previsionales.</p>
+          <span class="sunat-service-action">Abrir consulta SBS ↗</span>
+        </div>
+      </a>
+
         <a class="sunat-card" href="https://www.sunat.gob.pe/sol.html" target="_blank" rel="noopener">
           <div class="sunat-card-icon">▣</div>
           <h3>Mis declaraciones y pagos</h3>
