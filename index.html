@@ -210,7 +210,11 @@ main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:1
           <label>Días trabajados por semana<input id="lab-days" type="number" min="1" max="7" step="1" value="6"></label>
           <label>Seguro de salud<select id="lab-health"><option value="essalud">EsSalud · 9%</option><option value="eps">EPS · bonificación 6.75%</option></select></label>
           <label>Sistema de pensiones<select id="lab-pension"><option value="none">Sin retención</option><option value="onp">ONP · 13%</option><option value="afp">AFP · tasas SBS vigentes</option></select></label>
-          <label>AFP<select id="lab-afp"><option value="habitat">Hábitat</option><option value="integra">Integra</option><option value="prima">Prima</option><option value="profuturo">Profuturo</option></select></label>
+          <label>Esquema de comisión AFP<select id="lab-afp-mode">
+<option value="mixta" selected>Comisión mixta / saldo</option>
+<option value="flujo">Comisión sobre remuneración (flujo)</option>
+</select></label>
+<label>AFP<select id="lab-afp"><option value="habitat">Hábitat</option><option value="integra">Integra</option><option value="prima">Prima</option><option value="profuturo">Profuturo</option></select></label>
           <div class="lab-info" id="lab-afp-rate-note">SBS: septiembre 2026 · se calcula 10% fondo + comisión sobre flujo + prima de seguro.</div>
           <label>Conceptos regulares computables<input id="lab-regular" type="number" min="0" step="0.01" value="0"></label><label>Gratificación diciembre anterior percibida<input id="lab-prev-grati" type="number" min="0" step="0.01" value="1130"></label>
           <label>Horas extras 25% en el periodo<input id="lab-ot25" type="number" min="0" step="0.01" value="0"></label>
@@ -571,12 +575,23 @@ function bonusRate(){return document.getElementById('lab-health').value==='eps'?
 function pensionRate(){
  const p=document.getElementById('lab-pension').value;
  if(p==='onp') return .13;
- if(p==='afp'){const a=SBS_AFP[document.getElementById('lab-afp').value]||SBS_AFP.habitat;return (.10+a.flow+a.insurance)/100;}
+ if(p==='afp'){
+   const a=SBS_AFP[document.getElementById('lab-afp').value]||SBS_AFP.habitat;
+   const mode=document.getElementById('lab-afp-mode')?.value||'mixta';
+   return mode==='flujo' ? (.10+a.flow+a.insurance)/100 : (.10+a.insurance)/100;
+ }
  return 0;
 }
 function updateAFPNote(){
  const a=SBS_AFP[document.getElementById('lab-afp').value]||SBS_AFP.habitat;
- document.getElementById('lab-afp-rate-note').innerHTML=`<a href="https://www.sbs.gob.pe/app/spp/empleadores/comisiones_spp/Paginas/comision_prima.aspx" target="_blank" rel="noopener">SBS · agosto 2026</a>: <b>${a.name}</b> · fondo 10% + comisión flujo ${a.flow.toFixed(2)}% + seguro ${a.insurance.toFixed(2)}% = <b>${(10+a.flow+a.insurance).toFixed(2)}%</b> de retención sobre la remuneración asegurable. Comisión anual sobre saldo: ${a.balance.toFixed(2)}% (no se suma a la retención mensual).`;
+ const mode=document.getElementById('lab-afp-mode')?.value||'mixta';
+ const el=document.getElementById('lab-afp-rate-note');
+ if(!el) return;
+ if(mode==='flujo'){
+   el.innerHTML=`<a href="https://www.sbs.gob.pe/app/spp/empleadores/comisiones_spp/Paginas/comision_prima.aspx" target="_blank" rel="noopener">SBS · agosto 2026</a>: <b>${a.name}</b> · 10% aporte + ${a.flow.toFixed(2)}% comisión flujo + ${a.insurance.toFixed(2)}% seguro = <b>${(10+a.flow+a.insurance).toFixed(2)}%</b> de retención.`;
+ }else{
+   el.innerHTML=`<a href="https://www.sbs.gob.pe/app/spp/empleadores/comisiones_spp/Paginas/comision_prima.aspx" target="_blank" rel="noopener">SBS · agosto 2026</a>: <b>${a.name}</b> · esquema mixto/saldo: <b>10% aporte + 1.37% seguro = 11.37%</b> de retención mensual. Comisión sobre saldo ${a.balance.toFixed(2)}% anual; no se suma a la retención mensual.`;
+ }
 }
 function updateResidenceBox(){
  const on=document.getElementById('lab-residence').checked;
