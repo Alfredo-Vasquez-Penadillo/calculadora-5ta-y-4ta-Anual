@@ -551,52 +551,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   if(location.hash==='#calculadora') showCalculator();
 });
 </script>
-<script>
 
-const months=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-const employers=[{id:'adm',name:'Empleador 1'},{id:'asia',name:'Empleador 2'},{id:'pan',name:'Empleador 3'}];
-const regimes={general:{factor:1,note:'Régimen general: remuneración computable ÷ 6 × meses completos del semestre.'},small:{factor:.5,note:'Pequeña empresa MYPE: remuneración computable ÷ 6 × meses completos × 50%.'},micro:{factor:0,note:'Microempresa MYPE: no corresponde gratificación legal ni bonificación extraordinaria.'}};
-const healthCoverage={essalud:{rate:.09,label:'EsSalud'},eps:{rate:.0675,label:'EPS'}};
-const fmt=new Intl.NumberFormat('es-PE',{style:'currency',currency:'PEN',minimumFractionDigits:2});
-const number=id=>Math.max(0,Number.parseFloat(document.getElementById(id).value)||0);
-function selectOptions(){employers.forEach(({id})=>{const select=document.getElementById(`${id}-start`);select.innerHTML=months.map((month,index)=>`<option value="${index+1}">${month}</option>`).join('');select.value=id==='pan'?'7':'1'})}
-function buildMonthlyInputs(){employers.forEach(({id})=>{const panel=document.getElementById(`${id}-monthly-panel`);panel.innerHTML=`<p>Estos importes reemplazan la proyección uniforme para la renta anual. Para gratificaciones se usa la remuneración computable de junio (julio) y noviembre (diciembre). <button type="button" data-fill-months="${id}">Rellenar con remuneración uniforme</button></p><div class="months-grid">${months.map((month,index)=>`<label class="month-cell">${month.slice(0,3)}<input id="${id}-month-${index+1}" type="number" min="0" step="0.01" value="0" aria-label="${month}, ${id}"></label>`).join('')}</div>`})}
-function fillMonthlyInputs(id){const salary=number(`${id}-salary`);const start=Number(document.getElementById(`${id}-start`).value);months.forEach((_,index)=>{document.getElementById(`${id}-month-${index+1}`).value=index+1>=start?salary:0})}
-function calculate(){
-const uit=number('uit'),familyAllowance=number('rmv')*.10;let fifthGross=0,withheld=0;
-const details=employers.map(({id,name})=>{
-const enteredName=document.getElementById(`${id}-name`).value.trim(),employerName=enteredName||name;
-const salary=number(`${id}-salary`),start=Number(document.getElementById(`${id}-start`).value),monthsWorked=Math.max(0,13-start);
-const regime=regimes[document.getElementById(`${id}-regime`).value],health=healthCoverage[document.getElementById(`${id}-health`).value];
-const hasFamilyAllowance=document.getElementById(`${id}-family`).checked,useMonthly=document.getElementById(`${id}-monthly-mode`).checked,family=hasFamilyAllowance?familyAllowance:0,computablePay=salary+family;
-const monthlyBase=months.map((_,index)=>number(`${id}-month-${index+1}`)),monthlyPay=monthlyBase.map(amount=>amount>0?amount+family:0);
-const julyMonths=useMonthly?monthlyBase.slice(0,6).filter(amount=>amount>0).length:Math.max(0,Math.min(6,7-start));
-const decMonths=useMonthly?monthlyBase.slice(6,12).filter(amount=>amount>0).length:Math.max(0,Math.min(6,13-Math.max(start,7)));
-const julyBasis=useMonthly?monthlyPay[5]:computablePay,decBasis=useMonthly?monthlyPay[10]:computablePay;
-const julyGrat=julyBasis/6*julyMonths*regime.factor,decGrat=decBasis/6*decMonths*regime.factor,julyBonus=julyGrat*health.rate,decBonus=decGrat*health.rate;
-const julyTotal=julyGrat+julyBonus,decTotal=decGrat+decBonus,extras=julyTotal+decTotal;
-const annual=(useMonthly?monthlyPay.reduce((sum,amount)=>sum+amount,0):computablePay*monthsWorked)+extras,retained=number(`${id}-withheld`);
-fifthGross+=annual;withheld+=retained;
-document.getElementById(`${id}-name-title`).textContent=employerName;document.getElementById(`${id}-monthly-panel`).classList.toggle('active',useMonthly);document.getElementById(`${id}-regime-note`).textContent=regime.note;document.getElementById(`${id}-family-amount`).textContent=hasFamilyAllowance?`+ ${fmt.format(family)} / mes`:`No incluido · ${fmt.format(familyAllowance)} disponible`;
-document.getElementById(`${id}-july-total`).textContent=fmt.format(julyTotal);document.getElementById(`${id}-dec-total`).textContent=fmt.format(decTotal);
-document.getElementById(`${id}-july-detail`).textContent=`${julyMonths} mes(es): gratificación ${fmt.format(julyGrat)} + ${health.label} ${(health.rate*100).toFixed(2)}%: ${fmt.format(julyBonus)}`;
-document.getElementById(`${id}-dec-detail`).textContent=`${decMonths} mes(es): gratificación ${fmt.format(decGrat)} + ${health.label} ${(health.rate*100).toFixed(2)}%: ${fmt.format(decBonus)}`;
-return{id,name:employerName,salary,annual}});
-const fourthProfessional=number('fourth-professional'),fourthOther=number('fourth-other'),fourthDeduction=Math.min(fourthProfessional*.20,24*uit),fourthNet=Math.max(0,fourthProfessional-fourthDeduction+fourthOther),fourthWithheld=number('fourth-withheld');
-withheld+=fourthWithheld;const gross=fifthGross+fourthNet,deduction=Math.min(7*uit,gross);
-const deductibleExpenses=[{id:'expense-rent',output:'expense-rent-deductible',rate:.30},{id:'expense-food',output:'expense-food-deductible',rate:.15},{id:'expense-medical',output:'expense-medical-deductible',rate:.30},{id:'expense-professional',output:'expense-professional-deductible',rate:.30},{id:'expense-household',output:'expense-household-deductible',rate:1}];
-const additionalBeforeCap=deductibleExpenses.reduce((sum,expense)=>{const deductible=number(expense.id)*expense.rate;document.getElementById(expense.output).textContent=fmt.format(deductible);return sum+deductible},0);
-const additionalDeduction=Math.min(additionalBeforeCap,3*uit,Math.max(0,gross-deduction)),taxable=Math.max(0,gross-deduction-additionalDeduction);
-const brackets=[{uit:5,rate:.08,label:'Hasta 5 UIT'},{uit:15,rate:.14,label:'Más de 5 hasta 20 UIT'},{uit:15,rate:.17,label:'Más de 20 hasta 35 UIT'},{uit:10,rate:.20,label:'Más de 35 hasta 45 UIT'},{uit:Infinity,rate:.30,label:'Más de 45 UIT'}];
-let remainder=taxable,annualTax=0;
-const pieces=brackets.map((bracket,index)=>{const cap=bracket.uit===Infinity?Infinity:bracket.uit*uit,taxableHere=Math.min(remainder,cap),tax=taxableHere*bracket.rate;remainder=Math.max(0,remainder-taxableHere);annualTax+=tax;let limit;if(index===0)limit=`0 a ${fmt.format(5*uit)} · 5 UIT`;else if(bracket.uit===Infinity)limit=`Desde ${fmt.format(45*uit)} · sin tope`;else{const previous=[5,20,35,45][index-1],ending=previous+bracket.uit;limit=`${fmt.format(previous*uit)} a ${fmt.format(ending*uit)} · ${bracket.uit} UIT`}return{...bracket,taxableHere,tax,limit}});
-const balance=annualTax-withheld,leader=details.reduce((highest,item)=>item.salary>highest.salary?item:highest,details[0]),now=new Date(),projectionMonth=now.getFullYear()===2026?now.getMonth()+1:9,remainingMonths=Math.max(1,13-projectionMonth),monthlySuggestion=Math.max(0,balance)/remainingMonths;
-document.getElementById('fourth-net').textContent=fmt.format(fourthNet);document.getElementById('fourth-detail').textContent=`Ingreso individual ${fmt.format(fourthProfessional)} − deducción 20% ${fmt.format(fourthDeduction)} + otras rentas ${fmt.format(fourthOther)}`;document.getElementById('fifth-gross').textContent=fmt.format(fifthGross);document.getElementById('fourth-summary').textContent=fmt.format(fourthNet);document.getElementById('gross').textContent=fmt.format(gross);document.getElementById('deduction').textContent=`− ${fmt.format(deduction)}`;document.getElementById('additional-before-cap').textContent=fmt.format(additionalBeforeCap);document.getElementById('additional-deduction').textContent=`− ${fmt.format(additionalDeduction)}`;document.getElementById('taxable').textContent=fmt.format(taxable);document.getElementById('annual-tax').textContent=fmt.format(annualTax);document.getElementById('withheld').textContent=`− ${fmt.format(withheld)}`;
-const balanceRow=document.getElementById('balance-row');balanceRow.className=`metric ${balance>.005?'positive':'negative'}`;document.getElementById('balance-label').textContent=balance>.005?'Saldo pendiente de retener':'Exceso de retenciones proyectado';document.getElementById('balance').textContent=fmt.format(Math.abs(balance));document.getElementById('leader').textContent=leader.name;document.getElementById('monthly-suggestion').textContent=fmt.format(monthlySuggestion);document.getElementById('months-note').textContent=balance>.005?`Saldo pendiente dividido entre ${remainingMonths} mes(es) restante(s), de ${months[projectionMonth-1]} a diciembre.`:'No se sugiere retención adicional: las retenciones acumuladas cubren el impuesto anual proyectado.';document.querySelectorAll('.employer-card').forEach(card=>card.classList.toggle('leader',card.dataset.id===leader.id&&leader.salary>0));document.getElementById('brackets').innerHTML=pieces.map(piece=>`<div class="bracket"><div class="bracket-rate">${(piece.rate*100).toFixed(0)}%</div><div class="bracket-limit">${piece.label}<br>${piece.limit}</div><div class="bracket-value">Base: ${fmt.format(piece.taxableHere)}</div><div class="bracket-tax">Impuesto: ${fmt.format(piece.tax)}</div></div>`).join('')
-}
-selectOptions();buildMonthlyInputs();employers.forEach(({id})=>fillMonthlyInputs(id));document.querySelectorAll('input,select').forEach(field=>{field.addEventListener('input',calculate);field.addEventListener('change',calculate)});document.querySelectorAll('[data-fill-months]').forEach(button=>button.addEventListener('click',()=>{fillMonthlyInputs(button.dataset.fillMonths);calculate()}));calculate();
-
-</script>
 
 
 
@@ -621,7 +576,7 @@ function pensionRate(){
 }
 function updateAFPNote(){
  const a=SBS_AFP[document.getElementById('lab-afp').value]||SBS_AFP.habitat;
- document.getElementById('lab-afp-rate-note').innerHTML=`<a href="https://www.sbs.gob.pe/app/spp/empleadores/comisiones_spp/Paginas/comision_prima.aspx" target="_blank" rel="noopener">SBS · septiembre 2026</a>: <b>${a.name}</b> · fondo 10% + comisión flujo ${a.flow.toFixed(2)}% + seguro ${a.insurance.toFixed(2)}% = <b>${(10+a.flow+a.insurance).toFixed(2)}%</b> de retención sobre la remuneración asegurable. Comisión anual sobre saldo: ${a.balance.toFixed(2)}% (no se suma a la retención mensual).`;
+ document.getElementById('lab-afp-rate-note').innerHTML=`<a href="https://www.sbs.gob.pe/app/spp/empleadores/comisiones_spp/Paginas/comision_prima.aspx" target="_blank" rel="noopener">SBS · agosto 2026</a>: <b>${a.name}</b> · fondo 10% + comisión flujo ${a.flow.toFixed(2)}% + seguro ${a.insurance.toFixed(2)}% = <b>${(10+a.flow+a.insurance).toFixed(2)}%</b> de retención sobre la remuneración asegurable. Comisión anual sobre saldo: ${a.balance.toFixed(2)}% (no se suma a la retención mensual).`;
 }
 function updateResidenceBox(){
  const on=document.getElementById('lab-residence').checked;
@@ -734,6 +689,170 @@ document.querySelectorAll('#lab-liquidacion input,#lab-liquidacion select').forE
 document.getElementById('liq-reason').addEventListener('change',calculateLiquidacion);
 </script>
 
+
+
+
+<script>
+/* ALVAPEN V6 · AFP: distinguir comisión mixta/saldo de comisión sobre flujo */
+(function(){
+  const SBS_AFP = {
+    habitat:{flujo:1.47,saldo:1.25,seguro:1.37},
+    integra:{flujo:1.55,saldo:0.78,seguro:1.37},
+    prima:{flujo:1.60,saldo:1.25,seguro:1.37},
+    profuturo:{flujo:1.69,saldo:0.68,seguro:1.37}
+  };
+
+  function afpRate(){
+    const mode=document.getElementById('lab-afp-mode')?.value || 'mixta';
+    const afp=document.getElementById('lab-afp')?.value || 'habitat';
+    const d=SBS_AFP[afp] || SBS_AFP.habitat;
+    return mode==='mixta' ? (10+d.seguro)/100 : (10+d.seguro+d.flujo)/100;
+  }
+
+  function updateAFPInfo(){
+    const mode=document.getElementById('lab-afp-mode')?.value || 'mixta';
+    const afp=document.getElementById('lab-afp')?.value || 'habitat';
+    const d=SBS_AFP[afp] || SBS_AFP.habitat;
+    const box=document.getElementById('lab-afp-info');
+    if(!box) return;
+    if(mode==='mixta'){
+      box.innerHTML='<b>Comisión mixta / saldo:</b> retención mensual = <b>10% aporte obligatorio + 1.37% prima de seguro = 11.37%</b>. '+
+        'La comisión sobre saldo ('+d.saldo.toFixed(2)+'% anual para '+afp.charAt(0).toUpperCase()+afp.slice(1)+') no se suma al descuento mensual de la remuneración.';
+    }else{
+      box.innerHTML='<b>Comisión sobre remuneración (flujo):</b> retención mensual = <b>10% aporte + 1.37% prima + '+d.flujo.toFixed(2)+'% comisión = '+(10+d.seguro+d.flujo).toFixed(2)+'%</b>.';
+    }
+  }
+
+  window.ALVAPEN_AFP_RATE = afpRate;
+  window.ALVAPEN_UPDATE_AFP = updateAFPInfo;
+
+  // Si la función original calcula la pensión usando lab-afp, interceptamos el resultado
+  // después de su cálculo y reemplazamos el importe por la tasa correcta del esquema elegido.
+  function fixPension(){
+    const salary=parseFloat(document.getElementById('lab-salary')?.value)||0;
+    const family=document.getElementById('lab-family')?.checked ? (parseFloat(document.getElementById('lab-rmv')?.value)||1130)*0.10 : 0;
+    const regular=parseFloat(document.getElementById('lab-regular')?.value)||0;
+    const rem=salary+family+regular;
+    const mode=document.getElementById('lab-pension')?.value;
+    if(mode!=='afp') return;
+    const pension=rem*afpRate();
+    const target=document.getElementById('lab-pension-result');
+    if(target) target.textContent='S/ '+pension.toLocaleString('es-PE',{minimumFractionDigits:2,maximumFractionDigits:2});
+    const info=document.getElementById('lab-afp-info');
+    updateAFPInfo();
+  }
+
+  function bind(){
+    ['lab-afp-mode','lab-afp','lab-pension'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(!el || el.dataset.afpv6) return;
+      el.dataset.afpv6='1';
+      el.addEventListener('change',()=>{
+        updateAFPInfo();
+        setTimeout(fixPension,0);
+      });
+    });
+    updateAFPInfo();
+    setTimeout(fixPension,0);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',bind);
+  else bind();
+})();
+</script>
+
+<script>
+/* ALVAPEN · Reparación de inicialización de la calculadora laboral V5 */
+(function(){
+  function runLaboral(){
+    try{
+      if(typeof calculateBenefits==='function') calculateBenefits();
+      if(typeof calculateLiquidacion==='function') calculateLiquidacion();
+      if(typeof generateBoleta==='function') generateBoleta();
+      if(typeof generateContrato==='function') generateContrato();
+      if(typeof updateResidenceBox==='function') updateResidenceBox();
+      if(typeof updateBonusLabel==='function') updateBonusLabel();
+    }catch(err){
+      console.error('ALVAPEN Laboral:', err);
+      const box=document.getElementById('lab-calc-status');
+      if(box){
+        box.style.display='block';
+        box.innerHTML='<b>No se pudo actualizar el cálculo.</b> Revisa los datos ingresados.';
+      }
+    }
+  }
+
+  function bindLaboral(){
+    const ids = [
+      'lab-salary','lab-family','lab-rmv','lab-start','lab-end','lab-hours',
+      'lab-days','lab-health','lab-pension','lab-afp-mode','lab-afp','lab-regular','lab-prev-grati',
+      'lab-ot25','lab-ot35','lab-residence','lab-include-bonus','lab-cts-eligible',
+      'lab-holiday'
+    ];
+    ids.forEach(id=>{
+      const el=document.getElementById(id);
+      if(!el || el.dataset.alvapEnV5Bound) return;
+      el.dataset.alvapEnV5Bound='1';
+      el.addEventListener('input',runLaboral);
+      el.addEventListener('change',runLaboral);
+    });
+
+    const liqIds=[
+      'liq-reason','liq-salary','liq-rmv','liq-family','liq-start','liq-end',
+      'liq-lastgrati','liq-cts-paid','liq-vac-used','liq-days-pay','liq-indemnity'
+    ];
+    liqIds.forEach(id=>{
+      const el=document.getElementById(id);
+      if(!el || el.dataset.alvapEnV5Bound) return;
+      el.dataset.alvapEnV5Bound='1';
+      el.addEventListener('input',runLaboral);
+      el.addEventListener('change',runLaboral);
+    });
+  }
+
+  function ensureStatusBox(){
+    const panel=document.getElementById('lab-beneficios');
+    if(panel && !document.getElementById('lab-calc-status')){
+      const b=document.createElement('div');
+      b.id='lab-calc-status';
+      b.style.cssText='display:none;margin:12px 0;padding:10px 12px;border:1px solid #E6B8B8;border-radius:10px;background:#FFF7F7;color:#8A2D2D;font-size:13px;';
+      const firstCard=panel.querySelector('.lab-card');
+      if(firstCard) firstCard.prepend(b);
+    }
+  }
+
+  function init(){
+    ensureStatusBox();
+    bindLaboral();
+    runLaboral();
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',init);
+  }else{
+    init();
+  }
+
+  // Si se entra a la herramienta desde el portal, volver a ejecutar.
+  window.addEventListener('hashchange',()=>{
+    if(location.hash==='#laboral') setTimeout(init,50);
+  });
+
+  // Funciones de controles que deben reaccionar inmediatamente.
+  document.addEventListener('change',function(e){
+    if(e.target && e.target.id==='lab-residence'){
+      if(typeof updateResidenceBox==='function') updateResidenceBox();
+      if(typeof generateContrato==='function') generateContrato();
+    }
+    if(e.target && e.target.id==='lab-include-bonus'){
+      if(typeof updateBonusLabel==='function') updateBonusLabel();
+      if(typeof calculateBenefits==='function') calculateBenefits();
+    }
+    if(e.target && e.target.id==='liq-indemnity'){
+      if(typeof calculateLiquidacion==='function') calculateLiquidacion();
+    }
+  });
+})();
+</script>
 
 </body>
 </html>
