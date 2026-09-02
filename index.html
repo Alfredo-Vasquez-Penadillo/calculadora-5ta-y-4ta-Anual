@@ -699,6 +699,34 @@ body{
   box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 18px 35px rgba(10,35,60,.18);
 }
 </style>
+
+<style id="alvapen-v29-home">
+.laboral-head:after{
+  content:"⌂"!important;
+  position:absolute!important;
+  right:4.5%!important;
+  top:50%!important;
+  transform:translateY(-50%)!important;
+  width:54px!important;
+  height:54px!important;
+  border-radius:16px!important;
+  display:grid!important;
+  place-items:center!important;
+  font-size:29px!important;
+  font-weight:600!important;
+  color:rgba(255,255,255,.92)!important;
+  background:rgba(255,255,255,.09)!important;
+  border:1px solid rgba(255,255,255,.28)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 8px 18px rgba(10,35,60,.12)!important;
+  backdrop-filter:blur(12px)!important;
+  -webkit-backdrop-filter:blur(12px)!important;
+}
+@media(max-width:700px){.laboral-head:after{display:none!important}}
+</style>
+
+<style id="alvapen-v29-pointer">
+.laboral-head:after{pointer-events:none!important}
+</style>
 </head>
 <body>
 
@@ -770,7 +798,7 @@ body{
 
   <div class="laboral-wrap">
     <div class="laboral-toolbar lab-print-hide">
-      <button class="lab-back" onclick="showPortal()">← Volver al portal ALVAPEN</button>
+      <button class="lab-back" onclick="showPortal()" data-alvapen-back="index.html">← Volver al portal ALVAPEN</button>
       <span class="lab-status">● Ley N.º 31047 · D.S. N.º 009-2021-TR</span>
     </div>
 
@@ -2361,6 +2389,51 @@ function generateBoletaFromPlanillaV27(){
     if(typeof updateMiniPlanilla==='function')updateMiniPlanilla();
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind);else bind();
+})();
+</script>
+
+<script id="alvapen-v29-navigation">
+(function(){
+  function activateLabTab(name){
+    const tabs=document.querySelectorAll('.lab-tab[data-lab-tab]');
+    const panels=document.querySelectorAll('.lab-panel[id^="lab-"]');
+    let found=false;
+    tabs.forEach(t=>{
+      const active=t.getAttribute('data-lab-tab')===name;
+      t.classList.toggle('active',active);
+      if(active) found=true;
+    });
+    panels.forEach(p=>{
+      p.classList.toggle('active',p.id==='lab-'+name);
+    });
+    if(found){
+      const panel=document.getElementById('lab-'+name);
+      if(name==='beneficios' && typeof calculateBenefits==='function') calculateBenefits();
+      if(name==='planilla' && typeof updateMiniPlanilla==='function') updateMiniPlanilla();
+      if(name==='liquidacion' && typeof calculateLiquidacion==='function') calculateLiquidacion();
+      if(panel) panel.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+    return found;
+  }
+
+  document.addEventListener('click',function(e){
+    const tab=e.target.closest?.('.lab-tab[data-lab-tab]');
+    if(tab){
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      activateLabTab(tab.getAttribute('data-lab-tab'));
+      return;
+    }
+
+    const back=e.target.closest?.('[data-alvapen-back]');
+    if(back){
+      e.preventDefault();
+      const href=back.getAttribute('data-alvapen-back') || 'index.html';
+      window.location.href=href;
+    }
+  },true);
+
+  window.activateLabTabV29=activateLabTab;
 })();
 </script>
 </body>
