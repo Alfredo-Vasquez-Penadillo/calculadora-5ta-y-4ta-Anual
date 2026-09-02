@@ -346,7 +346,7 @@ main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:1
         <div class="lab-checks">
           <label class="lab-check"><input type="checkbox" id="task-clean" checked> Limpieza / mantenimiento</label><label class="lab-check"><input type="checkbox" id="task-cook"> Cocina</label><label class="lab-check"><input type="checkbox" id="task-laundry"> Lavado / planchado</label><label class="lab-check"><input type="checkbox" id="task-care"> Asistencia / cuidado</label><label class="lab-check"><input type="checkbox" id="task-other"> Otros</label>
         </div>
-        <div class="lab-actions"><button class="lab-btn gold" onclick="generateContrato()">Generar contrato</button><button class="lab-btn secondary" onclick="printContractOnly()">Imprimir</button></div>
+        <div class="lab-actions"><button class="lab-btn gold" onclick="generateContrato()">Generar contrato</button><button class="lab-btn secondary" onclick="printContractOnlyV12()">Imprimir</button></div>
       </div>
       <div id="contractPreview" class="lab-card"><div id="contractContent" class="lab-contract"></div></div>
     </section>
@@ -977,13 +977,14 @@ function printBoletaOnlyV11(){
     alert('Primero genera la boleta.');
     return;
   }
-  if(!target.innerHTML.trim()){
-    if(typeof generateBoleta==='function') generateBoleta();
-  }
+  if(!target.innerHTML.trim() && typeof generateBoleta==='function') generateBoleta();
   document.body.classList.add('print-boleta-only');
   window.print();
-  setTimeout(()=>document.body.classList.remove('print-boleta-only'),500);
 }
+window.addEventListener('afterprint',()=>{
+  document.body.classList.remove('print-boleta-only');
+  document.body.classList.remove('print-contract-only');
+});
 window.addEventListener('afterprint',()=>document.body.classList.remove('print-boleta-only'));
 </script>
 <style>
@@ -1026,6 +1027,92 @@ window.addEventListener('afterprint',()=>document.body.classList.remove('print-b
   @page { margin:15mm; }
 }
 </style>
+
+
+<style>
+@media print {
+  /* =========================================================
+     ALVAPEN V12 · IMPRESIÓN LIMPIA DE DOCUMENTOS
+     ========================================================= */
+  body.print-contract-only > * { display:none !important; }
+  body.print-contract-only #laboralView { display:block !important; }
+  body.print-contract-only #laboralView .laboral-head,
+  body.print-contract-only #laboralView .laboral-toolbar,
+  body.print-contract-only #laboralView .lab-tabs,
+  body.print-contract-only #laboralView .lab-panel:not(#lab-contrato),
+  body.print-contract-only #lab-contrato > .lab-card.lab-noprint,
+  body.print-contract-only #contractPreview .lab-actions {
+    display:none !important;
+  }
+  body.print-contract-only #lab-contrato,
+  body.print-contract-only #contractPreview,
+  body.print-contract-only #contractContent {
+    display:block !important;
+    visibility:visible !important;
+    position:static !important;
+    width:100% !important;
+    max-width:none !important;
+    margin:0 !important;
+    padding:0 !important;
+    border:0 !important;
+    box-shadow:none !important;
+    background:#fff !important;
+  }
+
+  body.print-boleta-only > * { display:none !important; }
+  body.print-boleta-only #laboralView { display:block !important; }
+  body.print-boleta-only #laboralView .laboral-head,
+  body.print-boleta-only #laboralView .laboral-toolbar,
+  body.print-boleta-only #laboralView .lab-tabs,
+  body.print-boleta-only #laboralView .lab-panel:not(#lab-boleta),
+  body.print-boleta-only #lab-boleta > .lab-card.lab-noprint,
+  body.print-boleta-only #lab-boleta .lab-actions {
+    display:none !important;
+  }
+  body.print-boleta-only #lab-boleta,
+  body.print-boleta-only #boletaContent {
+    display:block !important;
+    visibility:visible !important;
+    position:static !important;
+    width:100% !important;
+    max-width:none !important;
+    margin:0 !important;
+    padding:0 !important;
+    border:0 !important;
+    box-shadow:none !important;
+    background:#fff !important;
+  }
+
+  /* No imprimir botones, tabs, cabeceras ni controles aunque algún
+     selector del CSS original intente mostrarlos. */
+  body.print-contract-only button,
+  body.print-boleta-only button,
+  body.print-contract-only input,
+  body.print-boleta-only input,
+  body.print-contract-only select,
+  body.print-boleta-only select,
+  body.print-contract-only .lab-tab,
+  body.print-boleta-only .lab-tab {
+    display:none !important;
+  }
+
+  @page { margin:15mm; }
+}
+</style>
+
+
+<script>
+function printContractOnlyV12(){
+  if(typeof generateContrato==='function') generateContrato();
+  const target=document.getElementById('contractContent');
+  if(!target || !target.innerHTML.trim()){
+    alert('Primero genera el contrato.');
+    return;
+  }
+  document.body.classList.add('print-contract-only');
+  window.print();
+}
+</script>
 
 </body>
 </html>
