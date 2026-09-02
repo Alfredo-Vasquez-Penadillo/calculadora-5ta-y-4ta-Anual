@@ -337,6 +337,114 @@ body{
   .lab-grid{grid-template-columns:1fr 1fr!important;}
 }
 </style>
+
+<style id="alvapen-liquid-glass-v26">
+html{background:#EAF0F5!important;}
+body{
+  background:
+    radial-gradient(650px 420px at 8% 4%,rgba(198,161,91,.20),transparent 65%),
+    radial-gradient(700px 480px at 92% 8%,rgba(72,112,145,.22),transparent 62%),
+    radial-gradient(600px 500px at 50% 92%,rgba(123,157,183,.13),transparent 65%),
+    linear-gradient(145deg,#F7FAFC 0%,#E9F0F5 50%,#F7FAFC 100%)!important;
+  background-attachment:fixed!important;
+}
+body:before,body:after{
+  content:"";position:fixed;z-index:-1;pointer-events:none;border-radius:999px;filter:blur(1px);
+}
+body:before{
+  width:340px;height:340px;left:-100px;top:250px;
+  background:radial-gradient(circle,rgba(91,120,150,.16),rgba(91,120,150,0) 70%);
+}
+body:after{
+  width:420px;height:420px;right:-140px;bottom:80px;
+  background:radial-gradient(circle,rgba(198,161,91,.13),rgba(198,161,91,0) 70%);
+}
+.laboral-head{
+  background:linear-gradient(135deg,rgba(22,58,95,.93),rgba(36,79,115,.86))!important;
+  backdrop-filter:blur(26px) saturate(160%)!important;
+  -webkit-backdrop-filter:blur(26px) saturate(160%)!important;
+  box-shadow:0 18px 45px rgba(22,58,95,.20),inset 0 1px 0 rgba(255,255,255,.18)!important;
+}
+.lab-grid{
+  padding:7px!important;
+  border-radius:20px!important;
+  background:rgba(255,255,255,.38)!important;
+  border:1px solid rgba(255,255,255,.75)!important;
+  box-shadow:0 14px 35px rgba(36,59,83,.09),inset 0 1px 0 rgba(255,255,255,.85)!important;
+  backdrop-filter:blur(20px) saturate(145%)!important;
+  -webkit-backdrop-filter:blur(20px) saturate(145%)!important;
+}
+.lab-tab{
+  border-radius:14px!important;
+  background:linear-gradient(180deg,rgba(255,255,255,.80),rgba(255,255,255,.53))!important;
+  backdrop-filter:blur(18px) saturate(150%)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(150%)!important;
+  border:1px solid rgba(255,255,255,.90)!important;
+  box-shadow:0 7px 18px rgba(36,59,83,.07),inset 0 1px 0 rgba(255,255,255,.95)!important;
+}
+.lab-tab:hover{transform:translateY(-2px)!important;box-shadow:0 12px 24px rgba(36,59,83,.11),inset 0 1px 0 #fff!important;}
+.lab-tab.active{
+  background:linear-gradient(135deg,rgba(22,58,95,.96),rgba(61,103,137,.91))!important;
+  box-shadow:0 12px 28px rgba(22,58,95,.22),inset 0 1px 0 rgba(255,255,255,.25)!important;
+}
+.lab-panel .lab-card{
+  position:relative!important;
+  overflow:hidden!important;
+  background:linear-gradient(135deg,rgba(255,255,255,.72),rgba(255,255,255,.48))!important;
+  backdrop-filter:blur(28px) saturate(155%)!important;
+  -webkit-backdrop-filter:blur(28px) saturate(155%)!important;
+  border:1px solid rgba(255,255,255,.82)!important;
+  box-shadow:0 22px 55px rgba(36,59,83,.11),inset 0 1px 0 rgba(255,255,255,.95)!important;
+}
+.lab-panel .lab-card:before{
+  content:"";position:absolute;inset:0 0 auto 0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.98),transparent);
+  pointer-events:none;
+}
+.lab-metric{
+  background:linear-gradient(135deg,rgba(255,255,255,.78),rgba(247,250,252,.48))!important;
+  backdrop-filter:blur(18px) saturate(150%)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(150%)!important;
+  border:1px solid rgba(255,255,255,.88)!important;
+  box-shadow:0 10px 28px rgba(36,59,83,.08),inset 0 1px 0 rgba(255,255,255,.95)!important;
+}
+.lab-fields input,.lab-fields select,.lab-fields textarea{
+  background:rgba(255,255,255,.70)!important;
+  backdrop-filter:blur(12px)!important;
+  -webkit-backdrop-filter:blur(12px)!important;
+  border:1px solid rgba(91,120,150,.24)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 2px 7px rgba(36,59,83,.03)!important;
+}
+.alv-payroll-guide>div,.alv-payroll-table,.alv-payroll-note{
+  background:rgba(255,255,255,.57)!important;
+  backdrop-filter:blur(16px) saturate(140%)!important;
+  -webkit-backdrop-filter:blur(16px) saturate(140%)!important;
+  border:1px solid rgba(255,255,255,.78)!important;
+}
+.alv-payroll-table>div{background:rgba(255,255,255,.22)!important;}
+.alv-payroll-table .total{background:rgba(247,250,252,.54)!important;}
+.alv-payroll-table .highlight{
+  background:linear-gradient(90deg,rgba(255,251,243,.82),rgba(255,255,255,.48))!important;
+}
+.alv-payroll-actions{
+  display:flex!important;justify-content:flex-end!important;gap:10px!important;
+  margin:16px 0 0!important;padding-top:14px!important;
+  border-top:1px solid rgba(91,120,150,.14)!important;
+}
+.alv-rate{
+  display:block!important;margin-top:3px!important;font-size:10px!important;
+  font-weight:700!important;color:#627D98!important;
+}
+@media(max-width:1000px){.lab-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;}}
+@media(max-width:650px){
+ .lab-grid{grid-template-columns:1fr 1fr!important;}
+ .alv-payroll-actions{flex-direction:column!important;}
+ .alv-payroll-actions button{width:100%!important;}
+}
+@media(prefers-reduced-motion:no-preference){
+ .lab-tab{transition:transform .18s ease,box-shadow .18s ease,background .18s ease!important;}
+}
+</style>
 </head>
 <body>
 
@@ -563,7 +671,7 @@ body{
     </div>
     <div class="lab-result-grid alv-payroll-metrics">
       <div class="lab-metric"><span>Remuneración bruta</span><strong id="pay-bruto">S/ 0.00</strong></div>
-      <div class="lab-metric"><span>ONP / AFP</span><strong id="pay-pension">S/ 0.00</strong></div>
+      <div class="lab-metric"><span>ONP / AFP</span><strong id="pay-pension">S/ 0.00</strong><small id="pay-pension-rate" class="alv-rate"></small></div>
       <div class="lab-metric"><span>Sueldo neto</span><strong id="pay-neto">S/ 0.00</strong></div>
       <div class="lab-metric"><span>EsSalud · empleador</span><strong id="pay-essalud">S/ 0.00</strong></div>
     </div>
@@ -576,7 +684,11 @@ body{
       <div><span>Descuento ONP / AFP</span><b id="pay-pension-detail">S/ 0.00</b></div>
       <div class="total highlight"><span>Sueldo neto a pagar</span><b id="pay-neto-detail">S/ 0.00</b></div>
     </div>
-    <div class="alv-payroll-note"><b>Importante:</b> EsSalud es un aporte del empleador y no se descuenta del sueldo del trabajador. La tasa de AFP depende del esquema de comisión y de la AFP seleccionada.</div>
+    <div class="alv-payroll-actions">
+          <button type="button" class="lab-btn gold" onclick="generateBoletaFromPlanillaV26()">🧾 Generar boleta de pago</button>
+          <button type="button" class="lab-btn secondary" onclick="printPlanillaOnlyV23()">🖨️ Imprimir planilla</button>
+        </div>
+        <div class="alv-payroll-note"><b>Importante:</b> EsSalud es un aporte del empleador y no se descuenta del sueldo del trabajador. La tasa de AFP depende del esquema de comisión y de la AFP seleccionada.</div>
   </div>
 </section>
 
@@ -1608,32 +1720,42 @@ function updateMiniPlanilla(){
   const salary=n('lab-salary');
   const family=checked('lab-family') ? n('lab-rmv')*.10 : 0;
   const regular=n('lab-regular');
-  const ot25=n('lab-ot25');
-  const ot35=n('lab-ot35');
-  const overtime=ot25+ot35;
+  const overtime=n('lab-ot25')+n('lab-ot35');
   const bruto=salary+family+regular+overtime;
-  let pension=0;
-  const pensionSystem=document.getElementById('lab-pension')?.value||'none';
-  if(pensionSystem==='onp'){
-    pension=bruto*0.13;
-  }else if(pensionSystem==='afp'){
-    const mode=document.getElementById('lab-afp-mode')?.value||'mixta';
-    const afpKey=document.getElementById('lab-afp')?.value||'habitat';
-    const afp=(typeof SBS_AFP!=='undefined' ? SBS_AFP[afpKey] : null);
-    const flow=afp ? Number(afp.flow)||0 : 0;
-    // Mixta/saldo: 10% aporte obligatorio + 1.37% prima = 11.37%.
-    // Flujo: 10% + 1.37% + comisión sobre remuneración de la AFP.
-    pension=mode==='flujo'
-      ? bruto*(0.10+0.0137+flow/100)
-      : bruto*0.1137;
+
+  const system=document.getElementById('lab-pension')?.value||'none';
+  const mode=document.getElementById('lab-afp-mode')?.value||'mixta';
+  const afpKey=document.getElementById('lab-afp')?.value||'habitat';
+  const afp=(typeof SBS_AFP!=='undefined' ? SBS_AFP[afpKey] : null);
+
+  let pensionRatePct=0;
+  if(system==='onp'){
+    pensionRatePct=13;
+  }else if(system==='afp'){
+    // Mixta/saldo: 10% aporte obligatorio + 1.37% seguro.
+    // Flujo: 10% + 1.37% + comisión de flujo de la AFP.
+    pensionRatePct=mode==='flujo'
+      ? 10 + 1.37 + Number(afp?.flow||0)
+      : 11.37;
   }
-  const health=bruto*(document.getElementById('lab-health')?.value==='eps'?0.0675:0.09);
+  const pension=bruto*pensionRatePct/100;
+  const health=bruto*(document.getElementById('lab-health')?.value==='eps'?.0675:.09);
   const neto=bruto-pension;
   const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=labMoney(v);};
-  set('pay-basic',salary); set('pay-family',family); set('pay-regular',regular);
-  set('pay-overtime',overtime); set('pay-bruto',bruto); set('pay-bruto-detail',bruto);
-  set('pay-pension',pension); set('pay-pension-detail',pension);
-  set('pay-neto',neto); set('pay-neto-detail',neto); set('pay-essalud',health);
+  set('pay-basic',salary);
+  set('pay-family',family);
+  set('pay-regular',regular);
+  set('pay-overtime',overtime);
+  set('pay-bruto',bruto);
+  set('pay-bruto-detail',bruto);
+  set('pay-pension',pension);
+  set('pay-pension-detail',pension);
+  set('pay-neto',neto);
+  set('pay-neto-detail',neto);
+  set('pay-essalud',health);
+
+  const rate=document.getElementById('pay-pension-rate');
+  if(rate) rate.textContent=pensionRatePct ? pensionRatePct.toFixed(2)+'%' : 'Sin retención';
 }
 </script>
 
@@ -1792,6 +1914,71 @@ function generateBoletaFromPlanillaV25(){
     if(out) out.scrollIntoView({behavior:'smooth',block:'start'});
   },80);
 }
+</script>
+
+<script>
+function generateBoletaFromPlanillaV26(){
+  const q=id=>document.getElementById(id);
+  const val=id=>q(id)?.value||'';
+  const num=id=>Number(val(id))||0;
+  const set=(id,v)=>{const e=q(id);if(e)e.value=v;};
+
+  const salary=num('lab-salary');
+  const family=q('lab-family')?.checked ? num('lab-rmv')*.10 : 0;
+  const regular=num('lab-regular');
+  const overtime=num('lab-ot25')+num('lab-ot35');
+  const bruto=salary+family+regular+overtime;
+
+  const system=val('lab-pension');
+  const mode=val('lab-afp-mode')||'mixta';
+  const afpKey=val('lab-afp')||'habitat';
+  const afp=(typeof SBS_AFP!=='undefined'?SBS_AFP[afpKey]:null);
+  let pension=0;
+  let pensionLabel='Sin retención';
+  if(system==='onp'){
+    pension=bruto*.13;
+    pensionLabel='ONP · 13%';
+  }else if(system==='afp'){
+    const rate=mode==='flujo'
+      ? 10+1.37+Number(afp?.flow||0)
+      : 11.37;
+    pension=bruto*rate/100;
+    pensionLabel='AFP · '+rate.toFixed(2)+'%';
+  }
+
+  set('bol-basic',salary.toFixed(2));
+  set('bol-ot',overtime.toFixed(2));
+  set('bol-other',(family+regular).toFixed(2));
+  set('bol-deduct',pension.toFixed(2));
+  set('bol-pension',pensionLabel);
+
+  // Reuse the existing boleta renderer.
+  if(typeof generateBoleta==='function') generateBoleta();
+
+  const btn=document.querySelector('.lab-tab[data-lab-tab="boleta"]');
+  if(btn) btn.click();
+  setTimeout(()=>{
+    const out=q('boletaContent');
+    if(out) out.scrollIntoView({behavior:'smooth',block:'start'});
+  },100);
+}
+</script>
+
+<script>
+(function(){
+  const ids=['lab-salary','lab-family','lab-rmv','lab-regular','lab-ot25','lab-ot35','lab-health','lab-pension','lab-afp-mode','lab-afp'];
+  function bind(){
+    ids.forEach(id=>{
+      const e=document.getElementById(id);
+      if(!e || e.dataset.v26planilla) return;
+      e.dataset.v26planilla='1';
+      e.addEventListener('input',()=>{if(typeof updateMiniPlanilla==='function')updateMiniPlanilla();});
+      e.addEventListener('change',()=>{if(typeof updateMiniPlanilla==='function')updateMiniPlanilla();});
+    });
+    if(typeof updateMiniPlanilla==='function') updateMiniPlanilla();
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind);else bind();
+})();
 </script>
 </body>
 </html><button class="lab-tab" data-tab="planilla">🧾 Planilla</button>
