@@ -700,32 +700,80 @@ body{
 }
 </style>
 
-<style id="alvapen-v29-home">
-.laboral-head:after{
-  content:"⌂"!important;
-  position:absolute!important;
-  right:4.5%!important;
-  top:50%!important;
-  transform:translateY(-50%)!important;
-  width:54px!important;
-  height:54px!important;
-  border-radius:16px!important;
-  display:grid!important;
-  place-items:center!important;
-  font-size:29px!important;
-  font-weight:600!important;
-  color:rgba(255,255,255,.92)!important;
-  background:rgba(255,255,255,.09)!important;
-  border:1px solid rgba(255,255,255,.28)!important;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 8px 18px rgba(10,35,60,.12)!important;
-  backdrop-filter:blur(12px)!important;
-  -webkit-backdrop-filter:blur(12px)!important;
+<style id="alvapen-v29-caja">
+/* CAJA NEGRA — visual identity + accessibility */
+.lab-black{
+  background:linear-gradient(135deg,#101E2E 0%,#162B40 100%)!important;
+  color:#FFFFFF!important;
+  border:1px solid #263F57!important;
+  box-shadow:0 16px 34px rgba(16,30,46,.18)!important;
 }
-@media(max-width:700px){.laboral-head:after{display:none!important}}
+.lab-black h3,
+.lab-black td,
+.lab-black th,
+.lab-black span,
+.lab-black b,
+.lab-black strong,
+.lab-black p,
+.lab-black div{
+  color:#FFFFFF!important;
+  text-shadow:none!important;
+}
+.lab-black table{background:transparent!important}
+.lab-black td,.lab-black th{
+  border-bottom:1px solid rgba(255,255,255,.18)!important;
+}
+.lab-black td:last-child{
+  color:#FFFFFF!important;font-weight:800!important;
+}
+.lab-black tr:last-child td{border-bottom:0!important}
+.lab-black + .lab-note,
+.lab-note{
+  color:#5B4630!important;
+}
+
+/* Assignment family: compact, readable and aligned */
+.lab-family-compact{
+  min-height:44px!important;
+  padding:8px 12px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:9px!important;
+  border-radius:10px!important;
+}
+.lab-family-compact input[type="checkbox"]{
+  width:16px!important;height:16px!important;
+  min-width:16px!important;min-height:16px!important;
+  margin:0!important;accent-color:#163A5F!important;
+}
+.lab-family-compact span{
+  display:flex!important;align-items:center!important;gap:8px!important;
+  line-height:1.2!important;
+}
+.lab-family-compact small{
+  margin-left:auto!important;
+  white-space:nowrap!important;
+  color:#627D98!important;
+}
 </style>
 
-<style id="alvapen-v29-pointer">
-.laboral-head:after{pointer-events:none!important}
+<style id="alvapen-v29-caja-print">
+@media print{
+  .lab-black{
+    background:#101E2E!important;
+    color:#FFFFFF!important;
+    -webkit-print-color-adjust:exact!important;
+    print-color-adjust:exact!important;
+  }
+  .lab-black *{
+    color:#FFFFFF!important;
+    text-shadow:none!important;
+  }
+  .lab-black td{
+    border-bottom-color:rgba(255,255,255,.25)!important;
+  }
+}
 </style>
 </head>
 <body>
@@ -798,7 +846,7 @@ body{
 
   <div class="laboral-wrap">
     <div class="laboral-toolbar lab-print-hide">
-      <button class="lab-back" onclick="showPortal()" data-alvapen-back="index.html">← Volver al portal ALVAPEN</button>
+      <button class="lab-back" onclick="showPortal()">← Volver al portal ALVAPEN</button>
       <span class="lab-status">● Ley N.º 31047 · D.S. N.º 009-2021-TR</span>
     </div>
 
@@ -853,7 +901,7 @@ body{
 
 <div class="lab-fields">
           <label>Remuneración mensual<input id="lab-salary" type="number" min="0" step="0.01" value="1130"></label>
-          <label class="lab-check"><input id="lab-family" type="checkbox"> <span>Asignación familiar</span><small>Automática: 10% de la RMV vigente</small></label>
+          <label class="lab-check lab-family-compact"><input id="lab-family" type="checkbox"> <span>Asignación familiar</span><small>Automática: 10% de la RMV vigente</small></label>
           <label>RMV vigente<input id="lab-rmv" type="number" min="0" step="0.01" value="1130"></label>
           <label>Fecha de inicio<input id="lab-start" type="date" value="2026-01-01"></label>
           <label>Fecha de cálculo<input id="lab-end" type="date" value="2026-12-31"></label>
@@ -930,7 +978,7 @@ body{
           <table><tbody>
             <tr><td>12 remuneraciones</td><td id="lab-cost-salary">S/ 0.00</td></tr>
             <tr><td>EsSalud anual</td><td id="lab-cost-health">S/ 0.00</td></tr>
-            <tr><td>2 gratificaciones</td><td id="lab-cost-grati">S/ 0.00</td></tr>
+            <tr><td>2 gratificaciones (julio + diciembre)<small id="lab-cost-grati-note-v29" style="display:block;opacity:.75;font-size:11px">Suma de ambas gratificaciones proyectadas</small></td><td id="lab-cost-grati">S/ 0.00</td></tr>
             <tr><td>2 bonificaciones extraordinarias</td><td id="lab-cost-bonus">S/ 0.00</td></tr>
             <tr><td>CTS</td><td id="lab-cost-cts">S/ 0.00</td></tr>
             <tr><td>Vacaciones</td><td id="lab-cost-vac">S/ 0.00</td></tr>
@@ -1050,7 +1098,7 @@ body{
         <h2>Liquidación de beneficios sociales</h2><p class="lab-hint">La indemnización se considera únicamente cuando corresponde a un despido arbitrario.</p>
         <div class="lab-fields">
           <label>Motivo<select id="liq-reason"><option value="renuncia">Renuncia voluntaria</option><option value="despido">Despido arbitrario</option><option value="causa">Despido con causa justa</option><option value="mutuo">Mutuo acuerdo</option><option value="plazo">Término de contrato</option></select></label>
-          <label>Remuneración al cese<input id="liq-salary" type="number" value="1130" step=".01"></label><label class="lab-check"><input id="liq-family" type="checkbox"> <span>Asignación familiar</span><small>10% de la RMV vigente</small></label><label>RMV vigente<input id="liq-rmv" type="number" value="1130" step=".01"></label>
+          <label>Remuneración al cese<input id="liq-salary" type="number" value="1130" step=".01"></label><label class="lab-check lab-family-compact"><input id="liq-family" type="checkbox"> <span>Asignación familiar</span><small>10% de la RMV vigente</small></label><label>RMV vigente<input id="liq-rmv" type="number" value="1130" step=".01"></label>
           <label>Fecha ingreso<input id="liq-start" type="date" value="2024-01-01"></label><label>Fecha cese<input id="liq-end" type="date" value="2026-09-01"></label><label>Horas diarias promedio<input id="liq-hours" type="number" value="8" step=".01"></label>
           <label>Última gratificación percibida<input id="liq-lastgrati" type="number" value="1130" step=".01"></label><label>CTS ya depositada/pagada<input id="liq-cts-paid" type="number" value="0" step=".01"></label>
           <label>Vacaciones gozadas del último periodo (días)<input id="liq-vac-used" type="number" value="0" step=".01"></label><label>Días de sueldo pendientes<input id="liq-days-pay" type="number" value="0" step=".01"></label>
@@ -2391,51 +2439,6 @@ function generateBoletaFromPlanillaV27(){
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind);else bind();
 })();
 </script>
-
-<script id="alvapen-v29-navigation">
-(function(){
-  function activateLabTab(name){
-    const tabs=document.querySelectorAll('.lab-tab[data-lab-tab]');
-    const panels=document.querySelectorAll('.lab-panel[id^="lab-"]');
-    let found=false;
-    tabs.forEach(t=>{
-      const active=t.getAttribute('data-lab-tab')===name;
-      t.classList.toggle('active',active);
-      if(active) found=true;
-    });
-    panels.forEach(p=>{
-      p.classList.toggle('active',p.id==='lab-'+name);
-    });
-    if(found){
-      const panel=document.getElementById('lab-'+name);
-      if(name==='beneficios' && typeof calculateBenefits==='function') calculateBenefits();
-      if(name==='planilla' && typeof updateMiniPlanilla==='function') updateMiniPlanilla();
-      if(name==='liquidacion' && typeof calculateLiquidacion==='function') calculateLiquidacion();
-      if(panel) panel.scrollIntoView({behavior:'smooth',block:'start'});
-    }
-    return found;
-  }
-
-  document.addEventListener('click',function(e){
-    const tab=e.target.closest?.('.lab-tab[data-lab-tab]');
-    if(tab){
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      activateLabTab(tab.getAttribute('data-lab-tab'));
-      return;
-    }
-
-    const back=e.target.closest?.('[data-alvapen-back]');
-    if(back){
-      e.preventDefault();
-      const href=back.getAttribute('data-alvapen-back') || 'index.html';
-      window.location.href=href;
-    }
-  },true);
-
-  window.activateLabTabV29=activateLabTab;
-})();
-</script>
 </body>
 </html><button class="lab-tab" data-tab="planilla">🧾 Planilla</button>
 <html lang="es">
@@ -2773,7 +2776,7 @@ main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:1
 
 <div class="lab-fields">
           <label>Remuneración mensual<input id="lab-salary" type="number" min="0" step="0.01" value="1130"></label>
-          <label class="lab-check"><input id="lab-family" type="checkbox"> <span>Asignación familiar</span><small>Automática: 10% de la RMV vigente</small></label>
+          <label class="lab-check lab-family-compact"><input id="lab-family" type="checkbox"> <span>Asignación familiar</span><small>Automática: 10% de la RMV vigente</small></label>
           <label>RMV vigente<input id="lab-rmv" type="number" min="0" step="0.01" value="1130"></label>
           <label>Fecha de inicio<input id="lab-start" type="date" value="2026-01-01"></label>
           <label>Fecha de cálculo<input id="lab-end" type="date" value="2026-12-31"></label>
@@ -2850,7 +2853,7 @@ main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:1
           <table><tbody>
             <tr><td>12 remuneraciones</td><td id="lab-cost-salary">S/ 0.00</td></tr>
             <tr><td>EsSalud anual</td><td id="lab-cost-health">S/ 0.00</td></tr>
-            <tr><td>2 gratificaciones</td><td id="lab-cost-grati">S/ 0.00</td></tr>
+            <tr><td>2 gratificaciones (julio + diciembre)<small id="lab-cost-grati-note-v29" style="display:block;opacity:.75;font-size:11px">Suma de ambas gratificaciones proyectadas</small></td><td id="lab-cost-grati">S/ 0.00</td></tr>
             <tr><td>2 bonificaciones extraordinarias</td><td id="lab-cost-bonus">S/ 0.00</td></tr>
             <tr><td>CTS</td><td id="lab-cost-cts">S/ 0.00</td></tr>
             <tr><td>Vacaciones</td><td id="lab-cost-vac">S/ 0.00</td></tr>
@@ -2937,7 +2940,7 @@ main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:1
         <h2>Liquidación de beneficios sociales</h2><p class="lab-hint">La indemnización se considera únicamente cuando corresponde a un despido arbitrario.</p>
         <div class="lab-fields">
           <label>Motivo<select id="liq-reason"><option value="renuncia">Renuncia voluntaria</option><option value="despido">Despido arbitrario</option><option value="causa">Despido con causa justa</option><option value="mutuo">Mutuo acuerdo</option><option value="plazo">Término de contrato</option></select></label>
-          <label>Remuneración al cese<input id="liq-salary" type="number" value="1130" step=".01"></label><label class="lab-check"><input id="liq-family" type="checkbox"> <span>Asignación familiar</span><small>10% de la RMV vigente</small></label><label>RMV vigente<input id="liq-rmv" type="number" value="1130" step=".01"></label>
+          <label>Remuneración al cese<input id="liq-salary" type="number" value="1130" step=".01"></label><label class="lab-check lab-family-compact"><input id="liq-family" type="checkbox"> <span>Asignación familiar</span><small>10% de la RMV vigente</small></label><label>RMV vigente<input id="liq-rmv" type="number" value="1130" step=".01"></label>
           <label>Fecha ingreso<input id="liq-start" type="date" value="2024-01-01"></label><label>Fecha cese<input id="liq-end" type="date" value="2026-09-01"></label><label>Horas diarias promedio<input id="liq-hours" type="number" value="8" step=".01"></label>
           <label>Última gratificación percibida<input id="liq-lastgrati" type="number" value="1130" step=".01"></label><label>CTS ya depositada/pagada<input id="liq-cts-paid" type="number" value="0" step=".01"></label>
           <label>Vacaciones gozadas del último periodo (días)<input id="liq-vac-used" type="number" value="0" step=".01"></label><label>Días de sueldo pendientes<input id="liq-days-pay" type="number" value="0" step=".01"></label>
