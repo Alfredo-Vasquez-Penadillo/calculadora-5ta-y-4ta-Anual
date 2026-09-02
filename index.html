@@ -248,6 +248,95 @@ main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:1
 @media(max-width:1000px){.lab-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;}}
 @media(max-width:650px){.lab-grid{grid-template-columns:1fr 1fr!important;}}
 </style>
+
+<style id="alvapen-liquid-glass-v25">
+:root{
+  --glass-bg:rgba(255,255,255,.68);
+  --glass-bg-strong:rgba(255,255,255,.82);
+  --glass-border:rgba(255,255,255,.72);
+  --glass-line:rgba(91,120,150,.22);
+  --glass-shadow:0 14px 40px rgba(22,58,95,.10);
+  --glass-blue:#163A5F;
+  --glass-blue-2:#5B7896;
+  --glass-gold:#C6A15B;
+}
+body{
+  background:
+    radial-gradient(circle at 10% 5%,rgba(198,161,91,.10),transparent 28%),
+    radial-gradient(circle at 90% 10%,rgba(91,120,150,.14),transparent 30%),
+    linear-gradient(180deg,#F8FAFC 0%,#EEF3F7 100%)!important;
+}
+.laboral-head{
+  background:linear-gradient(135deg,rgba(22,58,95,.94),rgba(36,79,115,.90))!important;
+  backdrop-filter:blur(18px) saturate(145%)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(145%)!important;
+  border-bottom:1px solid rgba(255,255,255,.22)!important;
+  box-shadow:0 10px 30px rgba(22,58,95,.18)!important;
+}
+.laboral-wrap{position:relative;}
+.lab-grid{
+  gap:12px!important;
+}
+.lab-tab{
+  min-height:54px!important;
+  background:rgba(255,255,255,.70)!important;
+  backdrop-filter:blur(14px) saturate(135%)!important;
+  -webkit-backdrop-filter:blur(14px) saturate(135%)!important;
+  border:1px solid rgba(255,255,255,.88)!important;
+  box-shadow:0 6px 18px rgba(36,59,83,.07), inset 0 1px 0 rgba(255,255,255,.85)!important;
+}
+.lab-tab.active{
+  background:linear-gradient(135deg,rgba(22,58,95,.96),rgba(36,79,115,.94))!important;
+  border-color:rgba(255,255,255,.25)!important;
+  box-shadow:0 10px 24px rgba(22,58,95,.20), inset 0 1px 0 rgba(255,255,255,.18)!important;
+}
+.lab-panel .lab-card{
+  background:var(--glass-bg)!important;
+  backdrop-filter:blur(18px) saturate(135%)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(135%)!important;
+  border:1px solid var(--glass-border)!important;
+  box-shadow:var(--glass-shadow), inset 0 1px 0 rgba(255,255,255,.82)!important;
+}
+.lab-fields input,.lab-fields select,.lab-fields textarea{
+  background:rgba(255,255,255,.76)!important;
+  backdrop-filter:blur(8px)!important;
+  border:1px solid rgba(91,120,150,.25)!important;
+  box-shadow:inset 0 1px 2px rgba(36,59,83,.03)!important;
+}
+.lab-metric{
+  background:rgba(255,255,255,.62)!important;
+  backdrop-filter:blur(12px)!important;
+  border:1px solid rgba(255,255,255,.82)!important;
+  box-shadow:0 8px 22px rgba(36,59,83,.06),inset 0 1px 0 rgba(255,255,255,.85)!important;
+}
+.alv-payroll-guide>div,.alv-payroll-table,.alv-payroll-note{
+  background:rgba(255,255,255,.60)!important;
+  backdrop-filter:blur(10px)!important;
+  border-color:rgba(255,255,255,.78)!important;
+}
+.alv-payroll-table>div{
+  border-bottom-color:rgba(91,120,150,.13)!important;
+}
+.lab-btn.gold{
+  background:linear-gradient(135deg,#C6A15B,#D4B875)!important;
+  box-shadow:0 7px 18px rgba(198,161,91,.22)!important;
+}
+.lab-btn.secondary{
+  background:rgba(255,255,255,.72)!important;
+  backdrop-filter:blur(10px)!important;
+}
+.alv-module-choice,.alv-help,.alv-step,.alv-integration,.alv-unified-map>div{
+  background:rgba(255,255,255,.58)!important;
+  backdrop-filter:blur(12px)!important;
+  border-color:rgba(255,255,255,.78)!important;
+}
+@media(max-width:1000px){
+  .lab-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;}
+}
+@media(max-width:650px){
+  .lab-grid{grid-template-columns:1fr 1fr!important;}
+}
+</style>
 </head>
 <body>
 
@@ -1524,7 +1613,20 @@ function updateMiniPlanilla(){
   const overtime=ot25+ot35;
   const bruto=salary+family+regular+overtime;
   let pension=0;
-  if(typeof pensionRate==='function') pension=bruto*pensionRate();
+  const pensionSystem=document.getElementById('lab-pension')?.value||'none';
+  if(pensionSystem==='onp'){
+    pension=bruto*0.13;
+  }else if(pensionSystem==='afp'){
+    const mode=document.getElementById('lab-afp-mode')?.value||'mixta';
+    const afpKey=document.getElementById('lab-afp')?.value||'habitat';
+    const afp=(typeof SBS_AFP!=='undefined' ? SBS_AFP[afpKey] : null);
+    const flow=afp ? Number(afp.flow)||0 : 0;
+    // Mixta/saldo: 10% aporte obligatorio + 1.37% prima = 11.37%.
+    // Flujo: 10% + 1.37% + comisión sobre remuneración de la AFP.
+    pension=mode==='flujo'
+      ? bruto*(0.10+0.0137+flow/100)
+      : bruto*0.1137;
+  }
   const health=bruto*(document.getElementById('lab-health')?.value==='eps'?0.0675:0.09);
   const neto=bruto-pension;
   const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=labMoney(v);};
@@ -1631,6 +1733,65 @@ window.addEventListener('afterprint',()=>document.body.classList.remove('print-p
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',bindPlanillaV23);
   else bindPlanillaV23();
 })();
+</script>
+
+<script>
+function generateBoletaFromPlanillaV25(){
+  const get=id=>document.getElementById(id);
+  const val=id=>get(id)?.value||'';
+  const num=id=>Number(val(id))||0;
+  const checked=id=>!!get(id)?.checked;
+
+  // Build/refresh the boleta from the same data used by the mini planilla.
+  const map={
+    'boleta-employer': val('boleta-employer') || '',
+    'boleta-employer-doc': val('boleta-employer-doc') || '',
+    'boleta-employer-address': val('boleta-employer-address') || '',
+    'boleta-worker': val('boleta-worker') || '',
+    'boleta-worker-doc': val('boleta-worker-doc') || '',
+  };
+
+  // Common field IDs used by the existing boleta form.
+  const setIf=(id,v)=>{const e=get(id); if(e && v!==undefined) e.value=v;};
+
+  // Pull names/IDs already entered in the Boleta tab if present; for payroll
+  // amounts, always use the current Planilla calculation.
+  const salary=num('lab-salary');
+  const family=checked('lab-family') ? num('lab-rmv')*.10 : 0;
+  const regular=num('lab-regular');
+  const overtime=num('lab-ot25')+num('lab-ot35');
+  const bruto=salary+family+regular+overtime;
+
+  let pension=0;
+  const sys=val('lab-pension');
+  if(sys==='onp') pension=bruto*.13;
+  else if(sys==='afp'){
+    const a=(typeof SBS_AFP!=='undefined'?SBS_AFP[val('lab-afp')] : null);
+    const mode=val('lab-afp-mode')||'mixta';
+    pension=bruto*(mode==='flujo' ? .10+.0137+((a?.flow||0)/100) : .1137);
+  }
+
+  // Existing boleta controls: fill whichever are available.
+  const candidate={
+    'boleta-basic':salary,
+    'boleta-overtime':overtime,
+    'boleta-other':family+regular,
+    'boleta-pension':pension,
+    'boleta-essalud':bruto*.09
+  };
+  Object.entries(candidate).forEach(([id,v])=>setIf(id,Number(v).toFixed(2)));
+
+  if(typeof generateBoleta==='function') generateBoleta();
+
+  // Open the Boleta tab using the actual navigation attribute.
+  const btn=document.querySelector('.lab-tab[data-lab-tab="boleta"]');
+  if(btn) btn.click();
+
+  setTimeout(()=>{
+    const out=document.getElementById('boletaContent');
+    if(out) out.scrollIntoView({behavior:'smooth',block:'start'});
+  },80);
+}
 </script>
 </body>
 </html><button class="lab-tab" data-tab="planilla">🧾 Planilla</button>
