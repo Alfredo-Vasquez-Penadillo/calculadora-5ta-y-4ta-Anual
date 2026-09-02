@@ -114,7 +114,84 @@ main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:1
 #lab-afp-rate-note,#lab-residence-box,#liq-indemnity-status{margin-top:10px}
 .lab-check small{display:block;font-size:11px;opacity:.75;margin-left:24px}
 .lab-check input:disabled+span,.lab-check input:disabled{opacity:.55}
-</style></head>
+</style>
+<style id="alvapen-ux-v15">
+.alv-help{
+  display:flex!important;
+  align-items:center!important;
+  gap:12px!important;
+  padding:13px 15px!important;
+  margin:0 0 12px!important;
+}
+.alv-help-icon{
+  flex:0 0 30px!important;
+  width:30px!important;
+  height:30px!important;
+  margin:0!important;
+}
+.alv-help-content{min-width:0!important;}
+.alv-help-title{
+  margin:0 0 3px!important;
+  font-size:15px!important;
+  font-weight:800!important;
+  color:#163A5F!important;
+}
+.alv-help-text{
+  margin:0!important;
+  font-size:13px!important;
+  line-height:1.45!important;
+  color:#486581!important;
+}
+.alv-steps{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:10px!important;
+  margin:0 0 13px!important;
+}
+.alv-steps .alv-step{
+  display:flex!important;
+  align-items:flex-start!important;
+  gap:9px!important;
+  min-height:70px!important;
+  box-sizing:border-box!important;
+  margin:0!important;
+  padding:11px 12px!important;
+  background:#fff!important;
+  border:1px solid #D9E2EC!important;
+  border-radius:10px!important;
+}
+.alv-steps .alv-step > span{
+  flex:0 0 26px!important;
+  width:26px!important;
+  height:26px!important;
+  margin:0!important;
+}
+.alv-steps .alv-step div{
+  min-width:0!important;
+}
+.alv-steps .alv-step b{
+  display:block!important;
+  margin:1px 0 3px!important;
+  font-size:13px!important;
+  line-height:1.25!important;
+  color:#163A5F!important;
+}
+.alv-steps .alv-step small{
+  display:block!important;
+  font-size:11.5px!important;
+  line-height:1.35!important;
+  color:#627D98!important;
+}
+.alv-intro-final{
+  margin:0 0 16px!important;
+  padding:0!important;
+}
+@media(max-width:760px){
+  .alv-steps{grid-template-columns:1fr!important;}
+  .alv-steps .alv-step{min-height:auto!important;}
+}
+</style>
+</head>
 <body>
 
 <div id="portalView" class="portal-view">
@@ -202,46 +279,30 @@ main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:1
         <div class="lab-section-title"><div><h2>Calculadora de beneficios laborales</h2>
 <div id="alvapen-help-v14" class="alv-help">
   <div class="alv-help-icon">?</div>
-  <div><b>¿Es tu primera vez?</b><br>
-  No necesitas conocer de leyes laborales. Ingresa los datos básicos del trabajador y la herramienta calculará automáticamente sus principales beneficios.
-  <b>Los campos marcados como automáticos no necesitan que escribas el importe.</b></div>
+  <div class="alv-help-content">
+    <div class="alv-help-title">¿Es tu primera vez?</div>
+    <div class="alv-help-text">No necesitas conocer de leyes laborales. Ingresa los datos básicos del trabajador y la herramienta calculará automáticamente sus principales beneficios.</div>
+  </div>
 </div>
-<div class="alv-step"><span>1</span><div><b>Ingresa la remuneración</b> — coloca el sueldo mensual pactado.</div></div>
-<div class="alv-step"><span>2</span><div><b>Marca lo que corresponda</b> — por ejemplo, asignación familiar, residencia o bonificación.</div></div>
-<div class="alv-step"><span>3</span><div><b>Revisa los resultados</b> — encontrarás gratificaciones, CTS, vacaciones, aportes y costo estimado.</div></div>
-<p>Ingresa los datos del trabajador y la herramienta calcula automáticamente.</p></div></div>
-        <div class="lab-fields">
-          <label>Remuneración mensual<input id="lab-salary" type="number" min="0" step="0.01" value="1130"></label>
-          <label class="lab-check"><input id="lab-family" type="checkbox"> <span>Asignación familiar</span><small>Automática: 10% de la RMV vigente</small></label>
-          <label>RMV vigente<input id="lab-rmv" type="number" min="0" step="0.01" value="1130"></label>
-          <label>Fecha de inicio<input id="lab-start" type="date" value="2026-01-01"></label>
-          <label>Fecha de cálculo<input id="lab-end" type="date" value="2026-12-31"></label>
-          <label>Horas diarias<input id="lab-hours" type="number" min="0" max="24" step="0.01" value="8"></label>
-          <label>Días trabajados por semana<input id="lab-days" type="number" min="1" max="7" step="1" value="6"></label>
-          <label>Seguro de salud<select id="lab-health"><option value="essalud">EsSalud · 9%</option><option value="eps">EPS · bonificación 6.75%</option></select></label>
-          <label>Sistema de pensiones<select id="lab-pension"><option value="none">Sin retención</option><option value="onp">ONP · 13%</option><option value="afp">AFP · tasas SBS vigentes</option></select></label>
-          <label>Esquema de comisión AFP<select id="lab-afp-mode">
-<option value="mixta" selected>Comisión mixta / saldo</option>
-<option value="flujo">Comisión sobre remuneración (flujo)</option>
-</select></label>
-<label>AFP<select id="lab-afp"><option value="habitat">Hábitat</option><option value="integra">Integra</option><option value="prima">Prima</option><option value="profuturo">Profuturo</option></select></label>
-          <div class="lab-info" id="lab-afp-rate-note">SBS: septiembre 2026 · se calcula 10% fondo + comisión sobre flujo + prima de seguro.</div>
-          <label>Conceptos regulares computables<input id="lab-regular" type="number" min="0" step="0.01" value="0"></label><label>Gratificación diciembre anterior percibida<input id="lab-prev-grati" type="number" min="0" step="0.01" value="1130"></label>
-          <label>Horas extras 25% en el periodo<input id="lab-ot25" type="number" min="0" step="0.01" value="0"></label>
-          <label>Horas extras 35% en el periodo<input id="lab-ot35" type="number" min="0" step="0.01" value="0"></label>
-        </div>
-        <div class="lab-checks">
-          <label class="lab-check"><input id="lab-residence" type="checkbox"> Con residencia</label>
-          <label class="lab-check"><input id="lab-include-bonus" type="checkbox" checked> Bonificación extraordinaria</label>
-          <label class="lab-check"><input id="lab-cts-eligible" type="checkbox" checked> Jornada promedio ≥ 4 h: CTS</label>
-          <label class="lab-check"><input id="lab-holiday" type="checkbox"> Trabajo en feriado sin descanso sustitutorio</label>
-        </div>
-        <div class="lab-info" id="lab-residence-box"><strong>Sin residencia:</strong> la persona trabajadora no reside en el domicilio del empleador. Si marcas <b>Con residencia</b>, se activan las condiciones de alojamiento y alimentación adecuadas como condiciones de trabajo, sin formar parte de la remuneración.</div>
-        <div class="lab-info">Para jornada completa, la remuneración no puede ser inferior a la RMV. Para trabajo por horas o fracción, la remuneración es proporcional. La alimentación y alojamiento que corresponda son condiciones de trabajo y no forman parte de la remuneración. </div>
-      </div>
 
-      <div class="lab-card">
-        <h2>Resultados</h2><div id="alv-result-help-v14" class="alv-section-note"><b>¿Qué significa?</b> Aquí se muestran los importes que corresponden según los datos ingresados. Puedes modificar cualquier dato y los resultados se actualizarán automáticamente.</div>
+<div class="alv-steps">
+  <div class="alv-step">
+    <span>1</span>
+    <div><b>Ingresa la remuneración</b><small>Coloca el sueldo mensual pactado.</small></div>
+  </div>
+  <div class="alv-step">
+    <span>2</span>
+    <div><b>Marca lo que corresponda</b><small>Por ejemplo: asignación familiar, residencia o bonificación.</small></div>
+  </div>
+  <div class="alv-step">
+    <span>3</span>
+    <div><b>Revisa los resultados</b><small>Encontrarás gratificaciones, CTS, vacaciones, aportes y costo estimado.</small></div>
+  </div>
+</div>
+
+<p class="lab-hint alv-intro-final">Ingresa los datos del trabajador y la herramienta calculará automáticamente sus beneficios.</p>
+
+<h2>Resultados</h2><div id="alv-result-help-v14" class="alv-section-note"><b>¿Qué significa?</b> Aquí se muestran los importes que corresponden según los datos ingresados. Puedes modificar cualquier dato y los resultados se actualizarán automáticamente.</div>
         <div class="lab-result-grid">
           <div class="lab-metric"><span>Remuneración computable</span><strong id="lab-rem">S/ 0.00</strong></div>
           <div class="lab-metric"><span>EsSalud · empleador</span><strong id="lab-essalud">S/ 0.00</strong></div>
