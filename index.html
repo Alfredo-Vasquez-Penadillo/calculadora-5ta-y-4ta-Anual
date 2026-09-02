@@ -686,18 +686,23 @@ body{
 }
 </style>
 
-<style id="alvapen-v28-home-icon">
-.laboral-head:after{
-  content:"⌂";
-  font-family:Arial,sans-serif;
-  font-size:56px;font-weight:700;letter-spacing:0;
-  width:104px;height:104px;border-radius:28px;
+<style id="alvapen-v30-home-icon">
+/* Compact functional home control. The old decorative 104px icon was removed. */
+.laboral-head:after{display:none!important;}
+.alv-home-btn{
+  position:absolute;right:28px;top:24px;z-index:5;
+  width:48px;height:48px;padding:0;border-radius:14px;
   display:grid;place-items:center;
-  color:rgba(255,255,255,.94);
-  background:linear-gradient(145deg,rgba(255,255,255,.18),rgba(255,255,255,.05));
-  border:1px solid rgba(255,255,255,.30);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 18px 35px rgba(10,35,60,.18);
+  color:#fff;background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.34);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.20),0 8px 20px rgba(10,35,60,.16);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  cursor:pointer;
+  transition:transform .16s ease,background .16s ease;
 }
+.alv-home-btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.19);}
+.alv-home-btn svg{width:22px;height:22px;display:block;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;}
+@media(max-width:700px){.alv-home-btn{right:16px;top:16px;width:42px;height:42px;border-radius:12px}.alv-home-btn svg{width:20px;height:20px}}
 </style>
 
 <style id="alvapen-v29-caja">
@@ -838,7 +843,9 @@ body{
 
 
 <div id="laboralView" class="laboral-view">
-  <div class="laboral-head"><div class="laboral-head-inner">
+  <div class="laboral-head"><button type="button" class="alv-home-btn" onclick="showPortal();return false;" aria-label="Volver al portal ALVAPEN" title="Volver al portal ALVAPEN">
+<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.8 12 3l9 7.8"/><path d="M5.5 9.8V21h13V9.8"/><path d="M9.5 21v-6h5v6"/></svg>
+</button><div class="laboral-head-inner">
     <div class="laboral-eyebrow">ALVAPEN · Herramientas Profesionales</div>
     <h1>Trabajador del hogar · Gestión integral</h1>
     <p>Calcula beneficios, genera documentos y, cuando corresponda, integra la remuneración del trabajador del hogar con la renta de cuarta y quinta categoría.</p>
@@ -2714,7 +2721,9 @@ main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:1
 
 
 <div id="laboralView" class="laboral-view">
-  <div class="laboral-head"><div class="laboral-head-inner">
+  <div class="laboral-head"><button type="button" class="alv-home-btn" onclick="showPortal();return false;" aria-label="Volver al portal ALVAPEN" title="Volver al portal ALVAPEN">
+<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.8 12 3l9 7.8"/><path d="M5.5 9.8V21h13V9.8"/><path d="M9.5 21v-6h5v6"/></svg>
+</button><div class="laboral-head-inner">
     <div class="laboral-eyebrow">ALVAPEN · Herramientas Profesionales</div>
     <h1>Trabajador del hogar · Gestión integral</h1>
     <p>Calcula beneficios, genera documentos y, cuando corresponda, integra la remuneración del trabajador del hogar con la renta de cuarta y quinta categoría.</p>
@@ -3883,3 +3892,49 @@ window.addEventListener('afterprint',()=>{
 
 </body>
 </html>
+
+<script id="alvapen-v30-pension-fix">
+(function(){
+  // V30: authoritative pension retention for the Labor/Home Worker module.
+  // ONP = 13%. AFP mixed/saldo = 10% mandatory contribution + 1.37% insurance.
+  // AFP flow = 10% + 1.37% insurance + current AFP flow commission.
+  const AFP={habitat:1.47,integra:1.55,prima:1.60,profuturo:1.69};
+  function n(id){return Number(document.getElementById(id)?.value)||0;}
+  function checked(id){return !!document.getElementById(id)?.checked;}
+  function money(v){return new Intl.NumberFormat('es-PE',{style:'currency',currency:'PEN',minimumFractionDigits:2}).format(Number(v)||0);}
+  function calc(){
+    const system=document.getElementById('lab-pension')?.value||'none';
+    const mode=document.getElementById('lab-afp-mode')?.value||'mixta';
+    const afp=document.getElementById('lab-afp')?.value||'habitat';
+    const base=n('lab-salary')+(checked('lab-family')?n('lab-rmv')*.10:0)+n('lab-regular');
+    let rate=0;
+    if(system==='onp') rate=13;
+    else if(system==='afp') rate=mode==='flujo' ? 10+1.37+(AFP[afp]||AFP.habitat) : 11.37;
+    const pension=base*rate/100;
+    const out=document.getElementById('lab-pension-out');
+    if(out) out.textContent=money(pension);
+    const rateOut=document.getElementById('pay-pension-rate');
+    if(rateOut) rateOut.textContent=rate?rate.toFixed(2)+'%':'Sin retención';
+    const pay=document.getElementById('pay-pension');
+    if(pay) pay.textContent=money(pension);
+    const detail=document.getElementById('pay-pension-detail');
+    if(detail) detail.textContent=money(pension);
+    const net=document.getElementById('pay-neto');
+    const netDetail=document.getElementById('pay-neto-detail');
+    const gross=base+n('lab-ot25')+n('lab-ot35');
+    if(net) net.textContent=money(gross-pension);
+    if(netDetail) netDetail.textContent=money(gross-pension);
+  }
+  function bind(){
+    ['lab-salary','lab-family','lab-rmv','lab-regular','lab-ot25','lab-ot35','lab-pension','lab-afp-mode','lab-afp'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(!el || el.dataset.v30pension) return;
+      el.dataset.v30pension='1';
+      el.addEventListener('input',calc);
+      el.addEventListener('change',calc);
+    });
+    calc();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',bind); else bind();
+})();
+</script>
