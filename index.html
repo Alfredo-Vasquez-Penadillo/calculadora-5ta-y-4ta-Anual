@@ -209,6 +209,1577 @@ main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:1
 .alv-unified-map span{display:block;color:#627D98;font-size:12px;line-height:1.4}
 @media(max-width:700px){.alv-unified-map{grid-template-columns:1fr}}
 </style>
+
+<style id="alvapen-v21">
+.lab-tabs{grid-template-columns:repeat(6,minmax(0,1fr))!important;}
+.alv-payroll-guide{
+ display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 16px;
+}
+.alv-payroll-guide>div{
+ padding:12px 13px;background:#F7FAFC;border:1px solid #D9E2EC;border-radius:10px;
+}
+.alv-payroll-guide b{display:block;color:#163A5F;font-size:13px;margin-bottom:3px}
+.alv-payroll-guide span{display:block;color:#627D98;font-size:11.5px;line-height:1.4}
+.alv-payroll-table{
+ border:1px solid #D9E2EC;border-radius:12px;overflow:hidden;background:#fff;
+}
+.alv-payroll-table>div{
+ display:flex;justify-content:space-between;gap:16px;padding:11px 14px;
+ border-bottom:1px solid #E7EEF4;color:#52606D;font-size:13px;
+}
+.alv-payroll-table>div:last-child{border-bottom:0}
+.alv-payroll-table b{color:#163A5F}
+.alv-payroll-table .total{background:#F7FAFC;font-weight:700}
+.alv-payroll-table .highlight{background:#FFFBF3;border-left:4px solid #C6A15B}
+.alv-payroll-note{
+ margin-top:14px;padding:12px 14px;background:#F1F6FA;border:1px solid #D7E3ED;
+ border-radius:10px;color:#52606D;font-size:12px;line-height:1.45;
+}
+@media(max-width:900px){.lab-tabs{grid-template-columns:repeat(3,1fr)!important}}
+@media(max-width:600px){.lab-tabs{grid-template-columns:1fr 1fr!important}.alv-payroll-guide{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div id="portalView" class="portal-view">
+  <div class="portal-top">
+    <div class="portal-nav">
+      <div class="portal-brand">ALVAPEN<small>ESTUDIO CONTABLE · TRIBUTARIO · LABORAL</small></div>
+      <div class="portal-badge">Herramientas Profesionales</div>
+    </div>
+    <div class="portal-hero">
+      <div class="portal-hero-grid">
+        <div>
+          <div class="portal-eyebrow">Sistema profesional</div>
+          <h1>Contabilidad y gestión, más simple.</h1>
+          <p>Un espacio centralizado para calcular, analizar y preparar herramientas de uso contable, tributario y laboral.</p>
+          <div class="portal-search"><span>⌕</span><input id="portalSearch" placeholder="Buscar una herramienta..." oninput="filterPortal()"></div>
+        </div>
+        <div class="portal-side">
+          <div class="portal-kpi">ALVAPEN</div>
+          <p>Herramientas diseñadas para convertir tareas repetitivas en procesos claros, verificables y reutilizables.</p>
+          <div class="portal-stats">
+            <div class="portal-stat"><b>2</b><span>Módulos disponibles</span></div>
+            <div class="portal-stat"><b>22</b><span>Herramientas proyectadas</span></div>
+            <div class="portal-stat"><b>4</b><span>Áreas de trabajo</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="portal-main">
+    <div class="portal-section-head"><h2>Herramientas</h2><p>Selecciona un módulo para comenzar.</p></div>
+    <div class="portal-grid" id="portalCards">
+      <a class="portal-card portal-available portal-feature" data-name="rentas trabajo cuarta quinta categoria" href="#calculadora" onclick="showCalculator();return false">
+        <div class="portal-icon">🧮</div>
+        <h3>Rentas de trabajo · 4ta + 5ta categoría</h3>
+        <p>Calculadora integral para proyectar rentas de cuarta y quinta categoría, determinar el impuesto anual, considerar deducciones y visualizar la <strong>Caja Negra</strong> de los tramos progresivos.</p>
+        <span class="portal-action">ABRIR CALCULADORA →</span>
+      </a>
+      <a class="portal-card soon" data-name="vacaciones" href="#" onclick="return false"><div class="portal-icon">🏖️</div><h3>Vacaciones</h3><p>Cálculo de vacaciones, días generados, gozados y truncos.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
+      <a class="portal-card portal-available" data-name="gestion laboral trabajador hogar beneficios obligaciones boleta contrato liquidacion" href="#laboral" onclick="showLaboral();return false"><div class="portal-icon">💼</div><h3>Gestión laboral · Trabajador del hogar</h3><p>Beneficios, obligaciones del empleador, boleta de pago, contratos automatizados y liquidación con renuncia o despido.</p><span class="portal-action">ABRIR HERRAMIENTA →</span></a>
+      <a class="portal-card soon" data-name="cts" href="#" onclick="return false"><div class="portal-icon">🏦</div><h3>CTS</h3><p>Cálculo y proyección de depósitos de compensación por tiempo de servicios.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
+      <a class="portal-card soon" data-name="gratificaciones" href="#" onclick="return false"><div class="portal-icon">🎁</div><h3>Gratificaciones</h3><p>Proyección y cálculo de gratificaciones y bonificaciones correspondientes.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
+      <a class="portal-card soon" data-name="planilla" href="#" onclick="return false"><div class="portal-icon">👥</div><h3>Planilla</h3><p>Herramientas para remuneraciones, descuentos y conceptos laborales.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
+      <a class="portal-card soon" data-name="igv" href="#" onclick="return false"><div class="portal-icon">🧾</div><h3>IGV</h3><p>Determinación y análisis de IGV mensual.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
+      <a class="portal-card soon" data-name="renta" href="#" onclick="return false"><div class="portal-icon">📊</div><h3>Renta</h3><p>Herramientas para determinaciones y proyecciones del impuesto a la renta.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
+      <a class="portal-card soon" data-name="sunat" href="#" onclick="return false"><div class="portal-icon">🔎</div><h3>SUNAT</h3><p>Apoyo para revisar requerimientos, esquelas, fiscalizaciones y obligaciones.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
+      <a class="portal-card soon" data-name="vinculacion economica" href="#" onclick="return false"><div class="portal-icon">🔗</div><h3>Vinculación económica</h3><p>Evaluación de supuestos y límites aplicables.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
+      <a class="portal-card soon" data-name="retenciones percepciones" href="#" onclick="return false"><div class="portal-icon">📑</div><h3>Retenciones y percepciones</h3><p>Cálculo y revisión de operaciones sujetas a estos regímenes.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
+      <a class="portal-card soon" data-name="contratos" href="#" onclick="return false"><div class="portal-icon">📄</div><h3>Contratos</h3><p>Plantillas y generadores de contratos laborales y de servicios.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
+      <a class="portal-card soon" data-name="memorandums" href="#" onclick="return false"><div class="portal-icon">📝</div><h3>Memorándums</h3><p>Generación de documentos internos con formatos reutilizables.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
+      <a class="portal-card soon" data-name="cartas escritos" href="#" onclick="return false"><div class="portal-icon">✉️</div><h3>Cartas y escritos</h3><p>Documentos y escritos para trámites y procedimientos.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
+      <a class="portal-card soon" data-name="fechas" href="#" onclick="return false"><div class="portal-icon">📅</div><h3>Cálculo de fechas</h3><p>Vencimientos, plazos y cálculo de períodos.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
+      <a class="portal-card soon" data-name="conversores" href="#" onclick="return false"><div class="portal-icon">💵</div><h3>Conversores</h3><p>Conversiones y cálculos rápidos de uso diario.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
+      <a class="portal-card soon" data-name="excel csv" href="#" onclick="return false"><div class="portal-icon">📊</div><h3>Excel / CSV</h3><p>Utilidades para transformar y preparar información.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
+    </div>
+  </div>
+  <div class="portal-footer-wrap"><div class="portal-footer"><strong>ALVAPEN</strong> · Estudio Contable · Tributario · Laboral<br>Herramientas profesionales para simplificar el trabajo.</div></div>
+</div>
+
+
+
+
+<div id="laboralView" class="laboral-view">
+  <div class="laboral-head"><div class="laboral-head-inner">
+    <div class="laboral-eyebrow">ALVAPEN · Herramientas Profesionales</div>
+    <h1>Trabajador del hogar · Gestión integral</h1>
+    <p>Calcula beneficios, genera documentos y, cuando corresponda, integra la remuneración del trabajador del hogar con la renta de cuarta y quinta categoría.</p>
+  </div></div>
+
+  <div class="laboral-wrap">
+    <div class="laboral-toolbar lab-print-hide">
+      <button class="lab-back" onclick="showPortal()">← Volver al portal ALVAPEN</button>
+      <span class="lab-status">● Ley N.º 31047 · D.S. N.º 009-2021-TR</span>
+    </div>
+
+    <div class="lab-grid lab-print-hide">
+      <button class="lab-tab active" data-lab-tab="beneficios">📊 Beneficios y cálculos</button>
+      <button class="lab-tab" data-lab-tab="obligaciones">✅ ¿Qué debe cumplir el empleador?</button>
+      <button class="lab-tab" data-lab-tab="boleta">🧾 Boleta de pago</button>
+      <button class="lab-tab" data-lab-tab="contrato">📄 Contrato</button>
+      <button class="lab-tab" data-lab-tab="liquidacion">💰 Liquidación al cese</button>
+    </div>
+
+    <section class="lab-panel active" id="lab-beneficios">
+      <div class="lab-card">
+        <div class="lab-section-title"><div><h2>Gestión laboral del trabajador del hogar</h2>
+
+<div class="alv-module-choice">
+  <div class="alv-choice-title">¿Qué necesitas hacer?</div>
+  <div class="alv-choice-grid">
+    <button type="button" class="alv-choice active" data-choice="laboral">
+      <b>Gestión laboral</b><small>Beneficios, boleta, contrato y liquidación.</small>
+    </button>
+    <button type="button" class="alv-choice" data-choice="renta">
+      <b>Renta 4ta / 5ta</b><small>Integrar ingresos para la proyección anual.</small>
+    </button>
+  </div>
+</div>
+<div id="alvapen-help-v14" class="alv-help">
+  <div class="alv-help-icon">?</div>
+  <div class="alv-help-content">
+    <div class="alv-help-title">¿Es tu primera vez?</div>
+    <div class="alv-help-text">No necesitas conocer de leyes laborales. Ingresa los datos básicos del trabajador y la herramienta calculará automáticamente sus principales beneficios.</div>
+  </div>
+</div>
+
+<div class="alv-steps">
+  <div class="alv-step">
+    <span>1</span>
+    <div><b>Ingresa la remuneración</b><small>Coloca el sueldo mensual pactado.</small></div>
+  </div>
+  <div class="alv-step">
+    <span>2</span>
+    <div><b>Marca lo que corresponda</b><small>Por ejemplo: asignación familiar, residencia o bonificación.</small></div>
+  </div>
+  <div class="alv-step">
+    <span>3</span>
+    <div><b>Revisa los resultados</b><small>Encontrarás gratificaciones, CTS, vacaciones, aportes y costo estimado.</small></div>
+  </div>
+</div>
+
+<p class="lab-hint alv-intro-final">Completa los datos de abajo. Los resultados se actualizarán automáticamente.</p>
+
+<div class="lab-fields">
+          <label>Remuneración mensual<input id="lab-salary" type="number" min="0" step="0.01" value="1130"></label>
+          <label class="lab-check"><input id="lab-family" type="checkbox"> <span>Asignación familiar</span><small>Automática: 10% de la RMV vigente</small></label>
+          <label>RMV vigente<input id="lab-rmv" type="number" min="0" step="0.01" value="1130"></label>
+          <label>Fecha de inicio<input id="lab-start" type="date" value="2026-01-01"></label>
+          <label>Fecha de cálculo<input id="lab-end" type="date" value="2026-12-31"></label>
+          <label>Horas diarias<input id="lab-hours" type="number" min="0" max="24" step="0.01" value="8"></label>
+          <label>Días trabajados por semana<input id="lab-days" type="number" min="1" max="7" step="1" value="6"></label>
+          <label>Seguro de salud<select id="lab-health"><option value="essalud">EsSalud · 9%</option><option value="eps">EPS · bonificación 6.75%</option></select></label>
+          <label>Sistema de pensiones<select id="lab-pension"><option value="none">Sin retención</option><option value="onp">ONP · 13%</option><option value="afp">AFP · tasas SBS vigentes</option></select></label>
+          <label>Esquema de comisión AFP<select id="lab-afp-mode">
+<option value="mixta" selected>Comisión mixta / saldo</option>
+<option value="flujo">Comisión sobre remuneración (flujo)</option>
+</select></label>
+<label>AFP<select id="lab-afp"><option value="habitat">Hábitat</option><option value="integra">Integra</option><option value="prima">Prima</option><option value="profuturo">Profuturo</option></select></label>
+          <div class="lab-info" id="lab-afp-rate-note">SBS: septiembre 2026 · se calcula 10% fondo + comisión sobre flujo + prima de seguro.</div>
+          <label>Conceptos regulares computables<input id="lab-regular" type="number" min="0" step="0.01" value="0"></label><label>Gratificación diciembre anterior percibida<input id="lab-prev-grati" type="number" min="0" step="0.01" value="1130"></label>
+          <label>Horas extras 25% en el periodo<input id="lab-ot25" type="number" min="0" step="0.01" value="0"></label>
+          <label>Horas extras 35% en el periodo<input id="lab-ot35" type="number" min="0" step="0.01" value="0"></label>
+        </div>
+        <div class="lab-checks">
+          <label class="lab-check"><input id="lab-residence" type="checkbox"> Con residencia</label>
+          <label class="lab-check"><input id="lab-include-bonus" type="checkbox" checked> Bonificación extraordinaria</label>
+          <label class="lab-check"><input id="lab-cts-eligible" type="checkbox" checked> Jornada promedio ≥ 4 h: CTS</label>
+          <label class="lab-check"><input id="lab-holiday" type="checkbox"> Trabajo en feriado sin descanso sustitutorio</label>
+        </div>
+        <div class="lab-info" id="lab-residence-box"><strong>Sin residencia:</strong> la persona trabajadora no reside en el domicilio del empleador. Si marcas <b>Con residencia</b>, se activan las condiciones de alojamiento y alimentación adecuadas como condiciones de trabajo, sin formar parte de la remuneración.</div>
+        <div class="lab-info">Para jornada completa, la remuneración no puede ser inferior a la RMV. Para trabajo por horas o fracción, la remuneración es proporcional. La alimentación y alojamiento que corresponda son condiciones de trabajo y no forman parte de la remuneración. </div>
+      </div>
+
+      <div class="lab-card">
+        
+<div id="renta-laboral-integration" class="alv-integration">
+  <div>
+    <div class="alv-integration-title">Integrar con Renta de trabajo</div>
+    <div class="alv-integration-text">
+      La remuneración del trabajador del hogar es renta de quinta categoría. Puedes llevarla a la calculadora anual para integrarla con otros empleadores y, si corresponde, con rentas de cuarta categoría.
+    </div>
+  </div>
+  <button type="button" class="lab-btn secondary" onclick="integrarHogarEnRenta()">Integrar en Renta 4ta / 5ta →</button>
+</div>
+<h2>Resultados</h2><div id="alv-result-help-v14" class="alv-section-note"><b>¿Qué significa?</b> Aquí se muestran los importes que corresponden según los datos ingresados. Puedes modificar cualquier dato y los resultados se actualizarán automáticamente.</div>
+        <div class="lab-result-grid">
+          <div class="lab-metric"><span>Remuneración computable</span><strong id="lab-rem">S/ 0.00</strong></div>
+          <div class="lab-metric"><span>EsSalud · empleador</span><strong id="lab-essalud">S/ 0.00</strong></div>
+          <div class="lab-metric"><span>Pensión · trabajador</span><strong id="lab-pension-out">S/ 0.00</strong></div>
+          <div class="lab-metric"><span>Costo mensual ordinario</span><strong id="lab-cost">S/ 0.00</strong></div>
+        </div>
+        <table class="lab-table">
+          <thead><tr><th>Concepto</th><th>Base</th><th>Resultado</th></tr></thead>
+          <tbody>
+            <tr><td>Gratificación Fiestas Patrias</td><td>1/6 de la remuneración computable × meses completos</td><td id="lab-grati-jul">S/ 0.00</td></tr>
+            <tr><td>Bonificación · julio</td><td>9% EsSalud / 6.75% EPS</td><td id="lab-bonus-jul">S/ 0.00</td></tr>
+            <tr><td>Gratificación Navidad</td><td>1/6 de la remuneración computable × meses completos</td><td id="lab-grati-dec">S/ 0.00</td></tr>
+            <tr><td>Bonificación · diciembre</td><td>9% EsSalud / 6.75% EPS</td><td id="lab-bonus-dec">S/ 0.00</td></tr>
+            <tr><td>CTS · mayo / noviembre</td><td>50% de la remuneración computable + 1/6 de la gratificación percibida, proporcional</td><td id="lab-cts">S/ 0.00</td></tr>
+            <tr><td>Vacaciones anuales</td><td>30 días</td><td id="lab-vac">S/ 0.00</td></tr>
+            <tr><td>Horas extras</td><td>25% primeras 2 h / 35% siguientes</td><td id="lab-overtime">S/ 0.00</td></tr>
+            <tr><td>Feriado trabajado sin descanso sustitutorio</td><td>Día trabajado + sobretasa 100%</td><td id="lab-holiday-out">S/ 0.00</td></tr>
+          </tbody>
+        </table>
+        <div class="lab-card" style="margin-top:16px">
+          <h3 style="margin-top:0">Calendario de beneficios · proyección</h3>
+          <table class="lab-table">
+            <thead><tr><th>Beneficio</th><th>Base de cálculo</th><th>Importe</th><th>Pago / depósito</th></tr></thead>
+            <tbody>
+              <tr><td>CTS – mayo</td><td>½ × (remuneración computable + 1/6 de la gratificación de diciembre anterior)</td><td id="lab-cts-may">S/ 0.00</td><td>Dentro de los primeros 15 días de mayo</td></tr>
+              <tr><td>Gratificación – julio</td><td>Remuneración computable × meses completos / 6</td><td id="lab-july-total">S/ 0.00</td><td>Primera quincena de julio</td></tr>
+              <tr><td>CTS – noviembre</td><td>½ × (remuneración computable + 1/6 de la gratificación de julio percibida)</td><td id="lab-cts-nov">S/ 0.00</td><td>Dentro de los primeros 15 días de noviembre</td></tr>
+              <tr><td>Gratificación – diciembre</td><td>Remuneración computable × meses completos / 6</td><td id="lab-dec-total">S/ 0.00</td><td>Primera quincena de diciembre</td></tr>
+            </tbody>
+          </table>
+          <div class="lab-note">La bonificación extraordinaria se muestra dentro del pago total de cada gratificación cuando está marcada. La CTS usa la gratificación efectivamente percibida: para mayo, diciembre anterior; para noviembre, julio.</div>
+        </div>
+        <div class="lab-black">
+          <h3>Caja Negra · costo anual estimado</h3>
+          <table><tbody>
+            <tr><td>12 remuneraciones</td><td id="lab-cost-salary">S/ 0.00</td></tr>
+            <tr><td>EsSalud anual</td><td id="lab-cost-health">S/ 0.00</td></tr>
+            <tr><td>2 gratificaciones</td><td id="lab-cost-grati">S/ 0.00</td></tr>
+            <tr><td>2 bonificaciones extraordinarias</td><td id="lab-cost-bonus">S/ 0.00</td></tr>
+            <tr><td>CTS</td><td id="lab-cost-cts">S/ 0.00</td></tr>
+            <tr><td>Vacaciones</td><td id="lab-cost-vac">S/ 0.00</td></tr>
+            <tr><td><strong>Costo anual referencial</strong></td><td id="lab-cost-total"><strong>S/ 0.00</strong></td></tr>
+          </tbody></table>
+        </div>
+        <div class="lab-note">La CTS se calcula separadamente para mayo y noviembre: para mayo se incorpora 1/6 de la gratificación de diciembre anterior y para noviembre 1/6 de la gratificación de julio. Para una liquidación por cese se usa la última gratificación percibida que corresponda al periodo. En una liquidación por cese se usa la última gratificación percibida que corresponda al periodo de CTS.</div>
+      </div>
+    </section>
+
+    
+<section class="lab-panel" id="lab-planilla">
+  <div class="lab-card">
+    <h2>Mini planilla del trabajador del hogar</h2>
+    <p class="lab-hint">Resumen mensual calculado automáticamente con los datos de <b>Beneficios y cálculos</b>.</p>
+    <div class="alv-payroll-guide">
+      <div><b>1. Sueldo bruto</b><span>Remuneración antes del descuento de pensión.</span></div>
+      <div><b>2. Descuentos</b><span>ONP o AFP según el sistema elegido.</span></div>
+      <div><b>3. Sueldo neto</b><span>Importe estimado que recibe el trabajador.</span></div>
+    </div>
+    <div class="lab-result-grid alv-payroll-metrics">
+      <div class="lab-metric"><span>Remuneración bruta</span><strong id="pay-bruto">S/ 0.00</strong></div>
+      <div class="lab-metric"><span>ONP / AFP</span><strong id="pay-pension">S/ 0.00</strong></div>
+      <div class="lab-metric"><span>Sueldo neto</span><strong id="pay-neto">S/ 0.00</strong></div>
+      <div class="lab-metric"><span>EsSalud · empleador</span><strong id="pay-essalud">S/ 0.00</strong></div>
+    </div>
+    <div class="alv-payroll-table">
+      <div><span>Remuneración básica</span><b id="pay-basic">S/ 0.00</b></div>
+      <div><span>Asignación familiar</span><b id="pay-family">S/ 0.00</b></div>
+      <div><span>Conceptos regulares computables</span><b id="pay-regular">S/ 0.00</b></div>
+      <div><span>Horas extras</span><b id="pay-overtime">S/ 0.00</b></div>
+      <div class="total"><span>Sueldo bruto</span><b id="pay-bruto-detail">S/ 0.00</b></div>
+      <div><span>Descuento ONP / AFP</span><b id="pay-pension-detail">S/ 0.00</b></div>
+      <div class="total highlight"><span>Sueldo neto a pagar</span><b id="pay-neto-detail">S/ 0.00</b></div>
+    </div>
+    <div class="alv-payroll-note"><b>Importante:</b> EsSalud es un aporte del empleador y no se descuenta del sueldo del trabajador. La tasa de AFP depende del esquema de comisión y de la AFP seleccionada.</div>
+  </div>
+</section>
+
+<section class="lab-panel" id="lab-obligaciones">
+      <div class="lab-card">
+        <h2>Obligaciones y derechos esenciales</h2>
+        <p class="lab-hint">Lista de control para que el empleador no omita pasos laborales, previsionales o documentarios.</p>
+        <div class="lab-obligations">
+          <div class="lab-ob"><b>📄 Contrato escrito</b><small>Debe celebrarse por escrito y contener la información mínima legal.</small></div>
+          <div class="lab-ob"><b>🗂️ Registro</b><small>El empleador registra el contrato en el aplicativo del MTPE dentro de 3 días hábiles.</small></div>
+          <div class="lab-ob"><b>💵 Remuneración</b><small>No inferior a la RMV para jornada completa; proporcional para trabajo por horas.</small></div>
+          <div class="lab-ob"><b>🧾 Boleta de pago</b><small>Emitir y entregar boleta con periodo, ingresos, descuentos, aportes y firmas.</small></div>
+          <div class="lab-ob"><b>🏥 EsSalud</b><small>Afiliación regular y aporte a cargo del empleador.</small></div>
+          <div class="lab-ob"><b>🏦 Pensión</b><small>Afiliación al sistema elegido y retención/pago del aporte que corresponda.</small></div>
+          <div class="lab-ob"><b>🎁 Gratificación</b><small>Julio y diciembre: cada una equivalente a una remuneración mensual, proporcional por meses completos cuando corresponda.</small></div>
+          <div class="lab-ob"><b>➕ Bonificación extraordinaria</b><small>9% de la gratificación con EsSalud; 6.75% si corresponde EPS.</small></div>
+          <div class="lab-ob"><b>🏦 CTS</b><small>Depósito dentro de los primeros 15 días naturales de mayo y noviembre; incluye 1/6 de la gratificación percibida según el periodo.</small></div>
+          <div class="lab-ob"><b>🏖️ Vacaciones</b><small>30 días calendario por año; récord trunco por dozavos y treintavos.</small></div>
+          <div class="lab-ob"><b>⏱️ Jornada</b><small>Máximo 8 horas diarias y 48 semanales; horas extras voluntarias y pagadas con sobretasa.</small></div>
+          <div class="lab-ob"><b>📅 30 de marzo</b><small>Día de las Trabajadoras y Trabajadores del Hogar: feriado no laborable remunerado.</small></div>
+          <div class="lab-ob"><b>🤰 Maternidad</b><small>Protección desde la gestación y durante lactancia; el despido por maternidad es nulo.</small></div>
+          <div class="lab-ob"><b>🎓 Educación</b><small>El empleador debe facilitar el acceso a educación básica o formación técnica/profesional.</small></div>
+          <div class="lab-ob"><b>🏠 Residencia</b><small>Si existe residencia, el alojamiento debe ser adecuado y las condiciones deben respetar la dignidad.</small></div>
+          <div class="lab-ob"><b>📤 Cese</b><small>La liquidación y beneficios pendientes deben atenderse dentro de 48 horas del cese.</small></div>
+        </div>
+        <div class="lab-note">La Ley N.º 27986 que enviaste es una norma histórica. Para el módulo vigente se toma como base la Ley N.º 31047 y su Reglamento, D.S. N.º 009-2021-TR. La Ley 27986 queda solo como referencia histórica.</div>
+      </div>
+    </section>
+
+    <section class="lab-panel" id="lab-boleta">
+      <div class="lab-card lab-noprint">
+        <h2>Boleta de pago</h2><p class="lab-hint">Generador basado en el formato referencial que proporcionaste.</p>
+        <div class="lab-fields">
+          <label class="wide">Empleador<input id="bol-employer"></label><label>Documento empleador<input id="bol-employer-id"></label>
+          <label class="wide">Domicilio del servicio<input id="bol-address"></label>
+          <label>Trabajador<input id="bol-worker"></label><label>Documento trabajador<input id="bol-worker-id"></label>
+          <label>Fecha de ingreso<input id="bol-start" type="date"></label><label>Pensión<select id="bol-pension"><option>ONP</option><option>AFP</option></select></label>
+          <label>Periodicidad<select id="bol-period"><option>Mensual</option><option>Quincenal</option><option>Semanal</option></select></label>
+          <label>Desde<input id="bol-from" type="date"></label><label>Hasta<input id="bol-to" type="date"></label>
+          <label>Remuneración básica<input id="bol-basic" type="number" value="1130" step=".01"></label><label>Horas extras<input id="bol-ot" type="number" value="0" step=".01"></label>
+          <label>Otros conceptos<input id="bol-other" type="number" value="0" step=".01"></label><label>Pensiones / deducciones<input id="bol-deduct" type="number" value="0" step=".01"></label>
+          <label>Fecha de pago<input id="bol-paydate" type="date"></label>
+        </div>
+        <div class="lab-actions"><button class="lab-btn" onclick="generateBoleta()">Actualizar boleta</button><button class="lab-btn secondary" onclick="printBoletaOnlyV11()">Imprimir</button></div>
+      </div>
+      <div class="lab-card"><div id="boletaContent" class="lab-contract"></div></div>
+    </section>
+
+    <section class="lab-panel" id="lab-contrato">
+      <div class="lab-card lab-noprint">
+        <h2>Contrato automatizado</h2><p class="lab-hint">Selecciona la modalidad y completa los datos. El PDF/impresión se limita al contrato generado.</p>
+        <div class="lab-fields">
+          <label>Modalidad<select id="con-mode"><option value="sin">Sin residencia</option><option value="res">Con residencia</option><option value="parcial">Tiempo parcial sin residencia</option></select></label>
+          <label>Plazo<select id="con-term"><option value="indef">Indeterminado</option><option value="fijo">Plazo fijo · completar causa</option></select></label>
+          <label class="wide">Trabajador<input id="con-worker"></label><label>DNI / documento<input id="con-worker-id"></label>
+          <label>Domicilio trabajador<input id="con-worker-address"></label><label>Nacionalidad<input id="con-worker-nationality"></label><label>Fecha nacimiento<input id="con-worker-birth" type="date"></label><label>Sexo<select id="con-worker-sex"><option>Femenino</option><option>Masculino</option><option>Otro</option></select></label><label>Estado civil<input id="con-worker-marital"></label><label>Profesión / oficio<input id="con-worker-job"></label>
+          <label class="wide">Antecedentes de servicios previos<input id="con-background"></label>
+          <label class="wide">Empleador<input id="con-employer"></label><label>DNI / documento empleador<input id="con-employer-id"></label>
+          <label>Domicilio del servicio<input id="con-address"></label><label>Nacionalidad empleador<input id="con-employer-nationality"></label><label>Fecha nacimiento empleador<input id="con-employer-birth" type="date"></label><label>Sexo empleador<select id="con-employer-sex"><option>Femenino</option><option>Masculino</option><option>Otro</option></select></label><label>Estado civil empleador<input id="con-employer-marital"></label><label>Profesión / oficio empleador<input id="con-employer-job"></label>
+          <label>Fecha de firma<input id="con-sign" type="date"></label><label>Inicio de relación<input id="con-start" type="date"></label><label>Fin (si plazo fijo)<input id="con-end" type="date"></label>
+          <label>Remuneración<input id="con-salary" type="number" value="1130" step=".01"></label><label>Pago<select id="con-pay"><option>Mensual</option><option>Quincenal</option><option>Semanal</option></select></label><label>Medio de pago<select id="con-method"><option>Transferencia bancaria</option><option>Efectivo</option></select></label><label>Banco<input id="con-bank"></label><label>Cuenta / CCI<input id="con-account"></label>
+          <label>Horas diarias<input id="con-hours" type="number" value="8" step=".01"></label><label>Horas semanales<input id="con-weekhours" type="number" value="48" step=".01"></label><label>Horario ingreso<input id="con-in"></label><label>Horario término<input id="con-out"></label><label>Descanso semanal<input id="con-rest" value="Domingo"></label>
+          <label class="wide">Causa objetiva, si es plazo fijo<input id="con-cause"></label>
+          <label class="wide">Funciones adicionales / otros<input id="con-other"></label>
+          <label class="wide">Facilidades educativas acordadas<input id="con-education"></label>
+        </div>
+        <div class="lab-checks">
+          <label class="lab-check"><input type="checkbox" id="task-clean" checked> Limpieza / mantenimiento</label><label class="lab-check"><input type="checkbox" id="task-cook"> Cocina</label><label class="lab-check"><input type="checkbox" id="task-laundry"> Lavado / planchado</label><label class="lab-check"><input type="checkbox" id="task-care"> Asistencia / cuidado</label><label class="lab-check"><input type="checkbox" id="task-other"> Otros</label>
+        </div>
+        <div class="lab-actions"><button class="lab-btn gold" onclick="generateContrato()">Generar contrato</button><button class="lab-btn secondary" onclick="printContractOnlyV12()">Imprimir</button></div>
+      </div>
+      <div id="contractPreview" class="lab-card"><div id="contractContent" class="lab-contract"></div></div>
+    </section>
+
+    <section class="lab-panel" id="lab-liquidacion">
+      <div class="lab-card">
+        <h2>Liquidación de beneficios sociales</h2><p class="lab-hint">La indemnización solo se activa cuando el motivo y el supuesto legal corresponden a despido arbitrario.</p>
+        <div class="lab-fields">
+          <label>Motivo<select id="liq-reason"><option value="renuncia">Renuncia voluntaria</option><option value="despido">Despido arbitrario</option><option value="causa">Despido con causa justa</option><option value="mutuo">Mutuo acuerdo</option><option value="plazo">Término de contrato</option></select></label>
+          <label>Remuneración al cese<input id="liq-salary" type="number" value="1130" step=".01"></label><label class="lab-check"><input id="liq-family" type="checkbox"> <span>Asignación familiar</span><small>10% de la RMV vigente</small></label><label>RMV vigente<input id="liq-rmv" type="number" value="1130" step=".01"></label>
+          <label>Fecha ingreso<input id="liq-start" type="date" value="2024-01-01"></label><label>Fecha cese<input id="liq-end" type="date" value="2026-09-01"></label><label>Horas diarias promedio<input id="liq-hours" type="number" value="8" step=".01"></label>
+          <label>Última gratificación percibida<input id="liq-lastgrati" type="number" value="1130" step=".01"></label><label>CTS ya depositada/pagada<input id="liq-cts-paid" type="number" value="0" step=".01"></label>
+          <label>Vacaciones gozadas del último periodo (días)<input id="liq-vac-used" type="number" value="0" step=".01"></label><label>Días de sueldo pendientes<input id="liq-days-pay" type="number" value="0" step=".01"></label>
+          <label>¿La CTS ya fue cancelada hasta el último depósito?<select id="liq-cts-status"><option value="no">No</option><option value="yes">Sí</option></select></label>
+        </div>
+        <div class="lab-checks"><label class="lab-check"><input type="checkbox" id="liq-indemnity"> Incluir indemnización por despido arbitrario</label></div>
+        <div class="lab-info" id="liq-indemnity-status">La indemnización está desactivada. Selecciona “Despido arbitrario” y marca la casilla para incorporarla al total.</div>
+        <div class="lab-actions"><button class="lab-btn" onclick="calculateLiquidacion()">Calcular liquidación</button><button class="lab-btn secondary" onclick="printLiquidacionOnlyV20()">Imprimir / PDF</button></div>
+      </div>
+      <div class="lab-card">
+        <div class="lab-result-grid">
+          <div class="lab-metric"><span>Sueldo pendiente</span><strong id="liq-pay">S/ 0.00</strong></div><div class="lab-metric"><span>Gratificación trunca + bonificación</span><strong id="liq-grati">S/ 0.00</strong></div><div class="lab-metric"><span>CTS trunca</span><strong id="liq-cts-out">S/ 0.00</strong></div><div class="lab-metric"><span>Vacaciones truncas</span><strong id="liq-vac">S/ 0.00</strong></div>
+        </div>
+        <div class="lab-result-grid"><div class="lab-metric"><span>Indemnización</span><strong id="liq-indemnity-out">S/ 0.00</strong></div><div class="lab-metric"><span>Total liquidación</span><strong id="liq-total">S/ 0.00</strong></div></div>
+        <div class="lab-black"><h3>Caja Negra · liquidación</h3><table><tbody>
+          <tr><td>Sueldo pendiente</td><td id="liq-b-pay">S/ 0.00</td></tr><tr><td>Gratificación trunca</td><td id="liq-b-grati">S/ 0.00</td></tr><tr><td>Bonificación extraordinaria</td><td id="liq-b-bonus">S/ 0.00</td></tr><tr><td>CTS trunca</td><td id="liq-b-cts">S/ 0.00</td></tr><tr><td>Vacaciones truncas</td><td id="liq-b-vac">S/ 0.00</td></tr><tr><td>Indemnización</td><td id="liq-b-ind">S/ 0.00</td></tr>
+        </tbody></table></div>
+        <div class="lab-note">Renuncia voluntaria: no genera indemnización por despido arbitrario. Despido arbitrario: puede generar indemnización, sujeta a la configuración del supuesto legal. La herramienta separa beneficios sociales de la indemnización para que el resultado sea transparente.</div>
+      </div>
+    </section>
+  </div>
+</div>
+
+
+<div id="calculatorView" class="calculator-view">
+  <div class="calculator-toolbar">
+    <button class="back-portal" onclick="showPortal()">← Volver al portal ALVAPEN</button>
+    <strong>ALVAPEN · Rentas de trabajo · 4ta + 5ta categoría</strong>
+  </div>
+  
+<header class="hero"><div class="hero-inner">
+<p class="eyebrow">ALVAPEN · Estudio Contable · Tributario · Laboral</p>
+<h1>Calculadora Integral de Renta de Trabajo</h1>
+<p>Herramienta profesional para la proyección anual de rentas de cuarta y quinta categoría, incluyendo trabajadores con uno o más empleadores.</p>
+<p class="author-line">Desarrollado por <strong>Alfredo Vasquez Penadillo</strong> · Contador Público Colegiado N.º 69874</p>
+<div class="hero-bottom"><div class="hero-tags"><span>Proyección anual · 2026</span><span>UIT 2026: S/ 5,500</span><span>4ta + 5ta categoría</span></div><nav class="quick-links" aria-label="Navegación de la calculadora"><a href="#ingresos">Ingresos</a><a href="#resultados">Resultados</a><a href="#base-legal">Base legal</a></nav></div>
+</div></header>
+<main>
+<div class="notice">Ingresa o modifica cualquier importe: todos los resultados se actualizan automáticamente. Las gratificaciones se calculan según el régimen elegido y la bonificación extraordinaria según EsSalud (9%) o EPS (6.75%). Montos expresados en soles (S/).</div>
+<div class="section-title" id="ingresos"><h2>Datos por empleador</h2><p class="hint">La remuneración mensual se proyecta desde el mes de inicio hasta diciembre.</p></div>
+<section class="employers" id="employers"><article class="card employer-card" data-id="adm">
+<div class="employer-head"><h3 class="employer-name" id="adm-name-title">Empleador 1</h3><span class="leader-badge">Mayor remuneración</span></div>
+<div class="fields">
+<label class="wide">Nombre del empleador (opcional)<input id="adm-name" type="text" maxlength="60" placeholder="Ej. Empresa A"></label>
+<label class="wide">Remuneración mensual (sin asignación familiar)<div class="currency-wrap"><span>S/</span><input id="adm-salary" type="number" min="0" step="0.01" value="6113"></div></label>
+<label>Régimen laboral<select id="adm-regime"><option value="general">Régimen general</option><option value="small" selected>Pequeña empresa MYPE</option><option value="micro">Microempresa MYPE</option></select></label>
+<label>Mes de inicio<select id="adm-start"></select></label>
+<label>Retenciones acumuladas<div class="currency-wrap"><span>S/</span><input id="adm-withheld" type="number" min="0" step="0.01" value="2,882.53"></div></label>
+<label>Seguro para bonificación<select id="adm-health"><option value="essalud" selected>EsSalud · 9%</option><option value="eps">EPS · 6.75%</option></select></label>
+<label class="family-choice"><input id="adm-family" type="checkbox"><span>Recibe asignación familiar</span><small id="adm-family-amount">—</small></label>
+<label class="monthly-choice"><input id="adm-monthly-mode" type="checkbox"><span>Usar sueldos brutos mes a mes</span></label>
+<div class="monthly-panel" id="adm-monthly-panel"></div><p class="regime-note" id="adm-regime-note"></p>
+<div class="auto-pay"><strong>Pago por gratificación de julio</strong><span id="adm-july-total">—</span><small id="adm-july-detail">—</small></div>
+<div class="auto-pay"><strong>Pago por gratificación de diciembre</strong><span id="adm-dec-total">—</span><small id="adm-dec-detail">—</small></div>
+</div></article>
+<article class="card employer-card" data-id="asia">
+<div class="employer-head"><h3 class="employer-name" id="asia-name-title">Empleador 2</h3><span class="leader-badge">Mayor remuneración</span></div>
+<div class="fields">
+<label class="wide">Nombre del empleador (opcional)<input id="asia-name" type="text" maxlength="60" placeholder="Ej. Empresa B"></label>
+<label class="wide">Remuneración mensual (sin asignación familiar)<div class="currency-wrap"><span>S/</span><input id="asia-salary" type="number" min="0" step="0.01" value="10113"></div></label>
+<label>Régimen laboral<select id="asia-regime"><option value="general">Régimen general</option><option value="small" selected>Pequeña empresa MYPE</option><option value="micro">Microempresa MYPE</option></select></label>
+<label>Mes de inicio<select id="asia-start"></select></label>
+<label>Retenciones acumuladas<div class="currency-wrap"><span>S/</span><input id="asia-withheld" type="number" min="0" step="0.01" value="7,455.84"></div></label>
+<label>Seguro para bonificación<select id="asia-health"><option value="essalud" selected>EsSalud · 9%</option><option value="eps">EPS · 6.75%</option></select></label>
+<label class="family-choice"><input id="asia-family" type="checkbox"><span>Recibe asignación familiar</span><small id="asia-family-amount">—</small></label>
+<label class="monthly-choice"><input id="asia-monthly-mode" type="checkbox"><span>Usar sueldos brutos mes a mes</span></label>
+<div class="monthly-panel" id="asia-monthly-panel"></div><p class="regime-note" id="asia-regime-note"></p>
+<div class="auto-pay"><strong>Pago por gratificación de julio</strong><span id="asia-july-total">—</span><small id="asia-july-detail">—</small></div>
+<div class="auto-pay"><strong>Pago por gratificación de diciembre</strong><span id="asia-dec-total">—</span><small id="asia-dec-detail">—</small></div>
+</div></article>
+<article class="card employer-card" data-id="pan">
+<div class="employer-head"><h3 class="employer-name" id="pan-name-title">Empleador 3</h3><span class="leader-badge">Mayor remuneración</span></div>
+<div class="fields">
+<label class="wide">Nombre del empleador (opcional)<input id="pan-name" type="text" maxlength="60" placeholder="Ej. Empresa C"></label>
+<label class="wide">Remuneración mensual (sin asignación familiar)<div class="currency-wrap"><span>S/</span><input id="pan-salary" type="number" min="0" step="0.01" value="3000"></div></label>
+<label>Régimen laboral<select id="pan-regime"><option value="general">Régimen general</option><option value="small" selected>Pequeña empresa MYPE</option><option value="micro">Microempresa MYPE</option></select></label>
+<label>Mes de inicio<select id="pan-start"></select></label>
+<label>Retenciones acumuladas<div class="currency-wrap"><span>S/</span><input id="pan-withheld" type="number" min="0" step="0.01" value="0"></div></label>
+<label>Seguro para bonificación<select id="pan-health"><option value="essalud" selected>EsSalud · 9%</option><option value="eps">EPS · 6.75%</option></select></label>
+<label class="family-choice"><input id="pan-family" type="checkbox"><span>Recibe asignación familiar</span><small id="pan-family-amount">—</small></label>
+<label class="monthly-choice"><input id="pan-monthly-mode" type="checkbox"><span>Usar sueldos brutos mes a mes</span></label>
+<div class="monthly-panel" id="pan-monthly-panel"></div><p class="regime-note" id="pan-regime-note"></p>
+<div class="auto-pay"><strong>Pago por gratificación de julio</strong><span id="pan-july-total">—</span><small id="pan-july-detail">—</small></div>
+<div class="auto-pay"><strong>Pago por gratificación de diciembre</strong><span id="pan-dec-total">—</span><small id="pan-dec-detail">—</small></div>
+</div></article></section>
+
+<section class="card fourth-card"><h2>Rentas de cuarta categoría</h2><p>Importes anuales. La deducción del 20% para el ejercicio individual se calcula automáticamente, con tope de 24 UIT.</p>
+<div class="fourth-grid">
+<label>Ingreso bruto por ejercicio individual<div class="currency-wrap"><span>S/</span><input id="fourth-professional" type="number" min="0" step="0.01" value="0"></div></label>
+<label>Otras rentas de cuarta categoría<div class="currency-wrap"><span>S/</span><input id="fourth-other" type="number" min="0" step="0.01" value="0"></div></label>
+<label>Retenciones de cuarta categoría<div class="currency-wrap"><span>S/</span><input id="fourth-withheld" type="number" min="0" step="0.01" value="0"></div></label>
+<div class="auto-pay"><strong>Renta neta de cuarta categoría</strong><span id="fourth-net">—</span><small id="fourth-detail">—</small></div>
+</div>
+<div class="deductions-block"><h3>Gastos deducibles adicionales</h3><p>Ingresa el gasto total efectivamente pagado en el año. La calculadora aplica el porcentaje de cada rubro y respeta el límite conjunto de 3 UIT.</p>
+<div class="deduct-grid">
+<label>Alquileres <span>30%</span><div class="currency-wrap"><span>S/</span><input id="expense-rent" type="number" min="0" step="0.01" value="0"></div><small>Deducible: <strong id="expense-rent-deductible">—</strong></small></label>
+<label>Restaurantes, bares y hoteles <span>15%</span><div class="currency-wrap"><span>S/</span><input id="expense-food" type="number" min="0" step="0.01" value="0"></div><small>Deducible: <strong id="expense-food-deductible">—</strong></small></label>
+<label>Médicos y odontólogos <span>30%</span><div class="currency-wrap"><span>S/</span><input id="expense-medical" type="number" min="0" step="0.01" value="0"></div><small>Deducible: <strong id="expense-medical-deductible">—</strong></small></label>
+<label>Profesiones, oficios, arte o ciencia <span>30%</span><div class="currency-wrap"><span>S/</span><input id="expense-professional" type="number" min="0" step="0.01" value="0"></div><small>Deducible: <strong id="expense-professional-deductible">—</strong></small></label>
+<label>EsSalud de trabajador(a) del hogar <span>100%</span><div class="currency-wrap"><span>S/</span><input id="expense-household" type="number" min="0" step="0.01" value="0"></div><small>Deducible: <strong id="expense-household-deductible">—</strong></small></label>
+</div><div class="deduction-total"><span>Total deducible antes del tope</span><strong id="additional-before-cap">—</strong></div></div></section>
+
+<section class="summary" id="resultados"><article class="card result-card"><h2>Determinación anual</h2>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px"><label>UIT 2026<div class="currency-wrap"><span>S/</span><input id="uit" type="number" min="0" step="1" value="5500"></div></label><label>RMV para asignación<div class="currency-wrap"><span>S/</span><input id="rmv" type="number" min="0" step="1" value="1130"></div></label></div>
+<div class="metric"><span>Renta bruta de quinta categoría</span><strong id="fifth-gross">—</strong></div><div class="metric"><span>Renta neta de cuarta categoría</span><strong id="fourth-summary">—</strong></div><div class="metric"><span>Renta de trabajo (4ta neta + 5ta)</span><strong id="gross">—</strong></div><div class="metric"><span>Deducción fija de 7 UIT</span><strong id="deduction">—</strong></div><div class="metric"><span>Deducción adicional sustentada (máx. 3 UIT)</span><strong id="additional-deduction">—</strong></div><div class="metric highlight"><span>Renta neta imponible</span><strong id="taxable">—</strong></div><div class="metric"><span>Impuesto anual calculado</span><strong id="annual-tax">—</strong></div><div class="metric"><span>Retenciones acumuladas (4ta + 5ta)</span><strong id="withheld">—</strong></div><div class="metric" id="balance-row"><span id="balance-label">Saldo pendiente de retener</span><strong id="balance">—</strong></div>
+</article><article class="card result-card suggestion"><h2>Retención recomendada</h2><p>El empleador con mayor remuneración mensual es:</p><p class="big" id="leader">—</p><p>Retención mensual referencial para completar el año:</p><p class="big" id="monthly-suggestion">—</p><p class="subtle" id="months-note">—</p><p class="subtle">Con rentas de cuarta categoría, el saldo es una proyección global para la declaración anual; la retención efectiva debe ser determinada por el empleador conforme a la normativa vigente.</p></article></section>
+
+<section class="black-box" aria-label="Caja negra de tramos del impuesto"><div class="black-head"><h2>CAJA NEGRA · Aplicación de la escala progresiva</h2><p>Distribución exacta de la renta neta imponible dentro de cada tramo. Los límites se expresan en UIT y en soles.</p></div><div class="brackets" id="brackets"></div><div class="black-foot">La suma de los impuestos de cada tramo equivale al impuesto anual calculado.</div></section>
+<section class="card legal-card" id="base-legal"><h2>Base legal y criterios aplicados</h2><p>Resumen operativo para esta proyección 2026. La aplicación no reemplaza la determinación del empleador, SUNAT o un asesor tributario.</p><div class="legal-grid">
+<article class="legal-item"><h3>UIT e impuesto 2026</h3><p>UIT 2026: S/ 5,500, fijada por el D.S. N.º 301-2025-EF. La escala acumulativa aplicable es 8%, 14%, 17%, 20% y 30%.</p><a href="https://www.gob.pe/institucion/mef/noticias/1314665-mef-establece-en-s-5500-el-valor-de-la-uit-para-el-ano-2026" target="_blank" rel="noopener noreferrer">Ver publicación MEF</a></article>
+<article class="legal-item"><h3>Cuarta y quinta categoría</h3><p>Arts. 45, 46 y 53 del TUO de la LIR: 20% de cuarta hasta 24 UIT, deducción fija única de 7 UIT y deducción adicional sustentada hasta 3 UIT.</p><a href="https://orientacion.sunat.gob.pe/3068-07-declaracion-y-calculo-anual" target="_blank" rel="noopener noreferrer">Ver cálculo SUNAT</a></article>
+<article class="legal-item"><h3>Gratificaciones y MYPE</h3><p>Ley 27735 y Ley 30334. La pequeña empresa recibe media remuneración por gratificación; la microempresa no tiene este beneficio legal.</p><a href="https://www.gob.pe/institucion/mtpe/noticias/12211-ministerio-de-trabajo-recuerda-a-empleadores-que-pago-de-gratificaciones-vence-el-15-de-julio" target="_blank" rel="noopener noreferrer">Ver criterio MTPE</a></article>
+<article class="legal-item"><h3>Bonificación y familia</h3><p>La bonificación es 9% con EsSalud o 6.75% con EPS. La asignación familiar equivale al 10% de la RMV, si corresponde.</p><a href="https://www.gob.pe/institucion/mtpe/noticias/601761-quienes-tienen-derecho-a-percibir-la-asignacion-familiar" target="_blank" rel="noopener noreferrer">Ver asignación familiar</a></article>
+</div></section>
+
+</main>
+<footer><strong>ALVAPEN</strong> · Estudio Contable · Tributario · Laboral<br>Herramienta informativa para proyección de renta de cuarta y quinta categoría. UIT 2026: S/ 5,500 (D.S. N.º 301-2025-EF). Verifica siempre el cálculo final con tu empleador, SUNAT o asesor tributario.</footer>
+<script>
+const months=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const employers=[{id:'adm',name:'Empleador 1'},{id:'asia',name:'Empleador 2'},{id:'pan',name:'Empleador 3'}];
+const regimes={general:{factor:1,note:'Régimen general: remuneración computable ÷ 6 × meses completos del semestre.'},small:{factor:.5,note:'Pequeña empresa MYPE: remuneración computable ÷ 6 × meses completos × 50%.'},micro:{factor:0,note:'Microempresa MYPE: no corresponde gratificación legal ni bonificación extraordinaria.'}};
+const healthCoverage={essalud:{rate:.09,label:'EsSalud'},eps:{rate:.0675,label:'EPS'}};
+const fmt=new Intl.NumberFormat('es-PE',{style:'currency',currency:'PEN',minimumFractionDigits:2});
+const number=id=>Math.max(0,Number.parseFloat(document.getElementById(id).value)||0);
+function selectOptions(){employers.forEach(({id})=>{const select=document.getElementById(`${id}-start`);select.innerHTML=months.map((month,index)=>`<option value="${index+1}">${month}</option>`).join('');select.value=id==='pan'?'7':'1'})}
+function buildMonthlyInputs(){employers.forEach(({id})=>{const panel=document.getElementById(`${id}-monthly-panel`);panel.innerHTML=`<p>Estos importes reemplazan la proyección uniforme para la renta anual. Para gratificaciones se usa la remuneración computable de junio (julio) y noviembre (diciembre). <button type="button" data-fill-months="${id}">Rellenar con remuneración uniforme</button></p><div class="months-grid">${months.map((month,index)=>`<label class="month-cell">${month.slice(0,3)}<input id="${id}-month-${index+1}" type="number" min="0" step="0.01" value="0" aria-label="${month}, ${id}"></label>`).join('')}</div>`})}
+function fillMonthlyInputs(id){const salary=number(`${id}-salary`);const start=Number(document.getElementById(`${id}-start`).value);months.forEach((_,index)=>{document.getElementById(`${id}-month-${index+1}`).value=index+1>=start?salary:0})}
+function calculate(){
+const uit=number('uit'),familyAllowance=number('rmv')*.10;let fifthGross=0,withheld=0;
+const details=employers.map(({id,name})=>{
+const enteredName=document.getElementById(`${id}-name`).value.trim(),employerName=enteredName||name;
+const salary=number(`${id}-salary`),start=Number(document.getElementById(`${id}-start`).value),monthsWorked=Math.max(0,13-start);
+const regime=regimes[document.getElementById(`${id}-regime`).value],health=healthCoverage[document.getElementById(`${id}-health`).value];
+const hasFamilyAllowance=document.getElementById(`${id}-family`).checked,useMonthly=document.getElementById(`${id}-monthly-mode`).checked,family=hasFamilyAllowance?familyAllowance:0,computablePay=salary+family;
+const monthlyBase=months.map((_,index)=>number(`${id}-month-${index+1}`)),monthlyPay=monthlyBase.map(amount=>amount>0?amount+family:0);
+const julyMonths=useMonthly?monthlyBase.slice(0,6).filter(amount=>amount>0).length:Math.max(0,Math.min(6,7-start));
+const decMonths=useMonthly?monthlyBase.slice(6,12).filter(amount=>amount>0).length:Math.max(0,Math.min(6,13-Math.max(start,7)));
+const julyBasis=useMonthly?monthlyPay[5]:computablePay,decBasis=useMonthly?monthlyPay[10]:computablePay;
+const julyGrat=julyBasis/6*julyMonths*regime.factor,decGrat=decBasis/6*decMonths*regime.factor,julyBonus=julyGrat*health.rate,decBonus=decGrat*health.rate;
+const julyTotal=julyGrat+julyBonus,decTotal=decGrat+decBonus,extras=julyTotal+decTotal;
+const annual=(useMonthly?monthlyPay.reduce((sum,amount)=>sum+amount,0):computablePay*monthsWorked)+extras,retained=number(`${id}-withheld`);
+fifthGross+=annual;withheld+=retained;
+document.getElementById(`${id}-name-title`).textContent=employerName;document.getElementById(`${id}-monthly-panel`).classList.toggle('active',useMonthly);document.getElementById(`${id}-regime-note`).textContent=regime.note;document.getElementById(`${id}-family-amount`).textContent=hasFamilyAllowance?`+ ${fmt.format(family)} / mes`:`No incluido · ${fmt.format(familyAllowance)} disponible`;
+document.getElementById(`${id}-july-total`).textContent=fmt.format(julyTotal);document.getElementById(`${id}-dec-total`).textContent=fmt.format(decTotal);
+document.getElementById(`${id}-july-detail`).textContent=`${julyMonths} mes(es): gratificación ${fmt.format(julyGrat)} + ${health.label} ${(health.rate*100).toFixed(2)}%: ${fmt.format(julyBonus)}`;
+document.getElementById(`${id}-dec-detail`).textContent=`${decMonths} mes(es): gratificación ${fmt.format(decGrat)} + ${health.label} ${(health.rate*100).toFixed(2)}%: ${fmt.format(decBonus)}`;
+return{id,name:employerName,salary,annual}});
+const fourthProfessional=number('fourth-professional'),fourthOther=number('fourth-other'),fourthDeduction=Math.min(fourthProfessional*.20,24*uit),fourthNet=Math.max(0,fourthProfessional-fourthDeduction+fourthOther),fourthWithheld=number('fourth-withheld');
+withheld+=fourthWithheld;const gross=fifthGross+fourthNet,deduction=Math.min(7*uit,gross);
+const deductibleExpenses=[{id:'expense-rent',output:'expense-rent-deductible',rate:.30},{id:'expense-food',output:'expense-food-deductible',rate:.15},{id:'expense-medical',output:'expense-medical-deductible',rate:.30},{id:'expense-professional',output:'expense-professional-deductible',rate:.30},{id:'expense-household',output:'expense-household-deductible',rate:1}];
+const additionalBeforeCap=deductibleExpenses.reduce((sum,expense)=>{const deductible=number(expense.id)*expense.rate;document.getElementById(expense.output).textContent=fmt.format(deductible);return sum+deductible},0);
+const additionalDeduction=Math.min(additionalBeforeCap,3*uit,Math.max(0,gross-deduction)),taxable=Math.max(0,gross-deduction-additionalDeduction);
+const brackets=[{uit:5,rate:.08,label:'Hasta 5 UIT'},{uit:15,rate:.14,label:'Más de 5 hasta 20 UIT'},{uit:15,rate:.17,label:'Más de 20 hasta 35 UIT'},{uit:10,rate:.20,label:'Más de 35 hasta 45 UIT'},{uit:Infinity,rate:.30,label:'Más de 45 UIT'}];
+let remainder=taxable,annualTax=0;
+const pieces=brackets.map((bracket,index)=>{const cap=bracket.uit===Infinity?Infinity:bracket.uit*uit,taxableHere=Math.min(remainder,cap),tax=taxableHere*bracket.rate;remainder=Math.max(0,remainder-taxableHere);annualTax+=tax;let limit;if(index===0)limit=`0 a ${fmt.format(5*uit)} · 5 UIT`;else if(bracket.uit===Infinity)limit=`Desde ${fmt.format(45*uit)} · sin tope`;else{const previous=[5,20,35,45][index-1],ending=previous+bracket.uit;limit=`${fmt.format(previous*uit)} a ${fmt.format(ending*uit)} · ${bracket.uit} UIT`}return{...bracket,taxableHere,tax,limit}});
+const balance=annualTax-withheld,leader=details.reduce((highest,item)=>item.salary>highest.salary?item:highest,details[0]),now=new Date(),projectionMonth=now.getFullYear()===2026?now.getMonth()+1:9,remainingMonths=Math.max(1,13-projectionMonth),monthlySuggestion=Math.max(0,balance)/remainingMonths;
+document.getElementById('fourth-net').textContent=fmt.format(fourthNet);document.getElementById('fourth-detail').textContent=`Ingreso individual ${fmt.format(fourthProfessional)} − deducción 20% ${fmt.format(fourthDeduction)} + otras rentas ${fmt.format(fourthOther)}`;document.getElementById('fifth-gross').textContent=fmt.format(fifthGross);document.getElementById('fourth-summary').textContent=fmt.format(fourthNet);document.getElementById('gross').textContent=fmt.format(gross);document.getElementById('deduction').textContent=`− ${fmt.format(deduction)}`;document.getElementById('additional-before-cap').textContent=fmt.format(additionalBeforeCap);document.getElementById('additional-deduction').textContent=`− ${fmt.format(additionalDeduction)}`;document.getElementById('taxable').textContent=fmt.format(taxable);document.getElementById('annual-tax').textContent=fmt.format(annualTax);document.getElementById('withheld').textContent=`− ${fmt.format(withheld)}`;
+const balanceRow=document.getElementById('balance-row');balanceRow.className=`metric ${balance>.005?'positive':'negative'}`;document.getElementById('balance-label').textContent=balance>.005?'Saldo pendiente de retener':'Exceso de retenciones proyectado';document.getElementById('balance').textContent=fmt.format(Math.abs(balance));document.getElementById('leader').textContent=leader.name;document.getElementById('monthly-suggestion').textContent=fmt.format(monthlySuggestion);document.getElementById('months-note').textContent=balance>.005?`Saldo pendiente dividido entre ${remainingMonths} mes(es) restante(s), de ${months[projectionMonth-1]} a diciembre.`:'No se sugiere retención adicional: las retenciones acumuladas cubren el impuesto anual proyectado.';document.querySelectorAll('.employer-card').forEach(card=>card.classList.toggle('leader',card.dataset.id===leader.id&&leader.salary>0));document.getElementById('brackets').innerHTML=pieces.map(piece=>`<div class="bracket"><div class="bracket-rate">${(piece.rate*100).toFixed(0)}%</div><div class="bracket-limit">${piece.label}<br>${piece.limit}</div><div class="bracket-value">Base: ${fmt.format(piece.taxableHere)}</div><div class="bracket-tax">Impuesto: ${fmt.format(piece.tax)}</div></div>`).join('')
+}
+selectOptions();buildMonthlyInputs();employers.forEach(({id})=>fillMonthlyInputs(id));document.querySelectorAll('input,select').forEach(field=>{field.addEventListener('input',calculate);field.addEventListener('change',calculate)});document.querySelectorAll('[data-fill-months]').forEach(button=>button.addEventListener('click',()=>{fillMonthlyInputs(button.dataset.fillMonths);calculate()}));calculate();
+</script>
+
+</div>
+
+
+<script>
+
+function showLaboral(){
+  document.getElementById('portalView').style.display='none';
+  document.getElementById('calculatorView').style.display='none';
+  document.getElementById('laboralView').style.display='block';
+  location.hash='laboral';
+  window.scrollTo(0,0);
+  initLaboralDefaults();
+}
+function showCalculator(){
+  document.getElementById('portalView').style.display='none';
+  document.getElementById('calculatorView').style.display='block';
+  location.hash='calculadora';
+  window.scrollTo(0,0);
+}
+function showPortal(){
+  document.getElementById('calculatorView').style.display='none';
+  document.getElementById('laboralView').style.display='none';
+  document.getElementById('portalView').style.display='block';
+  if(location.hash) history.replaceState(null,'',location.pathname+location.search);
+  window.scrollTo(0,0);
+}
+function filterPortal(){
+  const q=document.getElementById('portalSearch').value.toLowerCase().trim();
+  document.querySelectorAll('#portalCards .portal-card').forEach(c=>{
+    c.style.display=(!q || c.dataset.name.includes(q))?'block':'none';
+  });
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  if(location.hash==='#calculadora') showCalculator();
+});
+</script>
+
+
+
+
+<script>
+const LAB_FMT=new Intl.NumberFormat('es-PE',{style:'currency',currency:'PEN',minimumFractionDigits:2});
+const labMoney=n=>LAB_FMT.format(Number(n)||0);
+const labDate=v=>v?new Date(v+'T00:00:00'):null;
+const SBS_AFP={
+  habitat:{name:'Hábitat',flow:1.47,balance:1.25,insurance:1.37},
+  integra:{name:'Integra',flow:1.55,balance:0.78,insurance:1.37},
+  prima:{name:'Prima',flow:1.60,balance:1.25,insurance:1.37},
+  profuturo:{name:'Profuturo',flow:1.69,balance:0.68,insurance:1.37}
+};
+function fullMonths(a,b){if(!a||!b||b<a)return 0;let y=a.getFullYear(),m=a.getMonth(),n=0;while(true){const first=new Date(y,m,1),last=new Date(y,m+1,0);if(first>=a&&last<=b)n++;if(last>=b)break;m++;if(m>11){m=0;y++}}return n}
+function daysInclusive(a,b){return a&&b&&b>=a?Math.floor((b-a)/86400000)+1:0}
+function bonusRate(){return document.getElementById('lab-health').value==='eps'?.0675:.09}
+function pensionRate(){
+ const p=document.getElementById('lab-pension').value;
+ if(p==='onp') return .13;
+ if(p==='afp'){
+   const a=SBS_AFP[document.getElementById('lab-afp').value]||SBS_AFP.habitat;
+   const mode=document.getElementById('lab-afp-mode')?.value||'mixta';
+   return mode==='flujo' ? (.10+a.flow+a.insurance)/100 : (.10+a.insurance)/100;
+ }
+ return 0;
+}
+function updateAFPNote(){
+ const a=SBS_AFP[document.getElementById('lab-afp').value]||SBS_AFP.habitat;
+ const mode=document.getElementById('lab-afp-mode')?.value||'mixta';
+ const el=document.getElementById('lab-afp-rate-note');
+ if(!el) return;
+ if(mode==='flujo'){
+   el.innerHTML=`<a href="https://www.sbs.gob.pe/app/spp/empleadores/comisiones_spp/Paginas/comision_prima.aspx" target="_blank" rel="noopener">SBS · agosto 2026</a>: <b>${a.name}</b> · 10% aporte + ${a.flow.toFixed(2)}% comisión flujo + ${a.insurance.toFixed(2)}% seguro = <b>${(10+a.flow+a.insurance).toFixed(2)}%</b> de retención.`;
+ }else{
+   el.innerHTML=`<a href="https://www.sbs.gob.pe/app/spp/empleadores/comisiones_spp/Paginas/comision_prima.aspx" target="_blank" rel="noopener">SBS · agosto 2026</a>: <b>${a.name}</b> · esquema mixto/saldo: <b>10% aporte + 1.37% seguro = 11.37%</b> de retención mensual. Comisión sobre saldo ${a.balance.toFixed(2)}% anual; no se suma a la retención mensual.`;
+ }
+}
+function updateResidenceBox(){
+ const on=document.getElementById('lab-residence').checked;
+ document.getElementById('lab-residence-box').innerHTML=on
+ ? '<strong>Con residencia:</strong> el empleador debe proporcionar alojamiento adecuado y alimentación adecuada conforme a la modalidad pactada. Son condiciones de trabajo y <b>no forman parte de la remuneración</b>.'
+ : '<strong>Sin residencia:</strong> la persona trabajadora no reside en el domicilio del empleador. Si marcas <b>Con residencia</b>, se activan las condiciones de alojamiento y alimentación adecuadas como condiciones de trabajo.';
+ const mode=document.getElementById('con-mode'); if(mode) mode.value=on?'res':'sinres';
+}
+function updateBonusLabel(){
+ const cb=document.getElementById('lab-include-bonus');
+ if(!cb) return;
+ const on=cb.checked;
+ const parent=cb.parentElement;
+ if(!parent) return;
+ const textNode=[...parent.childNodes].find(n=>n.nodeType===3 && n.textContent.trim());
+ if(textNode) textNode.textContent=on?' Bonificación extraordinaria incluida':' Bonificación extraordinaria excluida';
+}
+function benefitData(){
+ const salary=+document.getElementById('lab-salary').value||0;
+ const rmv=+document.getElementById('lab-rmv').value||0;
+ const fam=document.getElementById('lab-family').checked?rmv*.10:0;
+ const regular=+document.getElementById('lab-regular').value||0;
+ const rem=salary+fam+regular;
+ const start=labDate(document.getElementById('lab-start').value),end=labDate(document.getElementById('lab-end').value);
+ const hours=+document.getElementById('lab-hours').value||0;
+ const health=bonusRate(),pRate=pensionRate(),pension=rem*pRate,ess=rem*.09;
+ const day=rem/30,hour=hours?day/hours:0;
+ const ot25=(+document.getElementById('lab-ot25').value||0)*hour*1.25;
+ const ot35=(+document.getElementById('lab-ot35').value||0)*hour*1.35;
+ let julMonths=0,decMonths=0;
+ if(start&&end){
+   const julEnd=new Date(end.getFullYear(),5,30),decStart=new Date(end.getFullYear(),6,1);
+   if(start<=julEnd) julMonths=fullMonths(start,end<julEnd?end:julEnd);
+   const dStart=start>decStart?start:decStart;
+   if(dStart<=end) decMonths=fullMonths(dStart,end);
+ }
+ const grJul=rem*julMonths/6,grDec=rem*decMonths/6;
+ const includeBonus=document.getElementById('lab-include-bonus').checked;
+ const bonJul=includeBonus?grJul*health:0,bonDec=includeBonus?grDec*health:0;
+ const prevGrati=+document.getElementById('lab-prev-grati').value||0;
+ const ctsEligible=document.getElementById('lab-cts-eligible').checked&&hours>=4;
+ const ctsMay=ctsEligible?(rem+prevGrati/6)/2:0;
+ const ctsNov=ctsEligible?(rem+grJul/6)/2:0;
+ const ctsAnnual=ctsMay+ctsNov;
+ const vac=rem,holiday=document.getElementById('lab-holiday').checked?day*2:0;
+ return {rem,fam,ess,pension,grJul,grDec,bonJul,bonDec,ctsMay,ctsNov,ctsAnnual,vac,ot25,ot35,holiday,includeBonus};
+}
+function calculateBenefits(){
+ updateAFPNote();updateResidenceBox();updateBonusLabel();
+ const d=benefitData();
+ [['lab-rem',d.rem],['lab-essalud',d.ess],['lab-pension-out',d.pension],['lab-cost',d.rem+d.ess],['lab-grati-jul',d.grJul],['lab-bonus-jul',d.bonJul],['lab-grati-dec',d.grDec],['lab-bonus-dec',d.bonDec],['lab-cts',d.ctsAnnual],['lab-vac',d.vac],['lab-overtime',d.ot25+d.ot35],['lab-holiday-out',d.holiday],['lab-cts-may',d.ctsMay],['lab-cts-nov',d.ctsNov],['lab-july-total',d.grJul+d.bonJul],['lab-dec-total',d.grDec+d.bonDec]].forEach(([id,v])=>{const el=document.getElementById(id);if(el)el.textContent=labMoney(v);});
+ document.getElementById('lab-cost-salary').textContent=labMoney(d.rem*12);
+ document.getElementById('lab-cost-health').textContent=labMoney(d.ess*12);
+ document.getElementById('lab-cost-grati').textContent=labMoney(d.grJul+d.grDec);
+ document.getElementById('lab-cost-bonus').textContent=labMoney(d.bonJul+d.bonDec);
+ document.getElementById('lab-cost-cts').textContent=labMoney(d.ctsAnnual);
+ document.getElementById('lab-cost-vac').textContent=labMoney(d.vac);
+ document.getElementById('lab-cost-total').textContent=labMoney(d.rem*12+d.ess*12+d.grJul+d.grDec+d.bonJul+d.bonDec+d.ctsAnnual+d.vac+d.ot25+d.ot35+d.holiday);
+
+  updateMiniPlanilla();
+}
+function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function initLaboralDefaults(){
+ const today=new Date().toISOString().slice(0,10);
+ ['bol-paydate','con-sign'].forEach(id=>{const e=document.getElementById(id);if(e&&!e.value)e.value=today});
+ if(!document.getElementById('lab-prev-grati').value)document.getElementById('lab-prev-grati').value=document.getElementById('lab-salary').value;
+ updateResidenceBox();updateBonusLabel();calculateBenefits();generateBoleta();generateContrato();calculateLiquidacion();
+}
+document.querySelectorAll('[data-lab-tab]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-lab-tab]').forEach(b=>b.classList.toggle('active',b===btn));document.querySelectorAll('.lab-panel').forEach(p=>p.classList.remove('active'));document.getElementById('lab-'+btn.dataset.labTab).classList.add('active')}));
+document.querySelectorAll('#lab-beneficios input,#lab-beneficios select').forEach(e=>{e.addEventListener('input',calculateBenefits);e.addEventListener('change',calculateBenefits)});
+document.getElementById('lab-residence').addEventListener('change',()=>{updateResidenceBox();generateContrato()});
+
+function generateBoleta(){
+ const g=id=>document.getElementById(id).value||'________________';const basic=+document.getElementById('bol-basic').value||0,ot=+document.getElementById('bol-ot').value||0,other=+document.getElementById('bol-other').value||0,deduct=+document.getElementById('bol-deduct').value||0,total=basic+ot+other;
+ document.getElementById('boletaContent').innerHTML=`<h1 style="text-align:center;font-size:18px">BOLETA DE PAGO DE LA PERSONA TRABAJADORA DEL HOGAR</h1><table class="lab-table"><tr><th colspan="2">DATOS DE LA PERSONA EMPLEADORA DEL HOGAR</th></tr><tr><td><b>Nombre:</b> ${esc(g('bol-employer'))}<br><b>Domicilio:</b> ${esc(g('bol-address'))}</td><td><b>Documento:</b> ${esc(g('bol-employer-id'))}</td></tr><tr><th colspan="2">DATOS DE LA PERSONA TRABAJADORA DEL HOGAR</th></tr><tr><td><b>Nombre:</b> ${esc(g('bol-worker'))}<br><b>Fecha de ingreso:</b> ${esc(g('bol-start'))}</td><td><b>Documento:</b> ${esc(g('bol-worker-id'))}<br><b>Sistema de pensiones:</b> ${esc(g('bol-pension'))}</td></tr><tr><th colspan="2">PERIODICIDAD DEL PAGO Y PERIODO</th></tr><tr><td>${esc(g('bol-period'))}</td><td>${esc(g('bol-from'))} al ${esc(g('bol-to'))}</td></tr><tr><th>INGRESOS</th><th>DEDUCCIONES / APORTACIONES</th></tr><tr><td>Remuneración básica: ${labMoney(basic)}<br>Horas extras: ${labMoney(ot)}<br>Otros conceptos: ${labMoney(other)}<br><b>TOTAL: ${labMoney(total)}</b></td><td>Pensiones: ${labMoney(deduct)}<br>EsSalud 9% empleador: ${labMoney(basic*.09)}<br><b>TOTAL A PAGAR: ${labMoney(total-deduct)}</b></td></tr></table><div class="lab-sign"><div>____________________________<br>Persona empleadora</div><div>____________________________<br>Persona trabajadora del hogar</div></div><p style="text-align:center"><b>Fecha de pago:</b> ${esc(g('bol-paydate'))}</p>`;
+}
+function generateContrato(){
+ const g=id=>document.getElementById(id).value||'________________';
+ const mode=g('con-mode'),term=g('con-term'),w=g('con-worker'),wid=g('con-worker-id'),wa=g('con-worker-address'),wn=g('con-worker-nationality'),wb=g('con-worker-birth'),ws=g('con-worker-sex'),wm=g('con-worker-marital'),wj=g('con-worker-job'),bg=g('con-background'),e=g('con-employer'),eid=g('con-employer-id'),ea=g('con-address'),en=g('con-employer-nationality'),eb=g('con-employer-birth'),es=g('con-employer-sex'),em=g('con-employer-marital'),ej=g('con-employer-job'),sign=g('con-sign'),start=g('con-start'),end=g('con-end'),salary=+g('con-salary')||0,pay=g('con-pay'),method=g('con-method'),bank=g('con-bank'),account=g('con-account'),hours=g('con-hours'),wh=g('con-weekhours'),hin=g('con-in'),hout=g('con-out'),rest=g('con-rest'),cause=g('con-cause'),other=g('con-other'),edu=g('con-education');
+ const tasks=[['Limpieza/Mantenimiento/cuidado del hogar','task-clean'],['Cocina/ayudante de cocina','task-cook'],['Lavado/planchado de ropa u otros similares','task-laundry'],['Asistencia/cuidado de niñas/os y adolescentes y/o adultas mayores y/o personas enfermas y/o personas con discapacidad y/o otras personas dependientes del hogar y/o mascotas domésticas','task-care'],['Otros','task-other']].filter(x=>document.getElementById(x[1]).checked).map(x=>'☒ '+x[0]).join('<br>')||'☐ Ninguna seleccionada';
+ const modality=mode==='res'?'prestación de servicios con residencia':mode==='parcial'?'prestación de servicios a tiempo parcial sin residencia':'prestación de servicios sin residencia';
+ const fixed=term==='fijo'?`<p><b>Fecha de término:</b> ${esc(end)}. <b>Causa objetiva:</b> ${esc(cause)}</p>`:'<p><b>Fecha de término:</b> Contrato a plazo indeterminado.</p>';
+ const residence=mode==='res'?`<div class="clause"><h2>Quinta.- Modalidad con residencia</h2><p>La modalidad de prestación es con residencia. La persona empleadora se obliga a otorgar alojamiento adecuado, que asegure la dignidad de la persona trabajadora del hogar, y alimentación adecuada conforme a la modalidad pactada. Estas condiciones de trabajo no forman parte de la remuneración.</p><p>La persona trabajadora disfrutará del descanso diario mínimo y del descanso semanal obligatorio conforme a la normativa aplicable.</p></div>`:'';
+ const partial=mode==='parcial'?`<div class="clause"><h2>Modalidad a tiempo parcial</h2><p>La prestación se realiza a tiempo parcial sin residencia. La remuneración pactada se determina de manera proporcional a la jornada, respetando la unidad mínima vinculada a la RMV.</p></div>`:'';
+ document.getElementById('contractContent').innerHTML=`<h1>CONTRATO DE TRABAJO DEL HOGAR</h1>
+ <h2>DATOS DE LA PERSONA TRABAJADORA DEL HOGAR</h2><p><b>Nombre(s) y apellido(s):</b> ${esc(w)}</p><p><b>Domicilio actual:</b> ${esc(wa)}</p><p><b>Documento de identidad:</b> ${esc(wid)} · <b>Nacionalidad:</b> ${esc(wn)} · <b>Fecha de nacimiento:</b> ${esc(wb)}</p><p><b>Sexo:</b> ${esc(ws)} · <b>Estado civil:</b> ${esc(wm)} · <b>Profesión u oficio:</b> ${esc(wj)}</p><p><b>Antecedentes:</b> ${esc(bg)}</p>
+ <h2>DATOS DE LA PERSONA EMPLEADORA</h2><p><b>Nombre(s) y apellido(s):</b> ${esc(e)}</p><p><b>Domicilio:</b> ${esc(ea)}</p><p><b>Documento de identidad:</b> ${esc(eid)} · <b>Nacionalidad:</b> ${esc(en)} · <b>Fecha de nacimiento:</b> ${esc(eb)}</p><p><b>Sexo:</b> ${esc(es)} · <b>Estado civil:</b> ${esc(em)} · <b>Profesión u oficio:</b> ${esc(ej)}</p>
+ <h2>FECHAS Y MODALIDAD</h2><p><b>Fecha de firma:</b> ${esc(sign)} · <b>Fecha de inicio:</b> ${esc(start)} · <b>Modalidad:</b> ${esc(modality)}</p>${fixed}
+ <div class="clause"><h2>Primera.- Lugar de prestación</h2><p>La persona trabajadora del hogar realizará las labores acordadas en el/los siguiente(s) domicilio(s): <b>${esc(ea)}</b>.</p></div>
+ <div class="clause"><h2>Segunda.- Labores contratadas</h2><p>La persona empleadora contrata los servicios de la persona trabajadora del hogar para realizar las labores que se detallan:</p><p>${tasks}</p></div>
+ <div class="clause"><h2>Tercera.- Remuneración, oportunidad y modalidad de pago</h2><p>La persona trabajadora del hogar recibirá una remuneración de <b>${labMoney(salary)}</b>, pagada en forma <b>${esc(pay)}</b> mediante <b>${esc(method)}</b>. Banco: ${esc(bank)}. Número de cuenta/CCI: ${esc(account)}.</p><p>La persona empleadora emitirá y entregará la boleta de pago con los conceptos remunerativos, retenciones y aportaciones que correspondan.</p></div>
+ <div class="clause"><h2>Cuarta.- Jornada, horario, descanso y sobretiempo</h2><p>La jornada ordinaria es de <b>${esc(hours)} horas diarias</b>, totalizando <b>${esc(wh)} horas semanales</b>. Horario: <b>${esc(hin)}</b> a <b>${esc(hout)}</b>. Descanso semanal: <b>${esc(rest)}</b>.</p><p>El trabajo en horas extraordinarias y en días feriados se regirá por las sobretasas y reglas legales aplicables.</p></div>${residence}${partial}
+ <div class="clause"><h2>Beneficios laborales</h2><p>Corresponden gratificaciones de julio y diciembre, CTS, vacaciones, descansos remunerados y demás beneficios de la Ley N.º 31047 y su Reglamento. La bonificación extraordinaria se determina según la cobertura de salud aplicable.</p></div>
+ <div class="clause"><h2>Seguridad social y pensiones</h2><p>La persona empleadora realiza las afiliaciones, aportes y retenciones que correspondan a EsSalud y al sistema pensionario elegido.</p></div>
+ <div class="clause"><h2>Seguridad y salud en el trabajo</h2><p>La persona empleadora proporcionará los implementos, equipos, uniformes, herramientas y condiciones necesarias para garantizar la seguridad y salud en el trabajo.</p></div>
+ <div class="clause"><h2>Educación</h2><p>Facilidades educativas acordadas: <b>${esc(edu)}</b>.</p></div>
+ <div class="clause"><h2>Registro y normativa</h2><p>El contrato se celebra por duplicado y se registra en el aplicativo del MTPE dentro del plazo legal. Se aplican la Ley N.º 31047, su Reglamento y normas complementarias.</p></div>
+ <div class="lab-sign"><div>____________________________<br>LA PERSONA EMPLEADORA</div><div>____________________________<br>LA PERSONA TRABAJADORA DEL HOGAR</div></div>
+ <p style="font-size:10px;margin-top:25px">Documento generado automáticamente por ALVAPEN. Revisar los datos antes de firmar.</p>`;
+}
+function printContractOnly(){generateContrato();document.body.classList.add('print-contract-only');window.print();setTimeout(()=>document.body.classList.remove('print-contract-only'),500)}
+function calculateLiquidacion(){
+ const reason=document.getElementById('liq-reason').value,salary=+document.getElementById('liq-salary').value||0,rmv=+document.getElementById('liq-rmv').value||0,fam=document.getElementById('liq-family').checked?rmv*.10:0,rem=salary+fam,start=labDate(document.getElementById('liq-start').value),end=labDate(document.getElementById('liq-end').value),lastG=+document.getElementById('liq-lastgrati').value||0,ctsPaid=+document.getElementById('liq-cts-paid').value||0,vacUsed=+document.getElementById('liq-vac-used').value||0,daysPay=+document.getElementById('liq-days-pay').value||0;
+ const semStart=end.getMonth()<=5?new Date(end.getFullYear(),0,1):new Date(end.getFullYear(),6,1),gs=start>semStart?start:semStart,gm=fullMonths(gs,end),grati=rem*gm/6,bonus=grati*bonusRate();
+ let ps;if(end.getMonth()<=3)ps=new Date(end.getFullYear()-1,10,1);else if(end.getMonth()<=9)ps=new Date(end.getFullYear(),4,1);else ps=new Date(end.getFullYear(),10,1);if(start>ps)ps=start;
+ const pd=daysInclusive(ps,end),cm=Math.floor(pd/30),cd=pd%30,ctsBase=rem+lastG/6,cts=Math.max(0,ctsBase/12*cm+ctsBase/360*cd-ctsPaid);
+ const sd=daysInclusive(start,end),vacDays=Math.max(0,sd/360*30-vacUsed),vac=rem/30*vacDays,pay=rem/30*daysPay;
+ const eligible=reason==='despido'&&document.getElementById('liq-indemnity').checked;
+ let ind=0;if(eligible){const years=Math.floor(sd/360),rest=sd-years*360;ind=Math.min(12*rem,1.5*rem*(years+Math.floor(rest/30)/12+(rest%30)/360))}
+ const total=pay+grati+bonus+cts+vac+ind;
+ [['liq-pay',pay],['liq-grati',grati+bonus],['liq-cts-out',cts],['liq-vac',vac],['liq-indemnity-out',ind],['liq-total',total],['liq-b-pay',pay],['liq-b-grati',grati],['liq-b-bonus',bonus],['liq-b-cts',cts],['liq-b-vac',vac],['liq-b-ind',ind]].forEach(([id,v])=>document.getElementById(id).textContent=labMoney(v));
+ const status=document.getElementById('liq-indemnity-status');
+ status.innerHTML=eligible?`<strong>Indemnización incluida:</strong> ${labMoney(ind)}. El monto se calcula a razón de 1.5 remuneraciones por año de servicios, con la proporcionalidad aplicable y tope de 12 remuneraciones.`:reason==='despido'?'<strong>Despido arbitrario seleccionado, pero la casilla de indemnización está desmarcada.</strong> El monto no se suma al total.':'<strong>Sin indemnización por despido arbitrario.</strong> Para renuncia, mutuo acuerdo, plazo o causa justa no se incorpora esta indemnización.';
+ document.getElementById('liq-indemnity').disabled=reason!=='despido';
+}
+document.querySelectorAll('#lab-liquidacion input,#lab-liquidacion select').forEach(e=>{e.addEventListener('input',calculateLiquidacion);e.addEventListener('change',calculateLiquidacion)});
+document.getElementById('liq-reason').addEventListener('change',calculateLiquidacion);
+</script>
+
+
+
+
+<script>
+/* ALVAPEN V6 · AFP: distinguir comisión mixta/saldo de comisión sobre flujo */
+(function(){
+  const SBS_AFP = {
+    habitat:{flujo:1.47,saldo:1.25,seguro:1.37},
+    integra:{flujo:1.55,saldo:0.78,seguro:1.37},
+    prima:{flujo:1.60,saldo:1.25,seguro:1.37},
+    profuturo:{flujo:1.69,saldo:0.68,seguro:1.37}
+  };
+
+  function afpRate(){
+    const mode=document.getElementById('lab-afp-mode')?.value || 'mixta';
+    const afp=document.getElementById('lab-afp')?.value || 'habitat';
+    const d=SBS_AFP[afp] || SBS_AFP.habitat;
+    return mode==='mixta' ? (10+d.seguro)/100 : (10+d.seguro+d.flujo)/100;
+  }
+
+  function updateAFPInfo(){
+    const mode=document.getElementById('lab-afp-mode')?.value || 'mixta';
+    const afp=document.getElementById('lab-afp')?.value || 'habitat';
+    const d=SBS_AFP[afp] || SBS_AFP.habitat;
+    const box=document.getElementById('lab-afp-info');
+    if(!box) return;
+    if(mode==='mixta'){
+      box.innerHTML='<b>Comisión mixta / saldo:</b> retención mensual = <b>10% aporte obligatorio + 1.37% prima de seguro = 11.37%</b>. '+
+        'La comisión sobre saldo ('+d.saldo.toFixed(2)+'% anual para '+afp.charAt(0).toUpperCase()+afp.slice(1)+') no se suma al descuento mensual de la remuneración.';
+    }else{
+      box.innerHTML='<b>Comisión sobre remuneración (flujo):</b> retención mensual = <b>10% aporte + 1.37% prima + '+d.flujo.toFixed(2)+'% comisión = '+(10+d.seguro+d.flujo).toFixed(2)+'%</b>.';
+    }
+  }
+
+  window.ALVAPEN_AFP_RATE = afpRate;
+  window.ALVAPEN_UPDATE_AFP = updateAFPInfo;
+
+  // Si la función original calcula la pensión usando lab-afp, interceptamos el resultado
+  // después de su cálculo y reemplazamos el importe por la tasa correcta del esquema elegido.
+  function fixPension(){
+    const salary=parseFloat(document.getElementById('lab-salary')?.value)||0;
+    const family=document.getElementById('lab-family')?.checked ? (parseFloat(document.getElementById('lab-rmv')?.value)||1130)*0.10 : 0;
+    const regular=parseFloat(document.getElementById('lab-regular')?.value)||0;
+    const rem=salary+family+regular;
+    const mode=document.getElementById('lab-pension')?.value;
+    if(mode!=='afp') return;
+    const pension=rem*afpRate();
+    const target=document.getElementById('lab-pension-result');
+    if(target) target.textContent='S/ '+pension.toLocaleString('es-PE',{minimumFractionDigits:2,maximumFractionDigits:2});
+    const info=document.getElementById('lab-afp-info');
+    updateAFPInfo();
+  }
+
+  function bind(){
+    ['lab-afp-mode','lab-afp','lab-pension'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(!el || el.dataset.afpv6) return;
+      el.dataset.afpv6='1';
+      el.addEventListener('change',()=>{
+        updateAFPInfo();
+        setTimeout(fixPension,0);
+      });
+    });
+    updateAFPInfo();
+    setTimeout(fixPension,0);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',bind);
+  else bind();
+})();
+</script>
+
+<script>
+/* ALVAPEN · Reparación de inicialización de la calculadora laboral V5 */
+(function(){
+  function runLaboral(){
+    try{
+      if(typeof calculateBenefits==='function') calculateBenefits();
+      if(typeof calculateLiquidacion==='function') calculateLiquidacion();
+      if(typeof generateBoleta==='function') generateBoleta();
+      if(typeof generateContrato==='function') generateContrato();
+      if(typeof updateResidenceBox==='function') updateResidenceBox();
+      if(typeof updateBonusLabel==='function') updateBonusLabel();
+    }catch(err){
+      console.error('ALVAPEN Laboral:', err);
+      const box=document.getElementById('lab-calc-status');
+      if(box){
+        box.style.display='block';
+        box.innerHTML='<b>No se pudo actualizar el cálculo.</b> Revisa los datos ingresados.';
+      }
+    }
+  }
+
+  function bindLaboral(){
+    const ids = [
+      'lab-salary','lab-family','lab-rmv','lab-start','lab-end','lab-hours',
+      'lab-days','lab-health','lab-pension','lab-afp-mode','lab-afp','lab-regular','lab-prev-grati',
+      'lab-ot25','lab-ot35','lab-residence','lab-include-bonus','lab-cts-eligible',
+      'lab-holiday'
+    ];
+    ids.forEach(id=>{
+      const el=document.getElementById(id);
+      if(!el || el.dataset.alvapEnV5Bound) return;
+      el.dataset.alvapEnV5Bound='1';
+      el.addEventListener('input',runLaboral);
+      el.addEventListener('change',runLaboral);
+    });
+
+    const liqIds=[
+      'liq-reason','liq-salary','liq-rmv','liq-family','liq-start','liq-end',
+      'liq-lastgrati','liq-cts-paid','liq-vac-used','liq-days-pay','liq-indemnity'
+    ];
+    liqIds.forEach(id=>{
+      const el=document.getElementById(id);
+      if(!el || el.dataset.alvapEnV5Bound) return;
+      el.dataset.alvapEnV5Bound='1';
+      el.addEventListener('input',runLaboral);
+      el.addEventListener('change',runLaboral);
+    });
+  }
+
+  function ensureStatusBox(){
+    const panel=document.getElementById('lab-beneficios');
+    if(panel && !document.getElementById('lab-calc-status')){
+      const b=document.createElement('div');
+      b.id='lab-calc-status';
+      b.style.cssText='display:none;margin:12px 0;padding:10px 12px;border:1px solid #E6B8B8;border-radius:10px;background:#FFF7F7;color:#8A2D2D;font-size:13px;';
+      const firstCard=panel.querySelector('.lab-card');
+      if(firstCard) firstCard.prepend(b);
+    }
+  }
+
+  function init(){
+    ensureStatusBox();
+    bindLaboral();
+    runLaboral();
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',init);
+  }else{
+    init();
+  }
+
+  // Si se entra a la herramienta desde el portal, volver a ejecutar.
+  window.addEventListener('hashchange',()=>{
+    if(location.hash==='#laboral') setTimeout(init,50);
+  });
+
+  // Funciones de controles que deben reaccionar inmediatamente.
+  document.addEventListener('change',function(e){
+    if(e.target && e.target.id==='lab-residence'){
+      if(typeof updateResidenceBox==='function') updateResidenceBox();
+      if(typeof generateContrato==='function') generateContrato();
+    }
+    if(e.target && e.target.id==='lab-include-bonus'){
+      if(typeof updateBonusLabel==='function') updateBonusLabel();
+      if(typeof calculateBenefits==='function') calculateBenefits();
+    }
+    if(e.target && e.target.id==='liq-indemnity'){
+      if(typeof calculateLiquidacion==='function') calculateLiquidacion();
+    }
+  });
+})();
+</script>
+
+
+<script>
+(function(){
+  function bootALVAPENLaboral(){
+    try{
+      if(typeof calculateBenefits==='function') calculateBenefits();
+    }catch(e){
+      console.error('ALVAPEN: error en cálculo de beneficios',e);
+      const st=document.getElementById('lab-calc-status');
+      if(st){st.style.display='block';st.textContent='Error en cálculo: '+e.message;}
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',bootALVAPENLaboral);
+  else bootALVAPENLaboral();
+})();
+</script>
+
+
+<script>
+/* ALVAPEN V10 · Impresión exclusiva del documento seleccionado */
+(function(){
+  function printOnly(selector, fallbackText){
+    const target=document.querySelector(selector);
+    if(!target){
+      alert('No se encontró el documento para imprimir.');
+      return;
+    }
+    document.body.classList.add('alvapen-print-document');
+    document.body.setAttribute('data-print-target', selector);
+    window.print();
+    setTimeout(function(){
+      document.body.classList.remove('alvapen-print-document');
+      document.body.removeAttribute('data-print-target');
+    }, 500);
+  }
+
+  window.printContractOnlyV10=function(){
+    printOnly('#contract-output', 'Contrato');
+  };
+
+  window.printBoletaOnlyV10=function(){
+    printOnly('#boleta-output', 'Boleta');
+  };
+
+  window.addEventListener('afterprint', function(){
+    document.body.classList.remove('alvapen-print-document');
+    document.body.removeAttribute('data-print-target');
+  });
+})();
+</script>
+<style>
+@media print {
+  /* Por defecto, la herramienta completa NO se imprime. */
+  body.alvapen-print-document > * {
+    display: none !important;
+  }
+
+  /* Contrato */
+  body.alvapen-print-document[data-print-target="#contract-output"] #contract-output {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    background: white !important;
+  }
+
+  /* Boleta */
+  body.alvapen-print-document[data-print-target="#boleta-output"] #boleta-output {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    background: white !important;
+  }
+
+  body.alvapen-print-document[data-print-target="#contract-output"] #contract-output *,
+  body.alvapen-print-document[data-print-target="#boleta-output"] #boleta-output * {
+    visibility: visible !important;
+  }
+
+  @page {
+    margin: 15mm;
+  }
+}
+</style>
+
+
+<script>
+/* ALVAPEN V11 · Imprimir únicamente la boleta */
+function printBoletaOnlyV11(){
+  const target=document.getElementById('boletaContent');
+  if(!target){
+    alert('Primero genera la boleta.');
+    return;
+  }
+  if(!target.innerHTML.trim() && typeof generateBoleta==='function') generateBoleta();
+  document.body.classList.add('print-boleta-only');
+  window.print();
+}
+window.addEventListener('afterprint',()=>{
+  document.body.classList.remove('print-boleta-only');
+  document.body.classList.remove('print-contract-only');
+});
+window.addEventListener('afterprint',()=>document.body.classList.remove('print-boleta-only'));
+</script>
+<style>
+@media print {
+  body.print-boleta-only > * { display:none !important; }
+  body.print-boleta-only #laboralView {
+    display:block !important;
+    position:static !important;
+    width:100% !important;
+    margin:0 !important;
+    padding:0 !important;
+    background:#fff !important;
+  }
+  body.print-boleta-only #laboralView .laboral-head,
+  body.print-boleta-only #laboralView .laboral-toolbar,
+  body.print-boleta-only #laboralView .lab-tabs,
+  body.print-boleta-only #laboralView .lab-panel:not(#lab-boleta),
+  body.print-boleta-only #lab-boleta > .lab-card.lab-noprint,
+  body.print-boleta-only #lab-boleta > .lab-card:first-of-type {
+    display:none !important;
+  }
+  body.print-boleta-only #lab-boleta {
+    display:block !important;
+    margin:0 !important;
+    padding:0 !important;
+    background:#fff !important;
+  }
+  body.print-boleta-only #boletaContent {
+    display:block !important;
+    width:100% !important;
+    margin:0 !important;
+    padding:0 !important;
+    border:0 !important;
+    box-shadow:none !important;
+    background:#fff !important;
+  }
+  body.print-boleta-only #boletaContent * {
+    visibility:visible !important;
+  }
+  @page { margin:15mm; }
+}
+</style>
+
+
+<style>
+@media print {
+  /* =========================================================
+     ALVAPEN V12 · IMPRESIÓN LIMPIA DE DOCUMENTOS
+     ========================================================= */
+  body.print-contract-only > * { display:none !important; }
+  body.print-contract-only #laboralView { display:block !important; }
+  body.print-contract-only #laboralView .laboral-head,
+  body.print-contract-only #laboralView .laboral-toolbar,
+  body.print-contract-only #laboralView .lab-tabs,
+  body.print-contract-only #laboralView .lab-panel:not(#lab-contrato),
+  body.print-contract-only #lab-contrato > .lab-card.lab-noprint,
+  body.print-contract-only #contractPreview .lab-actions {
+    display:none !important;
+  }
+  body.print-contract-only #lab-contrato,
+  body.print-contract-only #contractPreview,
+  body.print-contract-only #contractContent {
+    display:block !important;
+    visibility:visible !important;
+    position:static !important;
+    width:100% !important;
+    max-width:none !important;
+    margin:0 !important;
+    padding:0 !important;
+    border:0 !important;
+    box-shadow:none !important;
+    background:#fff !important;
+  }
+
+  body.print-boleta-only > * { display:none !important; }
+  body.print-boleta-only #laboralView { display:block !important; }
+  body.print-boleta-only #laboralView .laboral-head,
+  body.print-boleta-only #laboralView .laboral-toolbar,
+  body.print-boleta-only #laboralView .lab-tabs,
+  body.print-boleta-only #laboralView .lab-panel:not(#lab-boleta),
+  body.print-boleta-only #lab-boleta > .lab-card.lab-noprint,
+  body.print-boleta-only #lab-boleta .lab-actions {
+    display:none !important;
+  }
+  body.print-boleta-only #lab-boleta,
+  body.print-boleta-only #boletaContent {
+    display:block !important;
+    visibility:visible !important;
+    position:static !important;
+    width:100% !important;
+    max-width:none !important;
+    margin:0 !important;
+    padding:0 !important;
+    border:0 !important;
+    box-shadow:none !important;
+    background:#fff !important;
+  }
+
+  /* No imprimir botones, tabs, cabeceras ni controles aunque algún
+     selector del CSS original intente mostrarlos. */
+  body.print-contract-only button,
+  body.print-boleta-only button,
+  body.print-contract-only input,
+  body.print-boleta-only input,
+  body.print-contract-only select,
+  body.print-boleta-only select,
+  body.print-contract-only .lab-tab,
+  body.print-boleta-only .lab-tab {
+    display:none !important;
+  }
+
+  @page { margin:15mm; }
+}
+</style>
+
+
+<script>
+function printContractOnlyV12(){
+  if(typeof generateContrato==='function') generateContrato();
+  const target=document.getElementById('contractContent');
+  if(!target || !target.innerHTML.trim()){
+    alert('Primero genera el contrato.');
+    return;
+  }
+  document.body.classList.add('print-contract-only');
+  window.print();
+}
+</script>
+
+
+<script>
+function goToRentaCalculator(){
+  if(typeof showCalculator==='function'){
+    showCalculator();
+    setTimeout(()=>{
+      const target=document.getElementById('calculatorView');
+      if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+    },80);
+    return;
+  }
+  const target=document.getElementById('calculatorView');
+  if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+} 
+
+function integrarHogarEnRenta(){
+  const salary=Number(document.getElementById('lab-salary')?.value)||0;
+  const rmv=Number(document.getElementById('lab-rmv')?.value)||1130;
+  const family=document.getElementById('lab-family')?.checked;
+  const start=document.getElementById('lab-start')?.value||'';
+  if(!salary){
+    alert('Primero ingresa la remuneración del trabajador del hogar.');
+    return;
+  }
+  if(typeof showCalculator==='function') showCalculator();
+  setTimeout(()=>{
+    const slots=['adm','asia','pan'];
+    let slot=slots.find(p=>!(Number(document.getElementById(p+'-salary')?.value)||0));
+    if(!slot) slot='pan';
+    const sal=document.getElementById(slot+'-salary');
+    const fam=document.getElementById(slot+'-family');
+    const famAmt=document.getElementById(slot+'-family-amount');
+    const st=document.getElementById(slot+'-start');
+    if(sal) sal.value=salary;
+    if(fam) fam.checked=family;
+    if(famAmt) famAmt.value=family ? (rmv*.10).toFixed(2) : '0';
+    if(st && start) st.value=start.slice(0,7);
+    if(typeof calculate==='function') calculate();
+    const calc=document.getElementById('calculatorView');
+    if(calc) calc.scrollIntoView({behavior:'smooth',block:'start'});
+    alert('La remuneración del trabajador del hogar se incorporó como renta de quinta categoría. Revisa el empleador antes de continuar.');
+  },120);
+}
+(function(){
+  function bindChoices(){
+    document.querySelectorAll('.alv-choice').forEach(btn=>{
+      if(btn.dataset.v18) return;
+      btn.dataset.v18='1';
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll('.alv-choice').forEach(x=>x.classList.remove('active'));
+        btn.classList.add('active');
+        if(btn.dataset.choice==='renta') goToRentaCalculator();
+      });
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',bindChoices);
+  else bindChoices();
+})();
+</script>
+<style id="alvapen-v18">
+.alv-module-choice{
+  margin:0 0 14px;
+  padding:14px 16px;
+  border:1px solid #D9E2EC;
+  border-radius:12px;
+  background:#F7FAFC;
+}
+.alv-choice-title{
+  margin-bottom:9px;
+  font-size:14px;
+  font-weight:800;
+  color:#163A5F;
+}
+.alv-choice-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.alv-choice{
+  text-align:left;
+  padding:12px 14px;
+  border:1px solid #C7D4E0;
+  border-radius:10px;
+  background:#fff;
+  cursor:pointer;
+  color:#243B53;
+}
+.alv-choice.active{
+  border-color:#163A5F;
+  box-shadow:0 0 0 2px rgba(22,58,95,.08);
+}
+.alv-choice b{display:block;color:#163A5F;margin-bottom:3px}
+.alv-choice small{display:block;color:#627D98;line-height:1.35}
+.alv-integration{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  margin:16px 0;
+  padding:15px 16px;
+  border:1px solid #D9E2EC;
+  border-left:4px solid #C6A15B;
+  border-radius:11px;
+  background:#FFFBF3;
+}
+.alv-integration-title{font-weight:800;color:#163A5F;margin-bottom:3px}
+.alv-integration-text{font-size:13px;color:#52606D;line-height:1.45}
+@media(max-width:700px){
+ .alv-choice-grid{grid-template-columns:1fr}
+ .alv-integration{align-items:flex-start;flex-direction:column}
+}
+</style>
+
+
+<script>
+/* ALVAPEN V20 · Imprimir únicamente la liquidación */
+function printLiquidacionOnlyV20(){
+  const panel=document.getElementById('lab-liquidacion');
+  if(!panel){
+    alert('No se encontró la liquidación.');
+    return;
+  }
+  if(typeof calculateLiquidacion==='function') calculateLiquidacion();
+  document.body.classList.add('print-liquidacion-only');
+  window.print();
+}
+window.addEventListener('afterprint',()=>{
+  document.body.classList.remove('print-liquidacion-only');
+});
+</script>
+<style id="alvapen-print-liquidacion-v20">
+@media print {
+  body.print-liquidacion-only > *{display:none!important;}
+  body.print-liquidacion-only #laboralView{
+    display:block!important;
+    position:static!important;
+    width:100%!important;
+    margin:0!important;
+    padding:0!important;
+    background:#fff!important;
+  }
+  body.print-liquidacion-only #laboralView .laboral-head,
+  body.print-liquidacion-only #laboralView .laboral-toolbar,
+  body.print-liquidacion-only #laboralView .lab-tabs,
+  body.print-liquidacion-only #laboralView .lab-panel:not(#lab-liquidacion),
+  body.print-liquidacion-only #lab-liquidacion .lab-actions,
+  body.print-liquidacion-only #lab-liquidacion .lab-noprint,
+  body.print-liquidacion-only #lab-liquidacion input,
+  body.print-liquidacion-only #lab-liquidacion select,
+  body.print-liquidacion-only #lab-liquidacion textarea,
+  body.print-liquidacion-only #lab-liquidacion button{
+    display:none!important;
+  }
+  body.print-liquidacion-only #lab-liquidacion,
+  body.print-liquidacion-only #lab-liquidacion > .lab-card{
+    display:block!important;
+    position:static!important;
+    width:100%!important;
+    max-width:none!important;
+    margin:0!important;
+    padding:0!important;
+    border:0!important;
+    box-shadow:none!important;
+    background:#fff!important;
+  }
+  body.print-liquidacion-only #lab-liquidacion .lab-fields,
+  body.print-liquidacion-only #lab-liquidacion h2,
+  body.print-liquidacion-only #lab-liquidacion p{
+    display:none!important;
+  }
+  body.print-liquidacion-only #lab-liquidacion .lab-result-grid,
+  body.print-liquidacion-only #lab-liquidacion .lab-table,
+  body.print-liquidacion-only #lab-liquidacion .lab-result,
+  body.print-liquidacion-only #lab-liquidacion .lab-summary,
+  body.print-liquidacion-only #lab-liquidacion .liquidacion-result,
+  body.print-liquidacion-only #lab-liquidacion .lab-card:not(.lab-noprint){
+    display:block!important;
+    visibility:visible!important;
+  }
+  @page{margin:15mm;}
+}
+</style>
+
+
+<script>
+/* ALVAPEN V21 · Mini planilla mensual */
+function updateMiniPlanilla(){
+  const n=id=>Number(document.getElementById(id)?.value)||0;
+  const checked=id=>!!document.getElementById(id)?.checked;
+  const salary=n('lab-salary');
+  const family=checked('lab-family') ? n('lab-rmv')*.10 : 0;
+  const regular=n('lab-regular');
+  const ot25=n('lab-ot25');
+  const ot35=n('lab-ot35');
+  const overtime=ot25+ot35;
+  const bruto=salary+family+regular+overtime;
+  let pension=0;
+  if(typeof pensionRate==='function') pension=bruto*pensionRate();
+  const health=bruto*(document.getElementById('lab-health')?.value==='eps'?0.0675:0.09);
+  const neto=bruto-pension;
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=labMoney(v);};
+  set('pay-basic',salary); set('pay-family',family); set('pay-regular',regular);
+  set('pay-overtime',overtime); set('pay-bruto',bruto); set('pay-bruto-detail',bruto);
+  set('pay-pension',pension); set('pay-pension-detail',pension);
+  set('pay-neto',neto); set('pay-neto-detail',neto); set('pay-essalud',health);
+}
+</script>
+
+
+<script>
+(function(){
+  function bindPlanillaTab(){
+    document.querySelectorAll('.lab-tab[data-tab="planilla"]').forEach(btn=>{
+      if(btn.dataset.planillaBound) return;
+      btn.dataset.planillaBound='1';
+      btn.addEventListener('click',function(){
+        document.querySelectorAll('.lab-tab').forEach(x=>x.classList.remove('active'));
+        document.querySelectorAll('.lab-panel').forEach(x=>x.classList.remove('active'));
+        btn.classList.add('active');
+        const p=document.getElementById('lab-planilla');
+        if(p)p.classList.add('active');
+        if(typeof updateMiniPlanilla==='function')updateMiniPlanilla();
+      });
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bindPlanillaTab);
+  else bindPlanillaTab();
+})();
+</script>
+
+
+<script>
+(function(){
+  function activatePlanilla(){
+    document.querySelectorAll('.lab-tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.lab-panel').forEach(x=>x.classList.remove('active'));
+    const btn=document.querySelector('.lab-tab[data-tab="planilla"]');
+    const panel=document.getElementById('lab-planilla');
+    if(btn)btn.classList.add('active');
+    if(panel)panel.classList.add('active');
+    if(typeof updateMiniPlanilla==='function')updateMiniPlanilla();
+  }
+  function bind(){
+    const btn=document.querySelector('.lab-tab[data-tab="planilla"]');
+    if(btn && !btn.dataset.boundV21){
+      btn.dataset.boundV21='1';
+      btn.addEventListener('click',activatePlanilla);
+    }
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind);else bind();
+})();
+</script>
+</body>
+</html><button class="lab-tab" data-tab="planilla">🧾 Planilla</button>TYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALVAPEN | Herramientas Profesionales</title>
+<style>
+:root{--ink:#243B53;--muted:#667085;--navy:#163A5F;--blue:#5B7896;--sky:#F3F6F9;--line:#D9E1E8;--good:#287D6B;--warn:#B7791F;--danger:#B54747;--paper:#fff;--page:#F5F7FA;--black:#172536;--gold:#C6A15B;--gold-soft:#F7F1E5}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 90% 0,#E8EDF2 0,transparent 32%),var(--page);color:var(--ink);font:15px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+.hero{background:linear-gradient(118deg,#163A5F 0%,#243B53 58%,#5B7896 130%);color:#fff;padding:34px 28px 38px;border-bottom:3px solid var(--gold)}
+.hero-inner,main,footer{max-width:1480px;margin:auto}.eyebrow{margin:0 0 8px;color:#D8C28F;font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}h1{margin:0;font-size:clamp(1.65rem,4vw,2.5rem);letter-spacing:-.035em}.hero p:last-child{margin:10px 0 0;color:#E6EDF3;max-width:780px}.author-line{margin:12px 0 0!important;color:#F1F5F9!important;font-size:.84rem}.hero-bottom{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:24px}.hero-tags,.quick-links{display:flex;flex-wrap:wrap;gap:8px}.hero-tags span{padding:5px 9px;border:1px solid rgb(200 169 107/.45);border-radius:999px;background:rgb(255 255 255/.07);color:#F4E9D0;font-size:.73rem;font-weight:700}.quick-links a{padding:7px 11px;border:1px solid rgb(255 255 255/.24);border-radius:7px;color:#fff;font-size:.78rem;font-weight:750;text-decoration:none;transition:.18s}.quick-links a:hover{background:rgb(255 255 255/.14);transform:translateY(-1px)}
+main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:14px 17px;border:1px solid var(--line);border-left:4px solid var(--gold);background:linear-gradient(90deg,#fff,#F8FAFC);border-radius:10px;color:#475569;box-shadow:0 3px 13px rgb(15 23 42/.035)}.section-title{display:flex;justify-content:space-between;align-items:end;gap:16px;margin:32px 0 14px;padding-bottom:10px;border-bottom:1px solid var(--line)}h2{margin:0;font-size:1.14rem;letter-spacing:-.015em}.hint{margin:0;color:var(--muted);font-size:.85rem}
+.employers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.card{background:var(--paper);border:1px solid var(--line);border-radius:15px;box-shadow:0 6px 20px rgb(15 23 42/.05);overflow:hidden;transition:.2s}.card:hover{box-shadow:0 12px 28px rgb(15 23 42/.08)}.employer-head{padding:15px 17px;background:#F8FAFC;border-bottom:1px solid var(--line);display:flex;gap:10px;justify-content:space-between;align-items:center}.employer-name{margin:0;font-size:1rem}.employer-card.leader{border-color:var(--gold);box-shadow:0 7px 22px rgb(16 42 67/.15)}.leader-badge{display:none;padding:3px 8px;border-radius:999px;color:#765C24;background:var(--gold-soft);font-size:.7rem;font-weight:800;white-space:nowrap}.leader .leader-badge{display:inline-block}
+.fields{padding:17px 18px 19px;display:grid;grid-template-columns:1fr 1fr;gap:13px}.fields .wide{grid-column:1/-1}label{display:block;color:#475569;font-size:.78rem;font-weight:700}input,select{display:block;width:100%;margin-top:5px;padding:10px 11px;border:1px solid #CBD5E1;border-radius:8px;background:#fff;color:var(--ink);font:inherit;outline:none}input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgb(72 101 129/.15)}.currency-wrap{position:relative}.currency-wrap span{position:absolute;left:11px;top:14px;color:#64748B;font-size:.82rem;pointer-events:none}.currency-wrap input{padding-left:34px}
+.family-choice,.monthly-choice{grid-column:1/-1;display:flex;align-items:center;gap:9px;padding:10px 11px;border:1px solid var(--line);border-radius:8px;background:#F8FAFC;color:#334E68;font-size:.8rem;cursor:pointer}.family-choice input,.monthly-choice input{display:inline-block;width:auto;margin:0;accent-color:var(--blue)}.family-choice small{margin-left:auto;color:#64748B;font-size:.72rem;font-weight:600}.monthly-panel{display:none;grid-column:1/-1;padding:13px;border:1px solid var(--line);border-radius:9px;background:#FAFBFC}.monthly-panel.active{display:block}.monthly-panel p{margin:0 0 10px;color:#475569;font-size:.76rem}.monthly-panel button{float:right;margin-top:-4px;padding:5px 8px;font-size:.72rem}.months-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px;clear:both}.month-cell{color:#64748B;font-size:.68rem;font-weight:700}.month-cell input{margin-top:3px;padding:7px 6px;font-size:.78rem}.regime-note{grid-column:1/-1;margin:-2px 0 0;color:#64748B;font-size:.76rem}.auto-pay{grid-column:1/-1;padding:12px 13px;border:1px solid var(--line);border-radius:9px;background:#F8FAFC}.auto-pay strong{display:block;color:#334E68;font-size:.8rem}.auto-pay span{display:block;margin-top:3px;color:#163A5F;font-size:1.1rem;font-weight:800;font-variant-numeric:tabular-nums}.auto-pay small{display:block;margin-top:2px;color:#64748B;font-size:.74rem}
+.summary{display:grid;grid-template-columns:1.6fr .9fr;gap:18px;margin-top:26px}.fourth-card{margin-top:22px;padding:20px}.fourth-card h2{margin-bottom:5px}.fourth-card>p{margin:0 0 14px;color:#64748B;font-size:.84rem}.fourth-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.deductions-block{margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}.deductions-block h3{margin:0;font-size:.95rem}.deductions-block>p{margin:4px 0 13px;color:var(--muted);font-size:.8rem}.deduct-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:11px}.deduct-grid label{padding:10px;border:1px solid var(--line);border-radius:9px;background:#FBFCFD}.deduct-grid label span{display:inline-block;margin-left:4px;color:#5B7896;font-size:.68rem}.deduct-grid label input{margin-top:7px;padding:8px}.deduct-grid small{display:block;margin-top:6px;color:#667085;font-size:.71rem}.deduct-grid small strong{color:#334E68}.deduction-total{display:flex;justify-content:space-between;gap:18px;margin-top:13px;padding:11px 13px;border-radius:9px;background:#F3F6F9;color:#334E68;font-size:.82rem;font-weight:750}
+.result-card{padding:20px}.result-card h2{margin-bottom:14px}.metric{display:flex;justify-content:space-between;gap:20px;padding:9px 0;border-bottom:1px solid #EDF1F6;color:#475569}.metric:last-child{border-bottom:none}.metric strong{color:var(--ink);text-align:right;font-variant-numeric:tabular-nums}.metric.highlight{margin:9px -4px;padding:12px 10px;border-radius:9px;border:0;background:#F3F6F9;color:#334E68;font-weight:700}.metric.highlight strong{color:#163A5F;font-size:1.05rem}.metric.negative strong{color:var(--good)}.metric.positive strong{color:var(--danger)}.suggestion{background:linear-gradient(145deg,#F3F6F9,#fff);border-color:var(--line)}.suggestion .big{margin:4px 0;color:#163A5F;font-size:1.9rem;font-weight:800;letter-spacing:-.04em;font-variant-numeric:tabular-nums}.suggestion p{margin:8px 0;color:#475569}.subtle{color:var(--muted)!important;font-size:.82rem}
+.black-box{margin-top:22px;background:var(--black);color:#F8FAFC;border-radius:14px;overflow:hidden;box-shadow:0 10px 26px rgb(2 6 23/.18)}.black-head{padding:20px 21px;border-bottom:1px solid #304154}.black-head h2{color:#fff}.black-head p{margin:5px 0 0;color:#B7C3D0;font-size:.88rem}.brackets{display:grid;grid-template-columns:repeat(5,1fr)}.bracket{padding:18px;min-height:166px;border-right:1px solid #304154}.bracket:last-child{border:0}.bracket-rate{color:#D8C28F;font-size:1.3rem;font-weight:800}.bracket-limit{margin:4px 0 17px;color:#B7C3D0;font-size:.74rem;min-height:33px}.bracket-value{color:#fff;font-size:1rem;font-weight:800;font-variant-numeric:tabular-nums}.bracket-tax{margin-top:5px;color:#E5D3A6;font-size:.82rem;font-variant-numeric:tabular-nums}.black-foot{padding:14px 21px;background:#111C2F;color:#CBD5E1;font-size:.84rem}
+.legal-card{margin-top:26px;padding:22px}.legal-card>p{margin:6px 0 17px;color:var(--muted);font-size:.86rem}.legal-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.legal-item{padding:14px;border:1px solid #E2E8F0;border-radius:10px;background:#FBFCFD}.legal-item h3{margin:0 0 6px;color:#334E68;font-size:.84rem}.legal-item p{margin:0;color:#475569;font-size:.78rem}.legal-item a{display:inline-block;margin-top:9px;color:#5B7896;font-size:.76rem;font-weight:800;text-decoration:none}.legal-item a:hover{text-decoration:underline}.actions{display:flex;justify-content:flex-end;margin-top:18px}button{padding:10px 14px;border:1px solid #CBD5E1;border-radius:8px;background:#fff;color:#334155;cursor:pointer;font:inherit;font-weight:700}button:hover{border-color:var(--gold);background:#F8FAFC}footer{padding:0 20px 28px;color:#64748B;font-size:.76rem}
+@media(max-width:1100px){.employers{grid-template-columns:repeat(2,minmax(0,1fr))}.fourth-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.deduct-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.legal-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.hero{padding:27px 18px 29px}.hero-bottom{align-items:flex-start;flex-direction:column}.employers,.summary{grid-template-columns:1fr}.fourth-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.deduct-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.brackets{grid-template-columns:repeat(2,1fr)}.bracket:nth-child(2){border-right:0}.bracket:nth-child(3),.bracket:nth-child(4){border-top:1px solid #304154}.bracket:nth-child(4){border-right:0}.bracket:nth-child(5){border-top:1px solid #304154}}
+@media(max-width:480px){main{padding-inline:13px}.fields{grid-template-columns:1fr}.fields .wide{grid-column:auto}.fourth-grid,.deduct-grid,.legal-grid{grid-template-columns:1fr}.months-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.brackets{grid-template-columns:1fr}.bracket{min-height:auto;border-right:0!important;border-top:1px solid #304154}.bracket:first-child{border-top:0}.metric{font-size:.89rem}}
+@media print{body{background:#fff}.hero{padding:20px}main{padding:15px}.notice,.actions{display:none}.card,.black-box{box-shadow:none}}
+</style>
+<style>
+/* ALVAPEN PORTAL */
+:root{--p-navy:#163A5F;--p-steel:#5B7896;--p-gold:#C6A15B;--p-bg:#F5F7FA;--p-white:#fff;--p-text:#243B53;--p-muted:#627D98;--p-line:#D9E2EC}
+.portal-view{min-height:100vh;background:var(--p-bg);font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--p-text)}
+.portal-top{background:linear-gradient(135deg,var(--p-navy),#163A59);color:#fff}
+.portal-nav,.portal-hero,.portal-main,.portal-footer{max-width:1180px;margin:auto;padding-left:24px;padding-right:24px}
+.portal-nav{height:76px;display:flex;align-items:center;justify-content:space-between}
+.portal-brand{font-size:25px;font-weight:800;letter-spacing:2px}
+.portal-brand small{display:block;font-size:10px;letter-spacing:1.8px;font-weight:500;opacity:.72;margin-top:3px}
+.portal-badge{border:1px solid rgba(200,169,107,.65);color:#f4dfae;padding:8px 13px;border-radius:999px;font-size:12px}
+.portal-hero{padding-top:72px;padding-bottom:78px}
+.portal-hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:55px;align-items:center}
+.portal-eyebrow{color:var(--p-gold);font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+.portal-hero h1{font-size:52px;line-height:1.04;margin:13px 0 20px;letter-spacing:-1.5px}
+.portal-hero p{font-size:18px;line-height:1.7;color:#d8e4ee;max-width:650px;margin:0}
+.portal-search{margin-top:28px;background:#fff;border-radius:12px;display:flex;align-items:center;padding:0 16px;box-shadow:0 8px 22px rgba(0,0,0,.12)}
+.portal-search span{font-size:18px;color:var(--p-muted)}
+.portal-search input{border:0;outline:0;width:100%;padding:15px 12px;font-size:14px}
+.portal-side{background:#fff;color:var(--p-text);border-radius:20px;padding:28px;box-shadow:0 18px 45px rgba(0,0,0,.16)}
+.portal-kpi{font-size:40px;font-weight:800;color:var(--p-navy)}
+.portal-side p{color:var(--p-muted);font-size:14px;line-height:1.5;margin-top:6px}
+.portal-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+.portal-stat{background:#f7fafc;border:1px solid var(--p-line);border-radius:12px;padding:12px}
+.portal-stat b{display:block;color:var(--p-navy);font-size:18px}.portal-stat span{font-size:11px;color:var(--p-muted)}
+.portal-main{padding-top:58px;padding-bottom:80px}
+.portal-section-head{margin-bottom:22px}.portal-section-head h2{margin:0;color:var(--p-navy);font-size:26px}.portal-section-head p{margin:6px 0 0;color:var(--p-muted);font-size:14px}
+.portal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.portal-card{display:block;background:#fff;border:1px solid var(--p-line);border-radius:17px;padding:24px;min-height:190px;box-shadow:0 12px 30px rgba(16,42,67,.08);transition:.18s;position:relative}
+.portal-card:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(16,42,67,.12)}
+.portal-card.portal-available{border-color:#b7c7d6}
+.portal-card.portal-available:after{content:"DISPONIBLE";position:absolute;right:18px;top:18px;background:#edf3f7;color:var(--p-navy);font-size:9px;font-weight:800;padding:6px 8px;border-radius:999px;letter-spacing:.8px}
+.portal-icon{font-size:27px;margin-bottom:14px}.portal-card h3{margin:0 0 8px;color:var(--p-navy);font-size:18px}.portal-card p{margin:0;color:var(--p-muted);font-size:13px;line-height:1.55}.portal-action{display:inline-block;margin-top:18px;color:var(--p-navy);font-size:12px;font-weight:800}.portal-card.soon{opacity:.82}.portal-card.soon .portal-action{color:var(--p-gold)}
+.portal-feature{grid-column:span 3;background:linear-gradient(135deg,#fff,#f1f5f8);border-left:5px solid var(--p-gold);min-height:150px}.portal-feature h3{font-size:22px}.portal-feature p{max-width:850px}
+.portal-footer-wrap{background:var(--p-navy);color:#d9e2ec}.portal-footer{padding-top:28px;padding-bottom:28px;font-size:12px}.portal-footer strong{color:#fff;letter-spacing:1px}
+.calculator-view{display:none}
+.calculator-toolbar{max-width:1200px;margin:0 auto;padding:14px 24px;background:#fff;border-bottom:1px solid #d9e2ec;display:flex;justify-content:space-between;align-items:center;gap:15px;position:sticky;top:0;z-index:50}
+.back-portal{border:1px solid #d9e2ec;background:#fff;color:#163A5F;border-radius:10px;padding:10px 15px;font-weight:700;cursor:pointer}.back-portal:hover{background:#f6f8fa}
+@media(max-width:850px){.portal-hero-grid{grid-template-columns:1fr}.portal-grid{grid-template-columns:1fr 1fr}.portal-feature{grid-column:span 2}.portal-hero h1{font-size:42px}}
+@media(max-width:560px){.portal-grid{grid-template-columns:1fr}.portal-feature{grid-column:span 1}.portal-stats{grid-template-columns:1fr}.portal-nav{height:auto;padding-top:18px;padding-bottom:18px}}
+</style>
+
+<style>
+/* ALVAPEN · MÓDULO LABORAL TRABAJADOR DEL HOGAR */
+.laboral-view{display:none;min-height:100vh;background:#F5F7FA;color:#243B53}
+.laboral-wrap{max-width:1240px;margin:auto;padding:28px 24px 70px}
+.laboral-head{background:linear-gradient(118deg,#163A5F,#243B53 60%,#5B7896);color:#fff;padding:28px 24px;border-bottom:3px solid #C6A15B}
+.laboral-head-inner{max-width:1240px;margin:auto}
+.laboral-head h1{font-size:34px;margin:8px 0 8px}
+.laboral-head p{margin:0;color:#d8e4ee;max-width:900px}
+.laboral-eyebrow{color:#D8C28F;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.laboral-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:22px}
+.lab-back{border:1px solid #D9E2EC;background:#fff;color:#163A5F;border-radius:10px;padding:10px 15px;font-weight:700;cursor:pointer}
+.lab-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:24px}
+.lab-tab{border:1px solid #D9E2EC;background:#fff;border-radius:12px;padding:13px 10px;text-align:center;font-weight:800;color:#5B7896;cursor:pointer}
+.lab-tab.active{background:#163A5F;color:#fff;border-color:#163A5F}
+.lab-panel{display:none}.lab-panel.active{display:block}
+.lab-card{background:#fff;border:1px solid #D9E2EC;border-radius:16px;padding:22px;box-shadow:0 10px 26px rgba(16,42,67,.07);margin-bottom:18px}
+.lab-card h2{margin:0 0 6px;color:#163A5F;font-size:22px}.lab-card h3{color:#163A5F;margin:0 0 8px}.lab-hint{color:#627D98;font-size:13px;margin:0 0 18px}
+.lab-fields{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.lab-fields .wide{grid-column:span 2}
+.lab-fields label{font-size:12px;font-weight:700;color:#5B7896}.lab-fields input,.lab-fields select,.lab-fields textarea{width:100%;margin-top:6px;border:1px solid #CBD5E1;border-radius:9px;padding:11px;background:#fff;color:#243B53;font:inherit}
+.lab-fields textarea{min-height:90px;resize:vertical}
+.lab-checks{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px}.lab-check{display:flex;align-items:center;gap:7px;background:#F7FAFC;border:1px solid #D9E2EC;padding:9px 12px;border-radius:9px;font-size:12px}
+.lab-result-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+.lab-metric{background:#F7FAFC;border:1px solid #D9E2EC;border-radius:12px;padding:14px}.lab-metric span{display:block;color:#627D98;font-size:11px}.lab-metric strong{display:block;color:#163A5F;font-size:20px;margin-top:4px}
+.lab-table{width:100%;border-collapse:collapse;margin-top:14px;font-size:13px}.lab-table th,.lab-table td{padding:10px;border-bottom:1px solid #E5EAF0;text-align:left}.lab-table th{color:#5B7896;background:#F7FAFC}.lab-table td:last-child,.lab-table th:last-child{text-align:right}
+.lab-note{background:#FFF9EC;border-left:4px solid #C6A15B;padding:12px 14px;border-radius:8px;color:#6B5A32;font-size:12px;margin-top:15px}
+.lab-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.lab-btn{border:0;border-radius:10px;padding:11px 15px;font-weight:800;cursor:pointer;background:#163A5F;color:#fff}.lab-btn.secondary{background:#fff;color:#163A5F;border:1px solid #D9E2EC}.lab-btn.gold{background:#C6A15B;color:#163A5F}
+.lab-contract{background:#fff;border:1px solid #CBD5E1;border-radius:12px;padding:28px;line-height:1.65;white-space:normal}
+.lab-contract h1{text-align:center;font-size:20px;color:#163A5F;margin:0 0 20px}.lab-contract h2{font-size:14px;color:#163A5F;border-bottom:1px solid #D9E2EC;padding-bottom:5px}.lab-contract p{font-size:12px;margin:8px 0}.lab-contract .clause{margin-top:12px}.lab-sign{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:55px;text-align:center;font-size:12px}
+.lab-obligations{display:grid;grid-template-columns:1fr 1fr;gap:14px}.lab-ob{border:1px solid #D9E2EC;border-radius:12px;padding:15px;background:#fff}.lab-ob b{color:#163A5F}.lab-ob small{display:block;color:#627D98;margin-top:5px}
+.lab-black{background:#172536;color:#fff;border-radius:12px;padding:18px;margin-top:18px}.lab-black h3{color:#fff;margin-top:0}.lab-black table{width:100%;font-size:12px}.lab-black td{padding:6px 0;border-bottom:1px solid #304154}
+@media(max-width:900px){.lab-grid{grid-template-columns:repeat(2,1fr)}.lab-fields{grid-template-columns:1fr 1fr}.lab-fields .wide{grid-column:span 2}.lab-result-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.lab-grid,.lab-fields,.lab-result-grid,.lab-obligations{grid-template-columns:1fr}.lab-fields .wide{grid-column:auto}.lab-sign{grid-template-columns:1fr;gap:45px}}
+@media print{body *{visibility:hidden!important}.laboral-view,.laboral-view *{visibility:visible!important}.laboral-view{display:block!important;position:absolute;left:0;top:0;width:100%;background:#fff}.lab-noprint{display:none!important}.lab-contract{border:0;box-shadow:none}}
+</style>
+
+
+<style>
+@media print{
+  body.print-contract-only *{visibility:hidden!important}
+  body.print-contract-only #laboralView,body.print-contract-only #laboralView *{visibility:visible!important}
+  body.print-contract-only .lab-print-hide,body.print-contract-only #lab-contrato .lab-noprint{display:none!important}
+  body.print-contract-only #laboralView{display:block!important;position:absolute;left:0;top:0;width:100%;background:#fff}body.print-contract-only .laboral-head{display:none!important}body.print-contract-only .laboral-wrap{padding:0!important}
+  body.print-contract-only #lab-contrato{display:block!important}
+  body.print-contract-only #contractPreview{border:0;box-shadow:none}
+  body.print-contract-only #contractContent{border:0;padding:0}
+}
+</style>
+<style>
+#lab-afp-rate-note,#lab-residence-box,#liq-indemnity-status{margin-top:10px}
+.lab-check small{display:block;font-size:11px;opacity:.75;margin-left:24px}
+.lab-check input:disabled+span,.lab-check input:disabled{opacity:.55}
+</style>
+<style id="alvapen-ux-v15">
+.alv-help{
+  display:flex!important;
+  align-items:center!important;
+  gap:12px!important;
+  padding:13px 15px!important;
+  margin:0 0 12px!important;
+}
+.alv-help-icon{
+  flex:0 0 30px!important;
+  width:30px!important;
+  height:30px!important;
+  margin:0!important;
+}
+.alv-help-content{min-width:0!important;}
+.alv-help-title{
+  margin:0 0 3px!important;
+  font-size:15px!important;
+  font-weight:800!important;
+  color:#163A5F!important;
+}
+.alv-help-text{
+  margin:0!important;
+  font-size:13px!important;
+  line-height:1.45!important;
+  color:#486581!important;
+}
+.alv-steps{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:10px!important;
+  margin:0 0 13px!important;
+}
+.alv-steps .alv-step{
+  display:flex!important;
+  align-items:flex-start!important;
+  gap:9px!important;
+  min-height:70px!important;
+  box-sizing:border-box!important;
+  margin:0!important;
+  padding:11px 12px!important;
+  background:#fff!important;
+  border:1px solid #D9E2EC!important;
+  border-radius:10px!important;
+}
+.alv-steps .alv-step > span{
+  flex:0 0 26px!important;
+  width:26px!important;
+  height:26px!important;
+  margin:0!important;
+}
+.alv-steps .alv-step div{
+  min-width:0!important;
+}
+.alv-steps .alv-step b{
+  display:block!important;
+  margin:1px 0 3px!important;
+  font-size:13px!important;
+  line-height:1.25!important;
+  color:#163A5F!important;
+}
+.alv-steps .alv-step small{
+  display:block!important;
+  font-size:11.5px!important;
+  line-height:1.35!important;
+  color:#627D98!important;
+}
+.alv-intro-final{
+  margin:0 0 16px!important;
+  padding:0!important;
+}
+@media(max-width:760px){
+  .alv-steps{grid-template-columns:1fr!important;}
+  .alv-steps .alv-step{min-height:auto!important;}
+}
+</style>
+
+<style id="alvapen-v19">
+.alv-unified-map{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
+ margin:0 0 14px;
+}
+.alv-unified-map>div{
+ padding:11px 13px;
+ border:1px solid #D9E2EC;
+ border-radius:10px;
+ background:#F7FAFC;
+}
+.alv-unified-map b{display:block;color:#163A5F;margin-bottom:3px;font-size:13px}
+.alv-unified-map span{display:block;color:#627D98;font-size:12px;line-height:1.4}
+@media(max-width:700px){.alv-unified-map{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 
@@ -506,7 +2077,7 @@ main{padding:28px clamp(16px,3vw,38px) 44px}.notice{margin-bottom:24px;padding:1
         </div>
         <div class="lab-checks"><label class="lab-check"><input type="checkbox" id="liq-indemnity"> Incluir indemnización por despido arbitrario</label></div>
         <div class="lab-info" id="liq-indemnity-status">La indemnización está desactivada. Selecciona “Despido arbitrario” y marca la casilla para incorporarla al total.</div>
-        <div class="lab-actions"><button class="lab-btn" onclick="calculateLiquidacion()">Calcular liquidación</button><button class="lab-btn secondary" onclick="window.print()">Imprimir / PDF</button></div>
+        <div class="lab-actions"><button class="lab-btn" onclick="calculateLiquidacion()">Calcular liquidación</button><button class="lab-btn secondary" onclick="printLiquidacionOnlyV20()">Imprimir / PDF</button></div>
       </div>
       <div class="lab-card">
         <div class="lab-result-grid">
@@ -1366,6 +2937,76 @@ function integrarHogarEnRenta(){
 @media(max-width:700px){
  .alv-choice-grid{grid-template-columns:1fr}
  .alv-integration{align-items:flex-start;flex-direction:column}
+}
+</style>
+
+
+<script>
+/* ALVAPEN V20 · Imprimir únicamente la liquidación */
+function printLiquidacionOnlyV20(){
+  const panel=document.getElementById('lab-liquidacion');
+  if(!panel){
+    alert('No se encontró la liquidación.');
+    return;
+  }
+  if(typeof calculateLiquidacion==='function') calculateLiquidacion();
+  document.body.classList.add('print-liquidacion-only');
+  window.print();
+}
+window.addEventListener('afterprint',()=>{
+  document.body.classList.remove('print-liquidacion-only');
+});
+</script>
+<style id="alvapen-print-liquidacion-v20">
+@media print {
+  body.print-liquidacion-only > *{display:none!important;}
+  body.print-liquidacion-only #laboralView{
+    display:block!important;
+    position:static!important;
+    width:100%!important;
+    margin:0!important;
+    padding:0!important;
+    background:#fff!important;
+  }
+  body.print-liquidacion-only #laboralView .laboral-head,
+  body.print-liquidacion-only #laboralView .laboral-toolbar,
+  body.print-liquidacion-only #laboralView .lab-tabs,
+  body.print-liquidacion-only #laboralView .lab-panel:not(#lab-liquidacion),
+  body.print-liquidacion-only #lab-liquidacion .lab-actions,
+  body.print-liquidacion-only #lab-liquidacion .lab-noprint,
+  body.print-liquidacion-only #lab-liquidacion input,
+  body.print-liquidacion-only #lab-liquidacion select,
+  body.print-liquidacion-only #lab-liquidacion textarea,
+  body.print-liquidacion-only #lab-liquidacion button{
+    display:none!important;
+  }
+  body.print-liquidacion-only #lab-liquidacion,
+  body.print-liquidacion-only #lab-liquidacion > .lab-card{
+    display:block!important;
+    position:static!important;
+    width:100%!important;
+    max-width:none!important;
+    margin:0!important;
+    padding:0!important;
+    border:0!important;
+    box-shadow:none!important;
+    background:#fff!important;
+  }
+  body.print-liquidacion-only #lab-liquidacion .lab-fields,
+  body.print-liquidacion-only #lab-liquidacion h2,
+  body.print-liquidacion-only #lab-liquidacion p{
+    display:none!important;
+  }
+  body.print-liquidacion-only #lab-liquidacion .lab-result-grid,
+  body.print-liquidacion-only #lab-liquidacion .lab-table,
+  body.print-liquidacion-only #lab-liquidacion .lab-result,
+  body.print-liquidacion-only #lab-liquidacion .lab-summary,
+  body.print-liquidacion-only #lab-liquidacion .liquidacion-result,
+  body.print-liquidacion-only #lab-liquidacion .lab-card:not(.lab-noprint){
+    display:block!important;
+    visibility:visible!important;
+  }
+  @page{margin:15mm;}
 }
 </style>
 
