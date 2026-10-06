@@ -997,8 +997,7 @@ body{
   border:1px solid #cbd5e1!important;
   background:rgba(255,255,255,.96)!important;
   transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease!important;
-}
-.lab-panel input:focus,
+}.lab-panel input:focus,
 .lab-panel select:focus,
 .lab-panel textarea:focus,
 .tool-panel input:focus,
@@ -1248,6 +1247,13 @@ input:placeholder-shown,textarea:placeholder-shown{background:rgba(255,255,255,.
 .lab-cts-help{margin-top:10px;padding:10px 13px;border-radius:12px;background:#f6f8fa;color:#64748b;font-size:11px;line-height:1.5}
 </style>
 
+<style id="alvapen-rmv-v40">
+.alv-rmv-status{margin:18px 0 0;padding:12px 14px;border:1px solid rgba(255,255,255,.18);border-radius:16px;background:rgba(255,255,255,.09);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:space-between;gap:14px;box-shadow:0 10px 30px rgba(0,0,0,.10)}
+.alv-rmv-status-main{display:flex;align-items:center;gap:10px}.alv-rmv-status-main strong{display:block;font-size:14px;color:#fff}.alv-rmv-status-main small{display:block;margin-top:2px;color:#DDE7EF;font-size:11px}.alv-rmv-status-dot{width:9px;height:9px;border-radius:50%;background:#63D2A1;box-shadow:0 0 0 4px rgba(99,210,161,.14);flex:0 0 auto}.alv-rmv-status-future{font-size:11px;color:#F2D99A;font-weight:700;white-space:nowrap}
+.alv-rmv-reference{margin:0 0 18px;padding:16px 18px;border:1px solid #D9E1E8;border-radius:18px;background:linear-gradient(135deg,#fff,#F7FAFC);box-shadow:0 10px 28px rgba(16,42,67,.06)}
+.alv-rmv-reference-head{display:flex;align-items:flex-start;gap:10px}.alv-rmv-reference-head>span{font-size:18px}.alv-rmv-reference-head strong{display:block;color:#163A5F;font-size:14px}.alv-rmv-reference-head small{display:block;margin-top:3px;color:#667085;font-size:11px}.alv-rmv-reference-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:12px}.alv-rmv-reference-grid span{padding:10px 11px;border-radius:12px;background:#F3F6F9;color:#243B53;font-size:11px}.alv-rmv-reference-grid b{display:block;font-size:10px;color:#667085;margin-bottom:2px}.alv-rmv-reference p{margin:11px 0 0;color:#667085;font-size:10.5px;line-height:1.45}
+@media(max-width:760px){.alv-rmv-status{align-items:flex-start;flex-direction:column}.alv-rmv-status-future{white-space:normal}.alv-rmv-reference-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
 <style id="alvapen-rmv-v38">
 .alv-rmv-note{
   margin-top:6px;font-size:10px;color:#7b8794;line-height:1.35
@@ -1587,7 +1593,7 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
 @media(max-width:850px){#portalView .portal-section-head{display:block}}
 </style>
 </head>
-<body>
+<body data-rmv-vigente="1230" data-rmv-vigencia="2026-10-01" data-rmv-futura="1300">
 
 <div id="portalView" class="portal-view">
   <div class="portal-top">
@@ -1604,6 +1610,10 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
           <div class="portal-eyebrow">Sistema profesional</div>
           <h1>Tu centro profesional de contabilidad y gestión.</h1>
           <p>Herramientas contables, tributarias y laborales en un solo lugar, con validaciones claras, accesos rápidos y actualización diaria de información oficial.</p>
+          <div class="alv-rmv-status" role="note" aria-label="Remuneración Mínima Vital vigente">
+            <div class="alv-rmv-status-main"><span class="alv-rmv-status-dot"></span><div><strong>RMV vigente: S/ 1,230.00</strong><small>Desde el 01/10/2026 · D.S. N.º 015-2026-TR</small></div></div>
+            <div class="alv-rmv-status-future">Próximo tramo: S/ 1,300 · 2027</div>
+          </div>
           <div class="portal-search"><span>⌕</span><input id="portalSearch" placeholder="Buscar una herramienta..." oninput="filterPortal()"></div>
         </div>
         <div class="portal-side">
@@ -1646,7 +1656,6 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
   <p>Una sola herramienta para rentas de 4ta y 5ta categoría, trabajador del hogar y planilla, organizada en subpáginas congruentes.</p>
   <span class="portal-action">ABRIR CENTRO DE TRABAJO →</span>
 </a>
-      
       <a class="portal-card soon" data-name="igv" href="#" onclick="return false"><div class="portal-icon">🧾</div><h3>IGV</h3><p>Determinación y análisis de IGV mensual.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
       <a class="portal-card soon" data-name="renta" href="#" onclick="return false"><div class="portal-icon">📊</div><h3>Renta</h3><p>Herramientas para determinaciones y proyecciones del impuesto a la renta.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
       <a class="portal-card portal-available" data-name="sunat sol declaraciones pagos tramites consultas renta anual tipo de cambio" href="#sunat" onclick="showSunat();return false"><div class="portal-icon">🏛️</div><h3>SUNAT</h3><p>Acceso directo a SOL, declaraciones, pagos, trámites, consultas y tipo de cambio oficial.</p><span class="portal-action">ABRIR SUNAT →</span></a>
@@ -1887,7 +1896,7 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
 <div class="lab-fields">
           <label>Remuneración mensual<input id="lab-salary" type="number" min="0" step="0.01" value=""></label>
           <label class="lab-check lab-family-compact"><input id="lab-family" type="checkbox"> <span>Asignación familiar</span><small>Automática: 10% de la RMV vigente</small></label>
-          <label>RMV vigente<input id="lab-rmv" type="number" min="0" step="0.01" value="1130" readonly><div class="alv-rmv-note">RMV vigente: S/ 1,130.00 · <a href="https://emprender.sunat.gob.pe/principales-impuestos/planilla/obligaciones-con-mis-trabajadores" target="_blank" rel="noopener">fuente SUNAT ↗</a></div></label>
+          <label>RMV vigente<input id="lab-rmv" type="number" min="0" step="0.01" value="1230" readonly><div class="alv-rmv-note">RMV vigente: S/ 1,230.00 · <a href="https://emprender.sunat.gob.pe/principales-impuestos/planilla/obligaciones-con-mis-trabajadores" target="_blank" rel="noopener">fuente SUNAT ↗</a></div></label>
           <label>Fecha de inicio<input id="lab-start" type="date" value=""></label>
           <label>Fecha de cálculo<input id="lab-end" type="date" value=""></label>
           <label>Horas diarias<input id="lab-hours" type="number" min="0" max="24" step="0.01" value=""></label>
@@ -1987,8 +1996,7 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
     <div class="lab-result-grid alv-payroll-metrics">
       <div class="lab-metric"><span>Remuneración bruta</span><strong id="pay-bruto">S/ 0.00</strong></div>
       <div class="lab-metric"><span>ONP / AFP</span><strong id="pay-pension">S/ 0.00</strong><small id="pay-pension-rate" class="alv-rate"></small></div>
-      <div class="lab-metric"><span>Sueldo neto</span><strong id="pay-neto">S/ 0.00</strong></div>
-      <div class="lab-metric"><span>EsSalud · empleador</span><strong id="pay-essalud">S/ 0.00</strong></div>
+      <div class="lab-metric"><span>Sueldo neto</span><strong id="pay-neto">S/ 0.00</strong></div>      <div class="lab-metric"><span>EsSalud · empleador</span><strong id="pay-essalud">S/ 0.00</strong></div>
     </div>
     <div class="alv-payroll-table">
       <div><span>Remuneración básica</span><b id="pay-basic">S/ 0.00</b></div>
@@ -2083,7 +2091,7 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
         <h2>Liquidación de beneficios sociales</h2><p class="lab-hint">La indemnización se considera únicamente cuando corresponde a un despido arbitrario.</p>
         <div class="lab-fields">
           <label>Motivo<select id="liq-reason"><option value="renuncia">Renuncia voluntaria</option><option value="despido">Despido arbitrario</option><option value="causa">Despido con causa justa</option><option value="mutuo">Mutuo acuerdo</option><option value="plazo">Término de contrato</option></select></label>
-          <label>Remuneración al cese<input id="liq-salary" type="number" value="" step=".01"></label><label class="lab-check lab-family-compact"><input id="liq-family" type="checkbox"> <span>Asignación familiar</span><small>10% de la RMV vigente</small></label><label>RMV vigente<input id="liq-rmv" type="number" value="1130" step=".01" readonly><div class="alv-rmv-note">RMV vigente: S/ 1,130.00 · <a href="https://emprender.sunat.gob.pe/principales-impuestos/planilla/obligaciones-con-mis-trabajadores" target="_blank" rel="noopener">fuente SUNAT ↗</a></div></label>
+          <label>Remuneración al cese<input id="liq-salary" type="number" value="" step=".01"></label><label class="lab-check lab-family-compact"><input id="liq-family" type="checkbox"> <span>Asignación familiar</span><small>10% de la RMV vigente</small></label><label>RMV vigente<input id="liq-rmv" type="number" value="1230" step=".01" readonly><div class="alv-rmv-note">RMV vigente: S/ 1,230.00 · <a href="https://emprender.sunat.gob.pe/principales-impuestos/planilla/obligaciones-con-mis-trabajadores" target="_blank" rel="noopener">fuente SUNAT ↗</a></div></label>
           <label>Fecha ingreso<input id="liq-start" type="date" value=""></label><label>Fecha cese<input id="liq-end" type="date" value=""></label><label>Horas diarias promedio<input id="liq-hours" type="number" value="" step=".01"></label>
           <label>Última gratificación percibida<input id="liq-lastgrati" type="number" value="" step=".01"></label><label>CTS ya depositada/pagada<input id="liq-cts-paid" type="number" value="" step=".01"></label>
           <label>Vacaciones gozadas del último periodo (días)<input id="liq-vac-used" type="number" value="" step=".01"></label><label>Días de sueldo pendientes<input id="liq-days-pay" type="number" value="" step=".01"></label>
@@ -2235,6 +2243,16 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
       <button type="button" class="trabajo-tab soon" disabled aria-disabled="true"><span class="trabajo-tab-icon">🏢</span><span><strong>Tercera categoría</strong><small>Gestión tributaria empresarial</small></span><b>PRÓXIMAMENTE</b></button>
       <button type="button" class="trabajo-tab soon" disabled aria-disabled="true"><span class="trabajo-tab-icon">⛏️</span><span><strong>Sector minero</strong><small>Herramientas especializadas para el sector</small></span><b>PRÓXIMAMENTE</b></button>
     </div>
+    <div class="alv-rmv-reference" role="note">
+      <div class="alv-rmv-reference-head"><span>📌</span><div><strong>Parámetros laborales vigentes desde octubre 2026</strong><small>RMV: S/ 1,230.00 · D.S. N.º 015-2026-TR</small></div></div>
+      <div class="alv-rmv-reference-grid">
+        <span><b>Asignación familiar</b>S/ 123.00</span>
+        <span><b>Trabajo nocturno</b>S/ 1,660.50</span>
+        <span><b>Ingreso mínimo minero</b>S/ 1,537.50</span>
+        <span><b>EsSalud mínimo</b>S/ 110.70</span>
+      </div>
+      <p>Los S/ 1,300 corresponden al segundo tramo previsto para el primer semestre de 2027 y no deben aplicarse todavía como RMV vigente.</p>
+    </div>
     <div class="trabajo-info-grid">
       <div class="trabajo-info"><span>01</span><div><strong>Rentas de trabajo</strong><p>Integra empleadores, rentas de cuarta, retenciones y deducciones en una sola proyección anual.</p></div></div>
       <div class="trabajo-info"><span>02</span><div><strong>Gestión laboral</strong><p>Calcula beneficios del trabajador del hogar, genera boleta y consulta la mini planilla.</p></div></div>
@@ -2322,7 +2340,7 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
 </div><div class="deduction-total"><span>Total deducible antes del tope</span><strong id="additional-before-cap">—</strong></div></div></section>
 
 <section class="summary" id="resultados"><article class="card result-card"><h2>Determinación anual</h2>
-<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px"><label>UIT 2026<div class="currency-wrap"><span>S/</span><input id="uit" type="number" min="0" step="1" value="5500"></div></label><label>RMV para asignación<div class="currency-wrap"><span>S/</span><input id="rmv" type="number" min="0" step="1" value="1130"></div></label></div>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px"><label>UIT 2026<div class="currency-wrap"><span>S/</span><input id="uit" type="number" min="0" step="1" value="5500"></div></label><label>RMV para asignación<div class="currency-wrap"><span>S/</span><input id="rmv" type="number" min="0" step="1" value="1230"></div></label></div>
 <div class="metric"><span>Renta bruta de quinta categoría</span><strong id="fifth-gross">—</strong></div><div class="metric"><span>Renta neta de cuarta categoría</span><strong id="fourth-summary">—</strong></div><div class="metric"><span>Renta de trabajo (4ta neta + 5ta)</span><strong id="gross">—</strong></div><div class="metric"><span>Deducción fija de 7 UIT</span><strong id="deduction">—</strong></div><div class="metric"><span>Deducción adicional sustentada (máx. 3 UIT)</span><strong id="additional-deduction">—</strong></div><div class="metric highlight"><span>Renta neta imponible</span><strong id="taxable">—</strong></div><div class="metric"><span>Impuesto anual calculado</span><strong id="annual-tax">—</strong></div><div class="metric"><span>Retenciones acumuladas (4ta + 5ta)</span><strong id="withheld">—</strong></div><div class="metric" id="balance-row"><span id="balance-label">Saldo pendiente de retener</span><strong id="balance">—</strong></div>
 </article><article class="card result-card suggestion"><h2>Retención recomendada</h2><p>El empleador con mayor remuneración mensual es:</p><p class="big" id="leader">—</p><p>Retención mensual referencial para completar el año:</p><p class="big" id="monthly-suggestion">—</p><p class="subtle" id="months-note">—</p><p class="subtle">Con rentas de cuarta categoría, el saldo es una proyección global para la declaración anual; la retención efectiva debe ser determinada por el empleador conforme a la normativa vigente.</p></article></section>
 
@@ -2337,7 +2355,7 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
 </main>
 
 
-<footer><strong>ALVAPEN</strong> · Estudio Contable · Tributario · Laboral<br>Herramienta informativa para proyección de renta de cuarta y quinta categoría. UIT 2026: S/ 5,500 (D.S. N.º 301-2025-EF). Verifica siempre el cálculo final con tu empleador, SUNAT o asesor tributario.</footer>
+<footer><strong>ALVAPEN</strong> · Estudio Contable · Tributario · Laboral<br>Herramienta informativa para proyección de renta de cuarta y quinta categoría. UIT 2026: S/ 5,500 (D.S. N.º 301-2025-EF) · RMV vigente desde 01/10/2026: S/ 1,230.00 (D.S. N.º 015-2026-TR). Verifica siempre el cálculo final con tu empleador, SUNAT o asesor tributario.</footer>
 <script>
 const months=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 const employers=[{id:'adm',name:'Empleador 1'},{id:'asia',name:'Empleador 2'},{id:'pan',name:'Empleador 3'}];
@@ -2657,7 +2675,7 @@ document.getElementById('liq-reason').addEventListener('change',calculateLiquida
   // después de su cálculo y reemplazamos el importe por la tasa correcta del esquema elegido.
   function fixPension(){
     const salary=parseFloat(document.getElementById('lab-salary')?.value)||0;
-    const family=document.getElementById('lab-family')?.checked ? (parseFloat(document.getElementById('lab-rmv')?.value)||1130)*0.10 : 0;
+    const family=document.getElementById('lab-family')?.checked ? (parseFloat(document.getElementById('lab-rmv')?.value)||1230)*0.10 : 0;
     const regular=parseFloat(document.getElementById('lab-regular')?.value)||0;
     const rem=salary+family+regular;
     const mode=document.getElementById('lab-pension')?.value;
@@ -2977,8 +2995,7 @@ window.addEventListener('afterprint',()=>document.body.classList.remove('print-b
   body.print-boleta-only #lab-boleta > .lab-card.lab-noprint,
   body.print-boleta-only #lab-boleta .lab-actions {
     display:none !important;
-  }
-  body.print-boleta-only #lab-boleta,
+  }  body.print-boleta-only #lab-boleta,
   body.print-boleta-only #boletaContent {
     display:block !important;
     visibility:visible !important;
@@ -3040,7 +3057,7 @@ function goToRentaCalculator(){
 
 function integrarHogarEnRenta(){
   const salary=Number(document.getElementById('lab-salary')?.value)||0;
-  const rmv=Number(document.getElementById('lab-rmv')?.value)||1130;
+  const rmv=Number(document.getElementById('lab-rmv')?.value)||1230;
   const family=document.getElementById('lab-family')?.checked;
   const start=document.getElementById('lab-start')?.value||'';
   if(!salary){
@@ -3692,7 +3709,7 @@ function openSunatFromHash(){
 
 <script id="alvapen-rmv-v38-js">
 (function(){
-  const ALVAPEN_RMV_VIGENTE = 1130;
+  const ALVAPEN_RMV_VIGENTE = 1230;
   function enforceRMV(){
     ['lab-rmv','liq-rmv'].forEach(function(id){
       const el=document.getElementById(id);
@@ -3977,8 +3994,7 @@ function pcvTab(name,btn){
   function validateOp(o){
     const e=[];
     if(state.role==='adquiriente'){
-      if(!rucValid(o.party)) e.push('RUC del proveedor inválido o con dígito verificador incorrecto.');
-    }else{
+      if(!rucValid(o.party)) e.push('RUC del proveedor inválido o con dígito verificador incorrecto.');    }else{
       if(!['1','6'].includes(o.docType)) e.push('Para Pago Masivo por Internet, el documento del adquiriente debe ser DNI o RUC.');
       if(o.docType==='6' && !rucValid(o.party)) e.push('El RUC del adquiriente no es válido.');
       if(o.docType==='1' && !/^\d{8}$/.test(o.party)) e.push('El DNI del adquiriente debe tener 8 dígitos.');
@@ -4230,6 +4246,7 @@ function pcvTab(name,btn){
           <div class="portal-eyebrow">Actualidad profesional</div>
           <h2>Noticias y novedades</h2>
           <p>Actualización automática diaria con información de fuentes oficiales. La sección prioriza novedades tributarias, laborales, contables y normativas.</p>
+          <div class="portal-news-live"><i></i> Actualización automática activa</div>
         </div>
         <div class="portal-news-date">Actualizado · ${esc(fmtDate(updated))}</div>
       </div>
