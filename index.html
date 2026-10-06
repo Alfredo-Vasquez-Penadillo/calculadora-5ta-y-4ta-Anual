@@ -3818,7 +3818,7 @@ function pcvTab(name,btn){
   const nowPeriod=()=>{const d=new Date();return String(d.getFullYear())+String(d.getMonth()+1).padStart(2,'0')};
   const yy=()=>String(new Date().getFullYear()).slice(-2);
   function rucValid(ruc){
-    ruc=clean(ruc); if(!/^\\d{11}$/.test(ruc)) return false;
+    ruc=clean(ruc); if(!/^\d{11}$/.test(ruc)) return false;
     const f=[5,4,3,2,7,6,5,4,3,2],body=ruc.slice(0,10).split('').map(Number),dv=Number(ruc[10]);
     let s=0; for(let i=0;i<10;i++) s+=body[i]*f[i];
     const x=11-(s%11),check=x===10?0:x===11?1:x;
@@ -3906,16 +3906,16 @@ function pcvTab(name,btn){
     }else{
       if(!['1','6'].includes(o.docType)) e.push('Para Pago Masivo por Internet, el documento del adquiriente debe ser DNI o RUC.');
       if(o.docType==='6' && !rucValid(o.party)) e.push('El RUC del adquiriente no es válido.');
-      if(o.docType==='1' && !/^\\d{8}$/.test(o.party)) e.push('El DNI del adquiriente debe tener 8 dígitos.');
+      if(o.docType==='1' && !/^\d{8}$/.test(o.party)) e.push('El DNI del adquiriente debe tener 8 dígitos.');
       if(!o.name) e.push('Falta el nombre/razón social del adquiriente.');
     }
-    if(!/^\\d{11}$/.test(o.account)) e.push('La cuenta de detracciones debe tener 11 dígitos.');
+    if(!/^\d{11}$/.test(o.account)) e.push('La cuenta de detracciones debe tener 11 dígitos.');
     if(!DET_CODES.some(x=>x[0]===o.service)) e.push('Código de bien/servicio no válido.');
     if(!DET_OPS.some(x=>x[0]===o.operation)) e.push('Tipo de operación no válido.');
     if(o.operation==='09' && o.service!=='099') e.push('La Ley N.º 30737 exige código 099 y operación 09.');
     if(o.operation!=='09' && o.service==='099') e.push('El código 099 solo corresponde a la operación 09.');
     if(!amountField(o.amount)) e.push('Monto de depósito inválido o fuera del ancho permitido.');
-    if(!/^\\d{6}$/.test(o.period)) e.push('Periodo tributario inválido: use AAAAMM.');
+    if(!/^\d{6}$/.test(o.period)) e.push('Periodo tributario inválido: use AAAAMM.');
     else{
       const y=Number(o.period.slice(0,4)),m=Number(o.period.slice(4));
       if(y<2004||m<1||m>12) e.push('Periodo tributario fuera de rango.');
@@ -3926,10 +3926,10 @@ function pcvTab(name,btn){
     if(o.operation==='03' && o.compType!=='09') e.push('El traslado que no es venta requiere guía de remisión.');
     if(o.operation!=='03' && o.compType==='09') e.push('La guía de remisión corresponde al traslado que no es venta.');
     if(!o.series || o.series.length!==4) e.push('La serie debe tener exactamente 4 caracteres.');
-    if(!/^\\d{8}$/.test(o.number)) e.push('El número de comprobante debe tener 8 dígitos o menos; el generador lo completa a 8 posiciones.');
-    if(o.compType==='01' && !(/^\\d{4}$/.test(o.series)||/^E001$|^F[A-Z0-9]{3}$/.test(o.series))) e.push('Serie de factura: 4 dígitos físicos, E001 o FXXX electrónico.');
-    if(o.compType==='03' && !(/^\\d{4}$/.test(o.series)||/^B[A-Z0-9]{3}$/.test(o.series))) e.push('Serie de boleta: 4 dígitos físicos o BXXX electrónico.');
-    if(o.compType==='09' && !(/^\\d{4}$/.test(o.series)||o.series==='G001')) e.push('Serie de guía: 4 dígitos físicos o G001 electrónico.');
+    if(!/^\d{8}$/.test(o.number)) e.push('El número de comprobante debe tener 8 dígitos o menos; el generador lo completa a 8 posiciones.');
+    if(o.compType==='01' && !(/^\d{4}$/.test(o.series)||/^E001$|^F[A-Z0-9]{3}$/.test(o.series))) e.push('Serie de factura: 4 dígitos físicos, E001 o FXXX electrónico.');
+    if(o.compType==='03' && !(/^\d{4}$/.test(o.series)||/^B[A-Z0-9]{3}$/.test(o.series))) e.push('Serie de boleta: 4 dígitos físicos o BXXX electrónico.');
+    if(o.compType==='09' && !(/^\d{4}$/.test(o.series)||o.series==='G001')) e.push('Serie de guía: 4 dígitos físicos o G001 electrónico.');
     return e;
   }
   window.detAddOperation=function(){
@@ -3954,7 +3954,7 @@ function pcvTab(name,btn){
     if(!rucValid(r))e.push('RUC del depositante inválido.');
     if(!n)e.push('Falta la razón social del depositante.');
     if(n.length>35)e.push('La razón social supera 35 caracteres.');
-    if(!/^\\d{6}$/.test(l)||l.slice(0,2)!==yy())e.push('El lote debe tener formato AANNNN y corresponder al año actual.');
+    if(!/^\d{6}$/.test(l)||l.slice(0,2)!==yy())e.push('El lote debe tener formato AANNNN y corresponder al año actual.');
     if(!state.ops.length)e.push('Agrega al menos una operación.');
     return e;
   }
