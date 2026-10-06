@@ -1,0 +1,47 @@
+{
+  "vigencia": "2026-10-01",
+  "rmv": 1230,
+  "rmv_anterior": 1130,
+  "rmv_siguiente": 1300,
+  "segundo_tramo": "Primer semestre de 2027, mediante nuevo Decreto Supremo",
+  "norma_rmv": "D.S. N.º 015-2026-TR",
+  "conceptos_vinculados": {
+    "asignacion_familiar": 123,
+    "trabajo_nocturno_minimo": 1660.5,
+    "remuneracion_minima_minera": 1537.5,
+    "subvencion_minima_formativa": 1230,
+    "prestaciones_alimentarias_tope": 2460,
+    "beta_agrario": 369,
+    "aporte_minimo_essalud": 110.7
+  },
+  "trabajador_hogar": {
+    "jornada_maxima": "8 horas diarias o 48 horas semanales",
+    "remuneracion_minima_jornada_completa": 1230,
+    "asignacion_familiar_referencial": 123,
+    "vacaciones": "30 días calendario por año",
+    "gratificaciones": "Una remuneración mensual en julio y una en diciembre",
+    "cts": "Depósito dentro de los primeros 15 días naturales de mayo y noviembre",
+    "descanso_semanal": "24 horas continuas",
+    "fuente": "Ley N.º 31047 y SUNAT"
+  },
+  "construccion_civil_2026": {
+    "vigencia": "2026-01-01 a 2026-12-31",
+    "fuente": "Acta Final de Negociación Colectiva en Construcción Civil 2026 / R.M. N.º 197-2025-TR",
+    "jornal_basico_diario": {
+      "operario": 89.30,
+      "oficial": 69.75,
+      "peon": 62.80
+    },
+    "movilidad_diaria": 8.60,
+    "buc": {
+      "operario": 0.32,
+      "oficial": 0.30,
+      "peon": 0.30
+    },
+    "descuentos_referenciales_tabla_capeco": {
+      "snp": 0.13,
+      "conafovicer": 0.02
+    },
+    "nota": "Construcción civil cuenta con remuneraciones y beneficios pactados colectivamente; no se debe sustituir su jornal convencional por la RMV de forma automática."
+  }
+}
