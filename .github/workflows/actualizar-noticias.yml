@@ -2,7 +2,7 @@ name: Actualizar noticias ALVAPEN
 
 on:
   schedule:
-    - cron: "30 13 * * *"
+    - cron: "30 13 * * *" # Todos los días · 08:30 hora Perú
   workflow_dispatch:
 
 permissions:
@@ -49,7 +49,9 @@ jobs:
           sunat = []
           try:
               page=get("https://www.sunat.gob.pe/mensajes/mensajes-SUNAT.html")
-              for m in re.finditer(r'(?is)(\d{2}/\d{2}/2026).*?<a[^>]+href=["\']([^"\']+)["\'][^>]*>(.*?)</a>', page):
+              current_year=datetime.now(timezone.utc).year
+              pattern=rf'(?is)(\d{{2}}/\d{{2}}/{current_year}).*?<a[^>]+href=["\']([^"\']+)["\'][^>]*>(.*?)</a>'
+              for m in re.finditer(pattern, page):
                   date,href,title=m.groups()
                   title=clean(title)
                   if title and title not in {x["title"] for x in sunat}:
