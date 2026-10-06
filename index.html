@@ -3985,7 +3985,7 @@ function pcvTab(name,btn){
     if(byteLen(header)!==68)bad.push('Cabecera: '+byteLen(header)+' bytes, debe ser 68.');
     rows.forEach((x,i)=>{if(byteLen(x)!==107)bad.push('Detalle '+(i+1)+': '+byteLen(x)+' bytes, debe ser 107.')});
     if(bad.length){setMessage('det-validation','err','<strong>No se generó el archivo.</strong><ul>'+bad.map(x=>'<li>'+x+'</li>').join('')+'</ul>');return;}
-    const txt=header+'\\r\\n'+rows.join('\\r\\n');
+    const txt=header+'\r\n'+rows.join('\r\n');
     $('det-preview-text').value=txt;
     const r=clean($('det-payer-ruc').value),l=clean($('det-lot').value),filename='D'+r+l+'.TXT';
     const blob=new Blob([txt],{type:'text/plain;charset=windows-1252'});
