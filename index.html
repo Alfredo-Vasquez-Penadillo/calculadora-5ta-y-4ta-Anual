@@ -1640,17 +1640,17 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
   <p>Registra operaciones directamente en la página como Adquiriente o Proveedor y genera el TXT para Pago Masivo SUNAT.</p>
   <span class="portal-action">ABRIR GENERADOR →</span>
 </a>
-      <a class="portal-card portal-available portal-feature" data-name="rentas trabajo cuarta quinta categoria" href="#calculadora" onclick="showCalculator();return false">
-        <div class="portal-icon">🧮</div>
-        <h3>Rentas de trabajo · 4ta + 5ta categoría</h3>
-        <p>Calculadora integral para proyectar rentas de cuarta y quinta categoría, determinar el impuesto anual, considerar deducciones y visualizar la <strong>Caja Negra</strong> de los tramos progresivos.</p>
-        <span class="portal-action">ABRIR CALCULADORA →</span>
-      </a>
+      <a class="portal-card portal-available portal-feature trabajo-integral-card" data-name="trabajo rentas cuarta quinta categoria trabajador hogar planilla beneficios laboral" href="#trabajo" onclick="showTrabajoHub();return false">
+  <div class="portal-icon">👔</div>
+  <h3>Trabajo · Rentas + Gestión laboral</h3>
+  <p>Una sola herramienta para rentas de 4ta y 5ta categoría, trabajador del hogar y planilla, organizada en subpáginas congruentes.</p>
+  <span class="portal-action">ABRIR CENTRO DE TRABAJO →</span>
+</a>
       <a class="portal-card soon" data-name="vacaciones" href="#" onclick="return false"><div class="portal-icon">🏖️</div><h3>Vacaciones</h3><p>Cálculo de vacaciones, días generados, gozados y truncos.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
-      <a class="portal-card portal-available" data-name="gestion laboral trabajador hogar beneficios obligaciones boleta contrato liquidacion" href="#laboral" onclick="showLaboral();return false"><div class="portal-icon">💼</div><h3>Gestión laboral · Trabajador del hogar</h3><p>Beneficios, obligaciones del empleador, boleta de pago, contratos automatizados y liquidación con renuncia o despido.</p><span class="portal-action">ABRIR HERRAMIENTA →</span></a>
+      
       <a class="portal-card soon" data-name="cts" href="#" onclick="return false"><div class="portal-icon">🏦</div><h3>CTS</h3><p>Cálculo y proyección de depósitos de compensación por tiempo de servicios.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
       <a class="portal-card soon" data-name="gratificaciones" href="#" onclick="return false"><div class="portal-icon">🎁</div><h3>Gratificaciones</h3><p>Proyección y cálculo de gratificaciones y bonificaciones correspondientes.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
-      <a class="portal-card portal-available" data-name="planilla nomina remuneraciones descuentos" href="#laboral-planilla" onclick="showLaboral();setTimeout(function(){var b=document.querySelector('.lab-tab[data-lab-tab=\'planilla\']');if(b)b.click();},30);return false;"><div class="portal-icon">👥</div><h3>Planilla</h3><p>Mini planilla para remuneraciones, descuentos de pensión, sueldo neto y aporte de EsSalud.</p><span class="portal-action">ABRIR PLANILLA →</span></a>
+      
       <a class="portal-card soon" data-name="igv" href="#" onclick="return false"><div class="portal-icon">🧾</div><h3>IGV</h3><p>Determinación y análisis de IGV mensual.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
       <a class="portal-card soon" data-name="renta" href="#" onclick="return false"><div class="portal-icon">📊</div><h3>Renta</h3><p>Herramientas para determinaciones y proyecciones del impuesto a la renta.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
       <a class="portal-card portal-available" data-name="sunat sol declaraciones pagos tramites consultas renta anual tipo de cambio" href="#sunat" onclick="showSunat();return false"><div class="portal-icon">🏛️</div><h3>SUNAT</h3><p>Acceso directo a SOL, declaraciones, pagos, trámites, consultas y tipo de cambio oficial.</p><span class="portal-action">ABRIR SUNAT →</span></a>
@@ -1825,7 +1825,7 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
 </div>
 
 <div id="laboralView" class="laboral-view">
-  <div class="laboral-head"><button type="button" class="alv-home-btn" onclick="showPortal();return false;" aria-label="Volver al portal ALVAPEN" title="Volver al portal ALVAPEN">
+  <div class="laboral-head"><button type="button" class="alv-home-btn" onclick="showTrabajoHub();return false;" aria-label="Volver al portal ALVAPEN" title="Volver al portal ALVAPEN">
 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.8 12 3l9 7.8"/><path d="M5.5 9.8V21h13V9.8"/><path d="M9.5 21v-6h5v6"/></svg>
 </button><div class="laboral-head-inner">
     <div class="laboral-eyebrow">ALVAPEN · Herramientas Profesionales</div>
@@ -1835,7 +1835,7 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
 
   <div class="laboral-wrap">
     <div class="laboral-toolbar lab-print-hide">
-      <button class="lab-back" onclick="showPortal()">← Volver al portal ALVAPEN</button>
+      <button class="lab-back" onclick="showTrabajoHub()">← Volver a Trabajo · Rentas + Gestión laboral</button>
       <span class="lab-status">● Ley N.º 31047 · D.S. N.º 009-2021-TR</span>
     </div>
 
@@ -2225,9 +2225,29 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
   </main>
 </div>
 
+<div id="trabajoView" class="trabajo-view" style="display:none">
+  <div class="trabajo-top">
+    <button class="trabajo-back" type="button" onclick="showPortal()">← Volver al portal ALVAPEN</button>
+    <div class="trabajo-kicker">ALVAPEN · CENTRO DE TRABAJO</div>
+    <h1>Trabajo · Rentas + Gestión laboral</h1>
+    <p>Unificamos las herramientas que antes estaban separadas. Elige una subpágina y trabaja sin perder el contexto.</p>
+  </div>
+  <div class="trabajo-shell">
+    <div class="trabajo-nav" role="tablist" aria-label="Herramientas de trabajo">
+      <button type="button" class="trabajo-tab" onclick="showCalculator()"><span class="trabajo-tab-icon">🧮</span><span><strong>Rentas de trabajo</strong><small>4ta + 5ta categoría · proyección anual</small></span><b>→</b></button>
+      <button type="button" class="trabajo-tab" onclick="showLaboral()"><span class="trabajo-tab-icon">💼</span><span><strong>Gestión laboral</strong><small>Trabajador del hogar · planilla · beneficios</small></span><b>→</b></button>
+    </div>
+    <div class="trabajo-info-grid">
+      <div class="trabajo-info"><span>01</span><div><strong>Rentas de trabajo</strong><p>Integra empleadores, rentas de cuarta, retenciones y deducciones en una sola proyección anual.</p></div></div>
+      <div class="trabajo-info"><span>02</span><div><strong>Gestión laboral</strong><p>Calcula beneficios del trabajador del hogar, genera boleta y consulta la mini planilla.</p></div></div>
+      <div class="trabajo-info"><span>03</span><div><strong>Integración</strong><p>Desde Gestión laboral puedes llevar la remuneración del trabajador del hogar a Rentas 4ta + 5ta.</p></div></div>
+    </div>
+  </div>
+</div>
+
 <div id="calculatorView" class="calculator-view">
   <div class="calculator-toolbar">
-    <button class="back-portal" onclick="showPortal()">← Volver al portal ALVAPEN</button>
+    <button class="back-portal" onclick="showTrabajoHub()">← Volver a Trabajo · Rentas + Gestión laboral</button>
     <strong>ALVAPEN · Rentas de trabajo · 4ta + 5ta categoría</strong>
   </div>
   
@@ -2370,27 +2390,32 @@ selectOptions();buildMonthlyInputs();employers.forEach(({id})=>fillMonthlyInputs
 
 <script>
 
+function hideTrabajoViews(){
+  ['portalView','trabajoView','calculatorView','laboralView','sunatView'].forEach(id=>{
+    const e=document.getElementById(id); if(e)e.style.display='none';
+  });
+}
+function showTrabajoHub(){
+  hideTrabajoViews();
+  document.getElementById('trabajoView').style.display='block';
+  location.hash='trabajo';
+  window.scrollTo(0,0);
+}
 function showLaboral(){
-  document.getElementById('portalView').style.display='none';
-  document.getElementById('calculatorView').style.display='none';
-  document.getElementById('sunatView').style.display='none';
+  hideTrabajoViews();
   document.getElementById('laboralView').style.display='block';
-  location.hash='laboral';
+  location.hash='trabajo-laboral';
   window.scrollTo(0,0);
   initLaboralDefaults();
 }
 function showCalculator(){
-  document.getElementById('portalView').style.display='none';
-  document.getElementById('sunatView').style.display='none';
-  document.getElementById('laboralView').style.display='none';
+  hideTrabajoViews();
   document.getElementById('calculatorView').style.display='block';
-  location.hash='calculadora';
+  location.hash='trabajo-renta';
   window.scrollTo(0,0);
 }
 function showPortal(){
-  document.getElementById('calculatorView').style.display='none';
-  document.getElementById('laboralView').style.display='none';
-  document.getElementById('sunatView').style.display='none';
+  hideTrabajoViews();
   document.getElementById('portalView').style.display='block';
   if(location.hash) history.replaceState(null,'',location.pathname+location.search);
   window.scrollTo(0,0);
@@ -2402,10 +2427,12 @@ function filterPortal(){
   });
 }
 document.addEventListener('DOMContentLoaded',()=>{
-  if(location.hash==='#calculadora') showCalculator();
+  if(location.hash==='#trabajo-renta') showCalculator();
+  else if(location.hash==='#trabajo-laboral' || location.hash==='#laboral') showLaboral();
+  else if(location.hash==='#trabajo') showTrabajoHub();
+  else if(location.hash==='#calculadora') showCalculator();
   else if(location.hash==='#sunat') showSunat();
-});
-</script>
+});</script>
 
 
 
@@ -3306,6 +3333,30 @@ window.addEventListener('afterprint',()=>document.body.classList.remove('print-p
   body.print-planilla-only #lab-planilla .alv-payroll-note{display:block!important;visibility:visible!important;}
   @page{margin:15mm;}
 }
+
+/* ALVAPEN · Centro de Trabajo unificado */
+.trabajo-view{min-height:100vh;background:linear-gradient(180deg,#f5f8fc 0%,#eef3f8 100%);padding:34px 24px 60px;color:#102a43}
+.trabajo-top{max-width:1180px;margin:0 auto 22px;padding:28px 30px;border:1px solid #d9e3ee;border-radius:22px;background:linear-gradient(135deg,#0f3557 0%,#163f65 62%,#1c547f 100%);color:#fff;box-shadow:0 16px 38px rgba(16,42,67,.14)}
+.trabajo-back{border:0;background:rgba(255,255,255,.12);color:#fff;border-radius:10px;padding:9px 13px;font-weight:700;cursor:pointer;margin-bottom:22px}
+.trabajo-back:hover{background:rgba(255,255,255,.2)}
+.trabajo-kicker{font-size:12px;letter-spacing:.12em;font-weight:800;opacity:.78;margin-bottom:8px}
+.trabajo-top h1{margin:0 0 8px;font-size:clamp(28px,4vw,42px);letter-spacing:-.03em}
+.trabajo-top p{margin:0;max-width:760px;color:rgba(255,255,255,.82);line-height:1.6}
+.trabajo-shell{max-width:1180px;margin:0 auto}
+.trabajo-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.trabajo-tab{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;text-align:left;border:1px solid #d8e2ed;border-radius:18px;padding:20px;background:#fff;color:#12324d;cursor:pointer;box-shadow:0 10px 26px rgba(28,57,84,.07);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.trabajo-tab:hover{transform:translateY(-2px);border-color:#9db9d2;box-shadow:0 16px 32px rgba(28,57,84,.12)}
+.trabajo-tab-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:14px;background:#edf4fa;font-size:25px}
+.trabajo-tab strong{display:block;font-size:17px;margin-bottom:4px}
+.trabajo-tab small{display:block;color:#66798c;line-height:1.4}
+.trabajo-tab>b{font-size:20px;color:#1a527c}
+.trabajo-info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:16px}
+.trabajo-info{display:flex;gap:12px;padding:17px;border:1px solid #dce5ee;border-radius:16px;background:#fff}
+.trabajo-info>span{font-size:11px;font-weight:900;color:#7890a5}
+.trabajo-info strong{font-size:14px}
+.trabajo-info p{margin:5px 0 0;color:#6b7e91;font-size:13px;line-height:1.5}
+.trabajo-integral-card{border-color:#b9d0e2!important}
+@media(max-width:800px){.trabajo-view{padding:20px 14px 40px}.trabajo-top{padding:22px}.trabajo-nav,.trabajo-info-grid{grid-template-columns:1fr}}
 </style>
 <script>
 (function(){
