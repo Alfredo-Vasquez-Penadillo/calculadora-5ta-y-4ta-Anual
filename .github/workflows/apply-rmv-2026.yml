@@ -1,0 +1,106 @@
+name: Apply RMV 2026 update
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update RMV values and interface
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path("index.html")
+          s = p.read_text(encoding="utf-8")
+
+          # Current RMV: S/ 1,230 from 2026-10-01.
+          s = s.replace('value="1130"', 'value="1230"')
+          s = s.replace('||1130', '||1230')
+          s = s.replace('= 1130;', '= 1230;')
+          s = s.replace('S/ 1,130.00', 'S/ 1,230.00')
+
+          portal_anchor = """          <p>Herramientas contables, tributarias y laborales en un solo lugar, con validaciones claras, accesos rápidos y actualización diaria de información oficial.</p>
+          <div class="portal-search">"""
+          portal_insert = """          <p>Herramientas contables, tributarias y laborales en un solo lugar, con validaciones claras, accesos rápidos y actualización diaria de información oficial.</p>
+          <div class="alv-rmv-status" role="note" aria-label="Remuneración Mínima Vital vigente">
+            <div class="alv-rmv-status-main"><span class="alv-rmv-status-dot"></span><div><strong>RMV vigente: S/ 1,230.00</strong><small>Desde el 01/10/2026 · D.S. N.º 015-2026-TR</small></div></div>
+            <div class="alv-rmv-status-future">Próximo tramo: S/ 1,300 · 2027</div>
+          </div>
+          <div class="portal-search">"""
+          if 'class="alv-rmv-status"' not in s:
+              if portal_anchor not in s:
+                  raise SystemExit("Portal anchor not found")
+              s = s.replace(portal_anchor, portal_insert, 1)
+
+          trabajo_anchor = """    <div class="trabajo-info-grid">"""
+          trabajo_insert = """    <div class="alv-rmv-reference" role="note">
+      <div class="alv-rmv-reference-head"><span>📌</span><div><strong>Parámetros laborales vigentes desde octubre 2026</strong><small>RMV: S/ 1,230.00 · D.S. N.º 015-2026-TR</small></div></div>
+      <div class="alv-rmv-reference-grid">
+        <span><b>Asignación familiar</b>S/ 123.00</span>
+        <span><b>Trabajo nocturno</b>S/ 1,660.50</span>
+        <span><b>Ingreso mínimo minero</b>S/ 1,537.50</span>
+        <span><b>EsSalud mínimo</b>S/ 110.70</span>
+      </div>
+      <p>Los S/ 1,300 corresponden al segundo tramo previsto para el primer semestre de 2027 y no deben aplicarse todavía como RMV vigente.</p>
+    </div>
+    <div class="trabajo-info-grid">"""
+          if 'class="alv-rmv-reference"' not in s:
+              if trabajo_anchor not in s:
+                  raise SystemExit("Trabajo anchor not found")
+              s = s.replace(trabajo_anchor, trabajo_insert, 1)
+
+          if 'id="alvapen-rmv-v40"' not in s:
+              s = s.replace(
+                  '<style id="alvapen-rmv-v38">',
+                  '''<style id="alvapen-rmv-v40">
+          .alv-rmv-status{margin:18px 0 0;padding:12px 14px;border:1px solid rgba(255,255,255,.18);border-radius:16px;background:rgba(255,255,255,.09);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:space-between;gap:14px;box-shadow:0 10px 30px rgba(0,0,0,.10)}
+          .alv-rmv-status-main{display:flex;align-items:center;gap:10px}.alv-rmv-status-main strong{display:block;font-size:14px;color:#fff}.alv-rmv-status-main small{display:block;margin-top:2px;color:#DDE7EF;font-size:11px}.alv-rmv-status-dot{width:9px;height:9px;border-radius:50%;background:#63D2A1;box-shadow:0 0 0 4px rgba(99,210,161,.14);flex:0 0 auto}.alv-rmv-status-future{font-size:11px;color:#F2D99A;font-weight:700;white-space:nowrap}
+          .alv-rmv-reference{margin:0 0 18px;padding:16px 18px;border:1px solid #D9E1E8;border-radius:18px;background:linear-gradient(135deg,#fff,#F7FAFC);box-shadow:0 10px 28px rgba(16,42,67,.06)}
+          .alv-rmv-reference-head{display:flex;align-items:flex-start;gap:10px}.alv-rmv-reference-head>span{font-size:18px}.alv-rmv-reference-head strong{display:block;color:#163A5F;font-size:14px}.alv-rmv-reference-head small{display:block;margin-top:3px;color:#667085;font-size:11px}.alv-rmv-reference-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:12px}.alv-rmv-reference-grid span{padding:10px 11px;border-radius:12px;background:#F3F6F9;color:#243B53;font-size:11px}.alv-rmv-reference-grid b{display:block;font-size:10px;color:#667085;margin-bottom:2px}.alv-rmv-reference p{margin:11px 0 0;color:#667085;font-size:10.5px;line-height:1.45}
+          @media(max-width:760px){.alv-rmv-status{align-items:flex-start;flex-direction:column}.alv-rmv-status-future{white-space:normal}.alv-rmv-reference-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+          </style>
+          <style id="alvapen-rmv-v38">''',
+                  1
+              )
+
+          s = s.replace('const ALVAPEN_RMV_VIGENTE = 1130;', """const ALVAPEN_RMV_VIGENTE = 1230;
+            const ALVAPEN_RMV_INICIO = '2026-10-01';
+            const ALVAPEN_RMV_FUTURA = 1300;""")
+
+          footer_anchor = 'UIT 2026: S/ 5,500 (D.S. N.º 301-2025-EF). Verifica siempre e'
+          footer_new = 'UIT 2026: S/ 5,500 (D.S. N.º 301-2025-EF) · RMV vigente desde 01/10/2026: S/ 1,230.00 (D.S. N.º 015-2026-TR). Verifica siempre e'
+          if footer_anchor in s:
+              s = s.replace(footer_anchor, footer_new, 1)
+
+          if '<body data-rmv-vigente="1230"' not in s:
+              s = s.replace('<body>', '<body data-rmv-vigente="1230" data-rmv-vigencia="2026-10-01" data-rmv-futura="1300">', 1)
+
+          p.write_text(s, encoding="utf-8")
+
+          assert '1130' not in s
+          assert '1,130' not in s
+          assert 'const ALVAPEN_RMV_VIGENTE = 1230;' in s
+          assert 'alv-rmv-status' in s
+          assert 'alv-rmv-reference' in s
+          print("RMV update applied:", p.stat().st_size)
+
+      - name: Commit update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Actualizar RMV a S/ 1,230 desde octubre 2026"
+          git push
+
+      - name: Remove temporary workflow
+        if: success()
+        shell: bash
+        run: |
+          rm -f .github/workflows/apply-rmv-2026.yml
+          git add .github/workflows/apply-rmv-2026.yml
+          git commit -m "Retirar workflow temporal de actualización RMV"
+          git push
