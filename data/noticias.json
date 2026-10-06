@@ -1,0 +1,55 @@
+{
+  "updated_at": "2026-10-06T08:00:00-05:00",
+  "sources": [
+    {
+      "name": "SUNAT",
+      "badge": "OFICIAL",
+      "url": "https://www.sunat.gob.pe/mensajes/mensajes-SUNAT.html",
+      "items": [
+        {
+          "title": "SUNAT realizará mantenimiento de su plataforma informática",
+          "summary": "Se ha programado mantenimiento desde las 20:00 del 7 de octubre hasta las 06:00 del 8 de octubre; algunos servicios podrían no estar disponibles.",
+          "date": "05 oct. 2026",
+          "url": "https://www.sunat.gob.pe/mensajes/mensajes-SUNAT.html"
+        },
+        {
+          "title": "Comunicados SUNAT",
+          "summary": "Consulta los avisos operativos, mantenimientos e incidencias publicados por la administración tributaria.",
+          "date": "Fuente oficial",
+          "url": "https://www.sunat.gob.pe/mensajes/mensajes-SUNAT.html"
+        },
+        {
+          "title": "Sala de Prensa SUNAT",
+          "summary": "Noticias institucionales y novedades tributarias y aduaneras.",
+          "date": "Fuente oficial",
+          "url": "https://www.sunat.gob.pe/salaprensa/"
+        }
+      ]
+    },
+    {
+      "name": "EL PERUANO",
+      "badge": "OFICIAL",
+      "url": "https://www.elperuano.pe/",
+      "items": [
+        {
+          "title": "Índices de corrección monetaria para inmuebles",
+          "summary": "El MEF fijó índices de corrección monetaria para determinar el costo computable de inmuebles enajenados por personas naturales y sociedades conyugales que tributan como tales.",
+          "date": "06 oct. 2026",
+          "url": "https://elperuano.pe/noticia/306209-el-peruano-te-informa-consulta-aqui-las-principales-normas-legales-para-hoy-martes-6-de-octubre-del-2026"
+        },
+        {
+          "title": "¿Trabajas este 8 de octubre? Conoce cuánto corresponde cobrar por laborar en feriado",
+          "summary": "El Diario Oficial informa sobre el tratamiento laboral aplicable al feriado del Combate de Angamos.",
+          "date": "06 oct. 2026",
+          "url": "https://www.elperuano.pe/"
+        },
+        {
+          "title": "Normas legales del día",
+          "summary": "Acceso directo a las disposiciones publicadas en el Diario Oficial El Peruano.",
+          "date": "Actualización diaria",
+          "url": "https://diariooficial.elperuano.pe/Normas"
+        }
+      ]
+    }
+  ]
+}
