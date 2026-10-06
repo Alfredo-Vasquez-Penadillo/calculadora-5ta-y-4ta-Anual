@@ -2126,7 +2126,7 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
       <section class="det-card">
         <div class="det-card-head">
           <h2>1. Datos del lote</h2>
-          <p>Identifica al contribuyente que realiza el depósito y el lote que aparecerá también en el nombre del TXT.</p>
+          <p>Identifica al contribuyente que realiza el depósito y el lote. Si el rol es <strong>Proveedor</strong>, la cuenta de detracciones del depositante se registra una sola vez y se reutiliza en todas las operaciones.</p>
         </div>
         <div class="det-card-body">
           <div class="det-role">
@@ -2138,6 +2138,7 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
             <label>Razón social del depositante<input id="det-payer-name" maxlength="35" placeholder="Máximo 35 caracteres"></label>
             <label>N.º de lote<input id="det-lot" inputmode="numeric" maxlength="6" placeholder="AANNNN"></label>
             <label>Secuencia del lote <span class="det-hint">Se propone automáticamente</span><input id="det-seq" inputmode="numeric" maxlength="4" placeholder="0001"></label>
+            <label id="det-payer-account-label" style="display:none">Cuenta de detracciones del depositante <span class="det-hint">Se usa para todas las operaciones cuando el rol es Proveedor</span><input id="det-payer-account" inputmode="numeric" maxlength="11" placeholder="11 dígitos"></label>
           </div>
           <div class="det-actions">
             <button class="det-btn secondary" type="button" onclick="detSuggestLot()">Proponer lote</button>
@@ -2163,7 +2164,7 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
       <section class="det-card">
         <div class="det-card-head">
           <h2>2. Registrar operación</h2>
-          <p>Los campos cambian según el rol seleccionado. Los datos de proforma no se solicitan porque SUNAT permite dejarlos en blanco; el generador reserva sus 9 posiciones.</p>
+          <p>Los campos cambian según el rol seleccionado. Si eres <strong>Proveedor</strong>, la cuenta de detracciones se registra una sola vez en los datos del lote y se aplica automáticamente a todos los adquirientes.</p>
         </div>
         <div class="det-card-body">
           <div class="det-fields">
@@ -3865,8 +3866,10 @@ function pcvTab(name,btn){
     $('det-counterparty-name').placeholder=isA?'No se usa en el TXT; se reserva el campo':'Apellidos y nombres o razón social';
     $('det-counterparty-name-label').style.display=isA?'none':'flex';
     $('det-doc-type-label').style.display=isA?'none':'flex';
-    $('det-account-label').firstChild.textContent=isA?'Cuenta de detracciones del proveedor':'Cuenta de detracciones del depositante';
+    $('det-account-label').firstChild.textContent='Cuenta de detracciones del proveedor';
     $('det-account').placeholder='11 dígitos';
+    $('det-account-label').style.display=isA?'flex':'none';
+    $('det-payer-account-label').style.display=isA?'none':'flex';
     detUpdateCompTypes();
     detRender();
   };
@@ -3889,7 +3892,7 @@ function pcvTab(name,btn){
       party:clean($('det-counterparty-doc').value),
       name:clean($('det-counterparty-name').value),
       docType:clean($('det-doc-type').value),
-      account:clean($('det-account').value),
+      account:state.role==='proveedor'?clean($('det-payer-account').value):clean($('det-account').value),
       operation:clean($('det-operation').value),
       service:clean($('det-service').value),
       amount:Number($('det-amount').value),
@@ -3909,7 +3912,7 @@ function pcvTab(name,btn){
       if(o.docType==='1' && !/^\d{8}$/.test(o.party)) e.push('El DNI del adquiriente debe tener 8 dígitos.');
       if(!o.name) e.push('Falta el nombre/razón social del adquiriente.');
     }
-    if(!/^\d{11}$/.test(o.account)) e.push('La cuenta de detracciones debe tener 11 dígitos.');
+    if(!/^\d{11}$/.test(o.account)) e.push(state.role==='proveedor'?'La cuenta de detracciones del depositante debe tener 11 dígitos.':'La cuenta de detracciones del proveedor debe tener 11 dígitos.');
     if(!DET_CODES.some(x=>x[0]===o.service)) e.push('Código de bien/servicio no válido.');
     if(!DET_OPS.some(x=>x[0]===o.operation)) e.push('Tipo de operación no válido.');
     if(o.operation==='09' && o.service!=='099') e.push('La Ley N.º 30737 exige código 099 y operación 09.');
@@ -3938,14 +3941,16 @@ function pcvTab(name,btn){
     state.ops.push(o); setMessage('det-form-message','ok','Operación agregada correctamente.'); detClearOperation(false); detRender();
   };
   window.detClearOperation=function(hide=true){
-    ['det-counterparty-doc','det-counterparty-name','det-account','det-amount','det-series','det-number'].forEach(id=>$(id).value='');
+    ['det-counterparty-doc','det-counterparty-name','det-amount','det-series','det-number'].forEach(id=>$(id).value='');
+    if(state.role==='adquiriente') $('det-account').value='';
     $('det-doc-type').value='6'; $('det-operation').value='01'; $('det-service').value='037'; $('det-comp-type').value='01'; $('det-period').value=nowPeriod();
     if(hide){const e=$('det-form-message');e.style.display='none';}
     detUpdateCompTypes();
   };
   window.detDeleteOperation=function(i){state.ops.splice(i,1);detRender();};
   window.detEditOperation=function(i){
-    const o=state.ops[i]; $('det-counterparty-doc').value=o.party; $('det-counterparty-name').value=o.name; $('det-doc-type').value=o.docType||'6'; $('det-account').value=o.account;
+    const o=state.ops[i]; $('det-counterparty-doc').value=o.party; $('det-counterparty-name').value=o.name; $('det-doc-type').value=o.docType||'6';
+    if(state.role==='proveedor') $('det-payer-account').value=o.account; else $('det-account').value=o.account;
     $('det-operation').value=o.operation; $('det-service').value=o.service; $('det-amount').value=o.amount; $('det-period').value=o.period; detUpdateCompTypes(); $('det-comp-type').value=o.compType; $('det-series').value=o.series; $('det-number').value=o.number;
     state.ops.splice(i,1);detRender();window.scrollTo({top:document.querySelector('#detraccionesMasivasView .det-card:nth-of-type(3)')?.offsetTop||0,behavior:'smooth'});
   };
@@ -3954,6 +3959,7 @@ function pcvTab(name,btn){
     if(!rucValid(r))e.push('RUC del depositante inválido.');
     if(!n)e.push('Falta la razón social del depositante.');
     if(n.length>35)e.push('La razón social supera 35 caracteres.');
+    if(state.role==='proveedor' && !/^\d{11}$/.test(clean($('det-payer-account').value))) e.push('La cuenta de detracciones del depositante debe tener 11 dígitos.');
     if(!/^\d{6}$/.test(l)||l.slice(0,2)!==yy())e.push('El lote debe tener formato AANNNN y corresponder al año actual.');
     if(!state.ops.length)e.push('Agrega al menos una operación.');
     return e;
@@ -4024,7 +4030,7 @@ function pcvTab(name,btn){
     const p=$('portalView');if(p)p.style.display='block';
     window.scrollTo(0,0);
   };
-  ['det-payer-ruc','det-payer-name','det-lot'].forEach(id=>$(id)?.addEventListener('input',detUpdateFilename));
+  ['det-payer-ruc','det-payer-name','det-payer-account','det-lot'].forEach(id=>$(id)?.addEventListener('input',detUpdateFilename));
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',populate);else populate();
 })();
 </script>
