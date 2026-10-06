@@ -1507,11 +1507,22 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
 .det-stat{padding:12px;border:1px solid #e2e8f0;border-radius:12px;background:#f8fafc}
 .det-stat span{display:block;font-size:10px;color:#667085;text-transform:uppercase;font-weight:800;letter-spacing:.04em}
 .det-stat strong{display:block;margin-top:3px;font-size:17px;color:#163a5f}
-.det-table-wrap{overflow:auto}
-.det-table{width:100%;border-collapse:collapse;min-width:900px}
-.det-table th,.det-table td{padding:10px 9px;border-bottom:1px solid #e8edf2;text-align:left;font-size:11px;white-space:nowrap}
-.det-table th{background:#f8fafc;color:#475467;font-size:10px;text-transform:uppercase;letter-spacing:.03em}
+.det-operations-card{grid-column:1/-1}
+.det-table-wrap{overflow:visible;width:100%}
+.det-table{width:100%;border-collapse:collapse;table-layout:fixed}
+.det-table th,.det-table td{padding:9px 8px;border-bottom:1px solid #e8edf2;text-align:left;font-size:10.5px;white-space:normal;overflow-wrap:anywhere;vertical-align:middle}
+.det-table th{background:#f8fafc;color:#475467;font-size:9.5px;text-transform:uppercase;letter-spacing:.03em}
+.det-table th:nth-child(1),.det-table td:nth-child(1){width:4%}
+.det-table th:nth-child(2),.det-table td:nth-child(2){width:17%}
+.det-table th:nth-child(3),.det-table td:nth-child(3){width:19%}
+.det-table th:nth-child(4),.det-table td:nth-child(4){width:8%}
+.det-table th:nth-child(5),.det-table td:nth-child(5){width:14%}
+.det-table th:nth-child(6),.det-table td:nth-child(6){width:13%}
+.det-table th:nth-child(7),.det-table td:nth-child(7){width:8%}
+.det-table th:nth-child(8),.det-table td:nth-child(8){width:7%}
+.det-table th:nth-child(9),.det-table td:nth-child(9){width:10%}
 .det-table td.amount{text-align:right;font-weight:800}
+.det-table td .det-btn{padding:7px 8px;font-size:9px;margin:2px 0}
 .det-status{display:inline-flex;align-items:center;padding:4px 7px;border-radius:999px;font-size:10px;font-weight:900}
 .det-status.ok{background:#e8f6f1;color:#287d6b}.det-status.err{background:#fff0f0;color:#a33d3d}
 .det-empty{padding:28px;text-align:center;color:#667085;font-size:12px}
@@ -2138,7 +2149,7 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
             <label>Razón social del depositante<input id="det-payer-name" maxlength="35" placeholder="Máximo 35 caracteres"></label>
             <label>N.º de lote<input id="det-lot" inputmode="numeric" maxlength="6" placeholder="AANNNN"></label>
             <label>Secuencia del lote <span class="det-hint">Se propone automáticamente</span><input id="det-seq" inputmode="numeric" maxlength="4" placeholder="0001"></label>
-            <label id="det-payer-account-label" style="display:none">Cuenta de detracciones del depositante <span class="det-hint">Se usa para todas las operaciones cuando el rol es Proveedor</span><input id="det-payer-account" inputmode="numeric" maxlength="11" placeholder="11 dígitos"></label>
+            <label id="det-payer-account-label" style="display:none">Cuenta de detracciones del proveedor <span class="det-hint">Se registra una sola vez y se aplica a todas las operaciones del lote</span><input id="det-payer-account" inputmode="numeric" maxlength="11" placeholder="11 dígitos"></label>
           </div>
           <div class="det-actions">
             <button class="det-btn secondary" type="button" onclick="detSuggestLot()">Proponer lote</button>
@@ -2164,7 +2175,7 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
       <section class="det-card">
         <div class="det-card-head">
           <h2>2. Registrar operación</h2>
-          <p>Los campos cambian según el rol seleccionado. Si eres <strong>Proveedor</strong>, la cuenta de detracciones se registra una sola vez en los datos del lote y se aplica automáticamente a todos los adquirientes.</p>
+          <p>Los campos cambian según el rol seleccionado. En <strong>Adquiriente</strong>, la cuenta de detracciones del proveedor se solicita en cada operación. En <strong>Proveedor</strong>, la cuenta del proveedor se registra una sola vez en los datos del lote y se reutiliza automáticamente en todas las operaciones.</p>
         </div>
         <div class="det-card-body">
           <div class="det-fields">
@@ -2194,7 +2205,7 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
         </div>
       </section>
 
-      <section class="det-card">
+      <section class="det-card det-operations-card">
         <div class="det-card-head">
           <h2>3. Operaciones del lote</h2>
           <p>Revisa, edita o elimina antes de generar el archivo.</p>
@@ -3870,6 +3881,7 @@ function pcvTab(name,btn){
     $('det-account').placeholder='11 dígitos';
     $('det-account-label').style.display=isA?'flex':'none';
     $('det-payer-account-label').style.display=isA?'none':'flex';
+    $('det-payer-account-label').querySelector('.det-hint').textContent=isA?'':'Se registra una sola vez y se aplica a todas las operaciones del lote';
     detUpdateCompTypes();
     detRender();
   };
@@ -3912,7 +3924,7 @@ function pcvTab(name,btn){
       if(o.docType==='1' && !/^\d{8}$/.test(o.party)) e.push('El DNI del adquiriente debe tener 8 dígitos.');
       if(!o.name) e.push('Falta el nombre/razón social del adquiriente.');
     }
-    if(!/^\d{11}$/.test(o.account)) e.push(state.role==='proveedor'?'La cuenta de detracciones del depositante debe tener 11 dígitos.':'La cuenta de detracciones del proveedor debe tener 11 dígitos.');
+    if(!/^\d{11}$/.test(o.account)) e.push(state.role==='proveedor'?'La cuenta de detracciones del proveedor debe tener 11 dígitos.':'La cuenta de detracciones del proveedor debe tener 11 dígitos.');
     if(!DET_CODES.some(x=>x[0]===o.service)) e.push('Código de bien/servicio no válido.');
     if(!DET_OPS.some(x=>x[0]===o.operation)) e.push('Tipo de operación no válido.');
     if(o.operation==='09' && o.service!=='099') e.push('La Ley N.º 30737 exige código 099 y operación 09.');
@@ -3959,7 +3971,7 @@ function pcvTab(name,btn){
     if(!rucValid(r))e.push('RUC del depositante inválido.');
     if(!n)e.push('Falta la razón social del depositante.');
     if(n.length>35)e.push('La razón social supera 35 caracteres.');
-    if(state.role==='proveedor' && !/^\d{11}$/.test(clean($('det-payer-account').value))) e.push('La cuenta de detracciones del depositante debe tener 11 dígitos.');
+    if(state.role==='proveedor' && !/^\d{11}$/.test(clean($('det-payer-account').value))) e.push('La cuenta de detracciones del proveedor debe tener 11 dígitos.');
     if(!/^\d{6}$/.test(l)||l.slice(0,2)!==yy())e.push('El lote debe tener formato AANNNN y corresponder al año actual.');
     if(!state.ops.length)e.push('Agrega al menos una operación.');
     return e;
