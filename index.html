@@ -4177,5 +4177,53 @@ function pcvTab(name,btn){
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',populate);else populate();
 })();
 </script>
+
+<script id="alvapen-live-news-v1">
+(function(){
+  const root=document.getElementById('alvapen-noticias');
+  if(!root)return;
+  const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  const fmtDate=s=>{
+    try{return new Intl.DateTimeFormat('es-PE',{day:'2-digit',month:'short',year:'numeric'}).format(new Date(s));}
+    catch(e){return s||''}
+  };
+  const render=data=>{
+    const updated=data.updated_at||'';
+    const sources=(data.sources||[]).filter(x=>(x.items||[]).length);
+    root.innerHTML=`
+      <div class="portal-news-head">
+        <div>
+          <div class="portal-eyebrow">Actualidad profesional</div>
+          <h2>Noticias y novedades</h2>
+          <p>Actualización automática diaria con información de fuentes oficiales. La sección prioriza novedades tributarias, laborales, contables y normativas.</p>
+        </div>
+        <div class="portal-news-date">Actualizado · ${esc(fmtDate(updated))}</div>
+      </div>
+      <div class="portal-news-grid">
+        ${sources.map(src=>`
+          <article class="portal-news-card">
+            <div class="portal-news-card-head"><div class="portal-news-source">${esc(src.name)}</div><span>${esc(src.badge||'OFICIAL')}</span></div>
+            <div class="portal-news-items">
+              ${(src.items||[]).slice(0,5).map(n=>`
+                <a href="${esc(n.url)}" target="_blank" rel="noopener">
+                  <strong>${esc(n.title)}</strong>
+                  <small>${esc(n.summary||'Consulta la publicación oficial para ver el detalle.')}</small>
+                  <em>${esc(n.date||'Fuente oficial')} · ver publicación ↗</em>
+                </a>`).join('')}
+            </div>
+            <a class="portal-news-more" href="${esc(src.url)}" target="_blank" rel="noopener">Abrir fuente oficial →</a>
+          </article>`).join('')}
+      </div>
+      <div class="portal-news-note">
+        <strong>Actualización automática:</strong> ALVAPEN consulta diariamente las fuentes oficiales mediante GitHub Actions y actualiza este bloque sin modificar las herramientas ni los TXT generados.
+      </div>`;
+  };
+  fetch('./data/noticias.json?ts='+Date.now(),{cache:'no-store'})
+    .then(r=>{if(!r.ok)throw new Error('No se pudo cargar noticias.json');return r.json()})
+    .then(render)
+    .catch(()=>{ /* Se conserva el contenido estático de respaldo si el archivo no está disponible. */ });
+})();
+</script>
+
 </body>
 </html>
