@@ -1469,6 +1469,63 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
 }
 </style>
 
+
+<style id="alvapen-detracciones-v1-css">
+#detraccionesMasivasView{display:none;min-height:100vh;background:#f5f7fa;color:#243b53}
+.det-toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 22px;background:#fff;border-bottom:1px solid #d9e1e8;position:sticky;top:0;z-index:20}
+.det-toolbar strong{font-size:14px;color:#163a5f}
+.det-back{border:1px solid #d9e1e8;background:#fff;color:#163a5f;border-radius:10px;padding:9px 13px;font-weight:800;cursor:pointer}
+.det-hero{background:linear-gradient(118deg,#163a5f,#243b53 60%,#5b7896);color:#fff;padding:30px 24px 34px;border-bottom:3px solid #c6a15b}
+.det-hero-inner{max-width:1480px;margin:auto}
+.det-kicker{margin:0 0 7px;color:#d8c28f;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+.det-hero h1{margin:0;font-size:clamp(1.55rem,3vw,2.25rem);letter-spacing:-.03em}
+.det-hero p{max-width:820px;margin:9px 0 0;color:#e7eef4}
+.det-wrap{max-width:1480px;margin:auto;padding:24px clamp(16px,3vw,38px) 48px}
+.det-alert{padding:13px 16px;border:1px solid #d9e1e8;border-left:4px solid #c6a15b;background:#fff;border-radius:12px;color:#475569;margin-bottom:18px}
+.det-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);gap:18px;align-items:start}
+.det-card{background:#fff;border:1px solid #d9e1e8;border-radius:18px;box-shadow:0 8px 24px rgba(16,42,67,.055);overflow:hidden}
+.det-card-head{padding:17px 19px;border-bottom:1px solid #e7edf2;background:#f8fafc}
+.det-card-head h2{margin:0;font-size:17px;color:#163a5f}
+.det-card-head p{margin:4px 0 0;color:#667085;font-size:12px}
+.det-card-body{padding:19px}
+.det-role{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:17px}
+.det-role label{border:1px solid #d9e1e8;border-radius:13px;padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;background:#fff}
+.det-role label:has(input:checked){border-color:#163a5f;background:#f1f6fa;box-shadow:0 0 0 3px rgba(22,58,95,.07)}
+.det-role input{accent-color:#163a5f}
+.det-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.det-fields label{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:800;color:#344054}
+.det-fields .wide{grid-column:1/-1}
+.det-fields input,.det-fields select{width:100%;height:42px;border:1px solid #cfd8e3;border-radius:10px;padding:0 11px;background:#fff;color:#243b53;font:inherit;font-weight:500}
+.det-fields input:focus,.det-fields select:focus{outline:none;border-color:#5b7896;box-shadow:0 0 0 3px rgba(91,120,150,.12)}
+.det-hint{font-size:11px!important;font-weight:500!important;color:#667085!important}
+.det-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:17px}
+.det-btn{border:0;border-radius:11px;padding:11px 14px;font-weight:900;cursor:pointer}
+.det-btn.primary{background:#163a5f;color:#fff}
+.det-btn.secondary{background:#eef3f7;color:#163a5f;border:1px solid #d9e1e8}
+.det-btn.danger{background:#fff0f0;color:#a33d3d;border:1px solid #f0caca}
+.det-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.det-stat{padding:12px;border:1px solid #e2e8f0;border-radius:12px;background:#f8fafc}
+.det-stat span{display:block;font-size:10px;color:#667085;text-transform:uppercase;font-weight:800;letter-spacing:.04em}
+.det-stat strong{display:block;margin-top:3px;font-size:17px;color:#163a5f}
+.det-table-wrap{overflow:auto}
+.det-table{width:100%;border-collapse:collapse;min-width:900px}
+.det-table th,.det-table td{padding:10px 9px;border-bottom:1px solid #e8edf2;text-align:left;font-size:11px;white-space:nowrap}
+.det-table th{background:#f8fafc;color:#475467;font-size:10px;text-transform:uppercase;letter-spacing:.03em}
+.det-table td.amount{text-align:right;font-weight:800}
+.det-status{display:inline-flex;align-items:center;padding:4px 7px;border-radius:999px;font-size:10px;font-weight:900}
+.det-status.ok{background:#e8f6f1;color:#287d6b}.det-status.err{background:#fff0f0;color:#a33d3d}
+.det-empty{padding:28px;text-align:center;color:#667085;font-size:12px}
+.det-validation{margin-top:14px;border-radius:12px;padding:12px 14px;font-size:12px}
+.det-validation.ok{background:#eaf7f2;color:#246b5c;border:1px solid #c9e8dc}
+.det-validation.err{background:#fff3f3;color:#8f3535;border:1px solid #f1cccc}
+.det-validation ul{margin:7px 0 0 18px;padding:0}
+.det-preview{margin-top:14px}
+.det-preview textarea{width:100%;min-height:150px;resize:vertical;border:1px solid #d9e1e8;border-radius:11px;background:#0f1d2b;color:#dbe7f0;padding:12px;font:12px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace}
+.det-note{font-size:11px;color:#667085;line-height:1.5;margin:10px 0 0}
+.det-badge{display:inline-block;padding:4px 7px;border-radius:999px;background:#f7f1e5;color:#7c6234;font-size:10px;font-weight:900}
+@media(max-width:980px){.det-grid{grid-template-columns:1fr}}
+@media(max-width:650px){.det-fields,.det-role{grid-template-columns:1fr}.det-summary{grid-template-columns:1fr}.det-toolbar{position:static}.det-toolbar strong{display:none}}
+</style>
 </head>
 <body>
 
@@ -1516,6 +1573,13 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
   <span class="portal-action">Abrir herramienta →</span>
 </a>
 
+      
+<a class="portal-card portal-available" data-name="detracciones generador txt pago masivo sunat spot proveedor adquiriente" href="#detracciones" onclick="showDetracciones();return false">
+  <div class="portal-icon">💳</div>
+  <h3>Detracciones · Generador TXT masivo</h3>
+  <p>Registra operaciones directamente en la página como Adquiriente o Proveedor y genera el TXT para Pago Masivo SUNAT.</p>
+  <span class="portal-action">ABRIR GENERADOR →</span>
+</a>
       <a class="portal-card portal-available portal-feature" data-name="rentas trabajo cuarta quinta categoria" href="#calculadora" onclick="showCalculator();return false">
         <div class="portal-icon">🧮</div>
         <h3>Rentas de trabajo · 4ta + 5ta categoría</h3>
@@ -2042,6 +2106,120 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
   </div>
 </div>
 
+
+
+<div id="detraccionesMasivasView">
+  <div class="det-toolbar">
+    <button class="det-back" type="button" onclick="showPortal()">← Volver al portal ALVAPEN</button>
+    <strong>ALVAPEN · Detracciones · Pago Masivo SUNAT</strong>
+  </div>
+  <header class="det-hero">
+    <div class="det-hero-inner">
+      <p class="det-kicker">Herramienta tributaria</p>
+      <h1>Generador TXT de Detracciones Masivas</h1>
+      <p>Registra las operaciones una por una, valida la estructura y genera un único archivo TXT de 68 caracteres para la cabecera y 107 para cada detalle, conforme al instructivo de Pago Masivo por Internet.</p>
+    </div>
+  </header>
+  <main class="det-wrap">
+    <div class="det-alert"><strong>Importante:</strong> esta herramienta genera el archivo plano; el pago y las validaciones finales de cuenta, RUC y demás condiciones las realiza SUNAT al cargarlo. No necesitas importar Excel.</div>
+    <div class="det-grid">
+      <section class="det-card">
+        <div class="det-card-head">
+          <h2>1. Datos del lote</h2>
+          <p>Identifica al contribuyente que realiza el depósito y el lote que aparecerá también en el nombre del TXT.</p>
+        </div>
+        <div class="det-card-body">
+          <div class="det-role">
+            <label><input type="radio" name="det-role" value="adquiriente" checked onchange="detSyncRole()"> <span><strong>Adquiriente</strong><small>Depósito a múltiples proveedores</small></span></label>
+            <label><input type="radio" name="det-role" value="proveedor" onchange="detSyncRole()"> <span><strong>Proveedor</strong><small>Depósito a cuenta propia con múltiples adquirientes</small></span></label>
+          </div>
+          <div class="det-fields">
+            <label>RUC del depositante<input id="det-payer-ruc" inputmode="numeric" maxlength="11" placeholder="11 dígitos"></label>
+            <label>Razón social del depositante<input id="det-payer-name" maxlength="35" placeholder="Máximo 35 caracteres"></label>
+            <label>N.º de lote<input id="det-lot" inputmode="numeric" maxlength="6" placeholder="AANNNN"></label>
+            <label>Secuencia del lote <span class="det-hint">Se propone automáticamente</span><input id="det-seq" inputmode="numeric" maxlength="4" placeholder="0001"></label>
+          </div>
+          <div class="det-actions">
+            <button class="det-btn secondary" type="button" onclick="detSuggestLot()">Proponer lote</button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="det-card">
+        <div class="det-card-head">
+          <h2>Resumen del lote</h2>
+          <p>Se actualiza conforme agregas operaciones.</p>
+        </div>
+        <div class="det-card-body">
+          <div class="det-summary">
+            <div class="det-stat"><span>Operaciones</span><strong id="det-count">0</strong></div>
+            <div class="det-stat"><span>Total depósito</span><strong id="det-total">S/ 0.00</strong></div>
+            <div class="det-stat"><span>Estado</span><strong id="det-ready">Pendiente</strong></div>
+          </div>
+          <p class="det-note">El archivo se generará como <strong id="det-filename">DXXXXXXXXXXXAANNNN.TXT</strong>. El RUC y lote del nombre deben coincidir con la cabecera.</p>
+        </div>
+      </aside>
+
+      <section class="det-card">
+        <div class="det-card-head">
+          <h2>2. Registrar operación</h2>
+          <p>Los campos cambian según el rol seleccionado. Los datos de proforma no se solicitan porque SUNAT permite dejarlos en blanco; el generador reserva sus 9 posiciones.</p>
+        </div>
+        <div class="det-card-body">
+          <div class="det-fields">
+            <label id="det-counterparty-label">RUC del proveedor<input id="det-counterparty-doc" inputmode="numeric" maxlength="11" placeholder="RUC del proveedor"></label>
+            <label id="det-counterparty-name-label">Nombre / Razón Social del proveedor<input id="det-counterparty-name" maxlength="35" placeholder="Para Adquiriente se reserva el campo en blanco"></label>
+            <label id="det-doc-type-label" style="display:none">Tipo de documento del adquiriente
+              <select id="det-doc-type"><option value="6">06 - RUC</option><option value="1">01 - DNI</option></select>
+            </label>
+            <label id="det-account-label">Cuenta de detracciones del proveedor<input id="det-account" inputmode="numeric" maxlength="11" placeholder="11 dígitos"></label>
+            <label>Tipo de operación
+              <select id="det-operation"></select>
+            </label>
+            <label>Tipo de bien o servicio
+              <select id="det-service"></select>
+            </label>
+            <label>Monto del depósito (S/)<input id="det-amount" type="number" min="0.01" step="0.01" placeholder="0.00"></label>
+            <label>Periodo tributario <span class="det-hint">AAAAMM</span><input id="det-period" inputmode="numeric" maxlength="6" placeholder="202610"></label>
+            <label>Tipo de comprobante<select id="det-comp-type"></select></label>
+            <label>Serie del comprobante<input id="det-series" maxlength="4" placeholder="F001"></label>
+            <label>Número de comprobante<input id="det-number" inputmode="numeric" maxlength="8" placeholder="12345678"></label>
+          </div>
+          <div class="det-actions">
+            <button class="det-btn primary" type="button" onclick="detAddOperation()">＋ Agregar operación</button>
+            <button class="det-btn secondary" type="button" onclick="detClearOperation()">Limpiar</button>
+          </div>
+          <div id="det-form-message" class="det-validation" style="display:none"></div>
+        </div>
+      </section>
+
+      <section class="det-card">
+        <div class="det-card-head">
+          <h2>3. Operaciones del lote</h2>
+          <p>Revisa, edita o elimina antes de generar el archivo.</p>
+        </div>
+        <div class="det-table-wrap">
+          <table class="det-table">
+            <thead><tr><th>#</th><th>Contraparte</th><th>Bien/Servicio</th><th>Operación</th><th>Comprobante</th><th>Cuenta</th><th>Depósito</th><th>Estado</th><th></th></tr></thead>
+            <tbody id="det-operations-body"><tr><td colspan="9" class="det-empty">Aún no has agregado operaciones.</td></tr></tbody>
+          </table>
+        </div>
+        <div class="det-card-body">
+          <div id="det-validation" class="det-validation" style="display:none"></div>
+          <div class="det-actions">
+            <button class="det-btn secondary" type="button" onclick="detValidateAll()">✓ Validar todo</button>
+            <button class="det-btn primary" type="button" onclick="detGenerateTxt()">⬇ Generar TXT para Pago Masivo SUNAT</button>
+            <button class="det-btn danger" type="button" onclick="detClearAll()">Vaciar lote</button>
+          </div>
+          <div class="det-preview">
+            <p class="det-note"><span class="det-badge">Vista previa técnica</span> La cabecera debe medir 68 caracteres y cada detalle 107. El archivo no usa separadores como comas o punto decimal.</p>
+            <textarea id="det-preview-text" readonly placeholder="Aquí aparecerá una vista previa del TXT generado..."></textarea>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
 
 <div id="calculatorView" class="calculator-view">
   <div class="calculator-toolbar">
@@ -3607,5 +3785,248 @@ function pcvTab(name,btn){
 })();
 </script>
 
+
+<script id="alvapen-detracciones-v1-js">
+(function(){
+  const DET_CODES=[
+    ['004','Recursos hidrobiológicos'],['005','Maíz amarillo duro'],['008','Madera'],['009','Arena y piedra'],
+    ['010','Residuos, subproductos, desechos, recortes, desperdicios y formas primarias derivadas'],
+    ['012','Intermediación laboral y tercerización'],['014','Carnes y despojos comestibles'],
+    ['017','Harina, polvo y pellets de pescado, crustáceos, moluscos y demás invertebrados acuáticos'],
+    ['019','Arrendamiento de bienes'],['020','Mantenimiento y reparación de bienes muebles'],['021','Movimiento de carga'],
+    ['022','Otros servicios empresariales'],['024','Comisión mercantil'],['025','Fabricación de bienes por encargo'],
+    ['026','Servicio de transporte de personas'],['027','Servicio de transporte de bienes por vía terrestre'],
+    ['030','Contratos de construcción'],['031','Oro gravado con el IGV'],['034','Minerales metálicos no auríferos'],
+    ['035','Bienes exonerados del IGV'],['036','Oro y demás minerales metálicos exonerados del IGV'],
+    ['037','Demás servicios gravados con el IGV'],['039','Minerales no metálicos'],['040','Bien inmueble gravado con el IGV'],
+    ['099','Ley N.º 30737']
+  ];
+  const DET_OPS=[
+    ['01','Venta de bienes muebles o inmuebles, prestación de servicios o contratos de construcción gravados con el IGV'],
+    ['02','Retiro de bienes gravados con el IGV'],['03','Traslado de bienes que no se origina en una venta'],
+    ['04','Venta de bienes gravada con IGV realizada a través de la Bolsa de Productos'],
+    ['05','Venta de bienes exonerada del IGV'],['09','Ley N.º 30737']
+  ];
+  const DET_DOCS=[['6','06 - RUC'],['1','01 - DNI'],['4','04 - Carné de Extranjería'],['7','07 - Pasaporte'],['A','A - Cédula Diplomática']];
+  const DET_COMP=[['01','FACTURA'],['03','BOLETA DE VENTA'],['09','GUÍA DE REMISIÓN']];
+  const state={role:'adquiriente',ops:[]};
+  const $=id=>document.getElementById(id);
+  const clean=v=>String(v??'').trim();
+  const padR=(v,n)=>clean(v).padEnd(n,' ').slice(0,n);
+  const padL=(v,n,ch='0')=>clean(v).padStart(n,ch).slice(-n);
+  const money=new Intl.NumberFormat('es-PE',{style:'currency',currency:'PEN',minimumFractionDigits:2});
+  const nowPeriod=()=>{const d=new Date();return String(d.getFullYear())+String(d.getMonth()+1).padStart(2,'0')};
+  const yy=()=>String(new Date().getFullYear()).slice(-2);
+  function rucValid(ruc){
+    ruc=clean(ruc); if(!/^\\d{11}$/.test(ruc)) return false;
+    const f=[5,4,3,2,7,6,5,4,3,2],body=ruc.slice(0,10).split('').map(Number),dv=Number(ruc[10]);
+    let s=0; for(let i=0;i<10;i++) s+=body[i]*f[i];
+    const x=11-(s%11),check=x===10?0:x===11?1:x;
+    return check===dv;
+  }
+  function amountField(v){
+    const n=Number(v); if(!Number.isFinite(n)||n<=0) return null;
+    const cents=Math.round(n*100);
+    if(cents>999999999999999) return null;
+    return padL(String(cents),15,'0');
+  }
+  function setMessage(id,type,msg){
+    const e=$(id); if(!e)return; e.style.display='block'; e.className='det-validation '+type;
+    e.innerHTML=msg;
+  }
+  function fillSelect(id,items,placeholder){
+    const s=$(id); s.innerHTML='<option value="">'+placeholder+'</option>'+items.map(x=>'<option value="'+x[0]+'">'+x[0]+' - '+x[1]+'</option>').join('');
+  }
+  function populate(){
+    fillSelect('det-operation',DET_OPS,'Seleccione un tipo de operación');
+    fillSelect('det-service',DET_CODES,'Seleccione un tipo de bien o servicio');
+    fillSelect('det-comp-type',DET_COMP,'Seleccione un tipo de comprobante');
+    fillSelect('det-doc-type',DET_DOCS,'Seleccione un tipo de documento');
+    $('det-period').value=nowPeriod();
+    $('det-lot').value=yy()+'0001';
+    $('det-seq').value='0001';
+    detSyncRole();
+    detUpdateCompTypes();
+    detRender();
+  }
+  window.detSuggestLot=function(){
+    const seq=Math.min(9999,Math.max(1,state.ops.length+1));
+    $('det-seq').value=String(seq).padStart(4,'0');
+    $('det-lot').value=yy()+String(seq).padStart(4,'0');
+    detUpdateFilename();
+  };
+  window.detSyncRole=function(){
+    state.role=document.querySelector('input[name="det-role"]:checked')?.value||'adquiriente';
+    const isA=state.role==='adquiriente';
+    $('det-counterparty-label').firstChild.textContent=isA?'RUC del proveedor':'Número de documento del adquiriente';
+    $('det-counterparty-doc').placeholder=isA?'RUC del proveedor':'Documento del adquiriente';
+    $('det-counterparty-doc').maxLength=isA?'11':'11';
+    $('det-counterparty-name-label').firstChild.textContent=isA?'Nombre / Razón Social del proveedor':'Nombre / Razón Social del adquiriente';
+    $('det-counterparty-name').placeholder=isA?'No se usa en el TXT; se reserva el campo':'Apellidos y nombres o razón social';
+    $('det-counterparty-name-label').style.display=isA?'none':'flex';
+    $('det-doc-type-label').style.display=isA?'none':'flex';
+    $('det-account-label').firstChild.textContent=isA?'Cuenta de detracciones del proveedor':'Cuenta de detracciones del depositante';
+    $('det-account').placeholder='11 dígitos';
+    detUpdateCompTypes();
+    detRender();
+  };
+  window.detUpdateCompTypes=function(){
+    const op=$('det-operation').value, code=$('det-service').value;
+    let allowed=DET_COMP;
+    if(op==='03') allowed=DET_COMP.filter(x=>x[0]==='09');
+    else if(op==='02'||op==='04'||op==='05'||op==='09') allowed=DET_COMP.filter(x=>x[0]==='01');
+    else if(op==='09') allowed=DET_COMP.filter(x=>x[0]==='01');
+    const old=$('det-comp-type').value;
+    $('det-comp-type').innerHTML=allowed.map(x=>'<option value="'+x[0]+'">'+x[0]+' - '+x[1]+'</option>').join('');
+    if(allowed.some(x=>x[0]===old)) $('det-comp-type').value=old;
+    if(op==='09'){ $('det-service').value='099'; $('det-comp-type').value='01'; }
+    detUpdateFilename();
+  };
+  $('det-operation')?.addEventListener('change',window.detUpdateCompTypes);
+  $('det-service')?.addEventListener('change',function(){ if(this.value==='099') $('det-operation').value='09'; detUpdateCompTypes(); });
+  function formData(){
+    return {
+      party:clean($('det-counterparty-doc').value),
+      name:clean($('det-counterparty-name').value),
+      docType:clean($('det-doc-type').value),
+      account:clean($('det-account').value),
+      operation:clean($('det-operation').value),
+      service:clean($('det-service').value),
+      amount:Number($('det-amount').value),
+      period:clean($('det-period').value),
+      compType:clean($('det-comp-type').value),
+      series:clean($('det-series').value).toUpperCase(),
+      number:clean($('det-number').value)
+    };
+  }
+  function validateOp(o){
+    const e=[];
+    if(state.role==='adquiriente'){
+      if(!rucValid(o.party)) e.push('RUC del proveedor inválido o con dígito verificador incorrecto.');
+    }else{
+      if(!['1','6'].includes(o.docType)) e.push('Para Pago Masivo por Internet, el documento del adquiriente debe ser DNI o RUC.');
+      if(o.docType==='6' && !rucValid(o.party)) e.push('El RUC del adquiriente no es válido.');
+      if(o.docType==='1' && !/^\\d{8}$/.test(o.party)) e.push('El DNI del adquiriente debe tener 8 dígitos.');
+      if(!o.name) e.push('Falta el nombre/razón social del adquiriente.');
+    }
+    if(!/^\\d{11}$/.test(o.account)) e.push('La cuenta de detracciones debe tener 11 dígitos.');
+    if(!DET_CODES.some(x=>x[0]===o.service)) e.push('Código de bien/servicio no válido.');
+    if(!DET_OPS.some(x=>x[0]===o.operation)) e.push('Tipo de operación no válido.');
+    if(o.operation==='09' && o.service!=='099') e.push('La Ley N.º 30737 exige código 099 y operación 09.');
+    if(o.operation!=='09' && o.service==='099') e.push('El código 099 solo corresponde a la operación 09.');
+    if(!amountField(o.amount)) e.push('Monto de depósito inválido o fuera del ancho permitido.');
+    if(!/^\\d{6}$/.test(o.period)) e.push('Periodo tributario inválido: use AAAAMM.');
+    else{
+      const y=Number(o.period.slice(0,4)),m=Number(o.period.slice(4));
+      if(y<2004||m<1||m>12) e.push('Periodo tributario fuera de rango.');
+      if(o.period<'200409') e.push('El periodo no puede ser anterior a 200409.');
+      if(o.period>nowPeriod()) e.push('El periodo tributario no puede ser posterior al mes actual.');
+    }
+    if(!['01','03','09'].includes(o.compType)) e.push('Tipo de comprobante no válido.');
+    if(o.operation==='03' && o.compType!=='09') e.push('El traslado que no es venta requiere guía de remisión.');
+    if(o.operation!=='03' && o.compType==='09') e.push('La guía de remisión corresponde al traslado que no es venta.');
+    if(!o.series || o.series.length!==4) e.push('La serie debe tener exactamente 4 caracteres.');
+    if(!/^\\d{8}$/.test(o.number)) e.push('El número de comprobante debe tener 8 dígitos o menos; el generador lo completa a 8 posiciones.');
+    if(o.compType==='01' && !(/^\\d{4}$/.test(o.series)||/^E001$|^F[A-Z0-9]{3}$/.test(o.series))) e.push('Serie de factura: 4 dígitos físicos, E001 o FXXX electrónico.');
+    if(o.compType==='03' && !(/^\\d{4}$/.test(o.series)||/^B[A-Z0-9]{3}$/.test(o.series))) e.push('Serie de boleta: 4 dígitos físicos o BXXX electrónico.');
+    if(o.compType==='09' && !(/^\\d{4}$/.test(o.series)||o.series==='G001')) e.push('Serie de guía: 4 dígitos físicos o G001 electrónico.');
+    return e;
+  }
+  window.detAddOperation=function(){
+    const o=formData(), errs=validateOp(o);
+    if(errs.length){setMessage('det-form-message','err','<strong>Corrige:</strong><ul>'+errs.map(x=>'<li>'+x+'</li>').join('')+'</ul>');return;}
+    state.ops.push(o); setMessage('det-form-message','ok','Operación agregada correctamente.'); detClearOperation(false); detRender();
+  };
+  window.detClearOperation=function(hide=true){
+    ['det-counterparty-doc','det-counterparty-name','det-account','det-amount','det-series','det-number'].forEach(id=>$(id).value='');
+    $('det-doc-type').value='6'; $('det-operation').value='01'; $('det-service').value='037'; $('det-comp-type').value='01'; $('det-period').value=nowPeriod();
+    if(hide){const e=$('det-form-message');e.style.display='none';}
+    detUpdateCompTypes();
+  };
+  window.detDeleteOperation=function(i){state.ops.splice(i,1);detRender();};
+  window.detEditOperation=function(i){
+    const o=state.ops[i]; $('det-counterparty-doc').value=o.party; $('det-counterparty-name').value=o.name; $('det-doc-type').value=o.docType||'6'; $('det-account').value=o.account;
+    $('det-operation').value=o.operation; $('det-service').value=o.service; $('det-amount').value=o.amount; $('det-period').value=o.period; detUpdateCompTypes(); $('det-comp-type').value=o.compType; $('det-series').value=o.series; $('det-number').value=o.number;
+    state.ops.splice(i,1);detRender();window.scrollTo({top:document.querySelector('#detraccionesMasivasView .det-card:nth-of-type(3)')?.offsetTop||0,behavior:'smooth'});
+  };
+  function detValidateHeader(){
+    const e=[],r=clean($('det-payer-ruc').value),n=clean($('det-payer-name').value),l=clean($('det-lot').value);
+    if(!rucValid(r))e.push('RUC del depositante inválido.');
+    if(!n)e.push('Falta la razón social del depositante.');
+    if(n.length>35)e.push('La razón social supera 35 caracteres.');
+    if(!/^\\d{6}$/.test(l)||l.slice(0,2)!==yy())e.push('El lote debe tener formato AANNNN y corresponder al año actual.');
+    if(!state.ops.length)e.push('Agrega al menos una operación.');
+    return e;
+  }
+  function detAllErrors(){let e=detValidateHeader();state.ops.forEach((o,i)=>validateOp(o).forEach(x=>e.push('Operación '+(i+1)+': '+x)));return e;}
+  window.detValidateAll=function(){
+    const e=detAllErrors();
+    if(e.length)setMessage('det-validation','err','<strong>Se encontraron '+e.length+' observaciones.</strong><ul>'+e.map(x=>'<li>'+x+'</li>').join('')+'</ul>');
+    else setMessage('det-validation','ok','<strong>Todo correcto.</strong> La cabecera y los '+state.ops.length+' registros cumplen las validaciones de formato de la herramienta.');
+    $('det-ready').textContent=e.length?'Revisar':'Listo'; return !e.length;
+  };
+  function buildHeader(){
+    const r=clean($('det-payer-ruc').value),n=padR(clean($('det-payer-name').value).toUpperCase(),35),l=clean($('det-lot').value),total=state.ops.reduce((s,o)=>s+Math.round(o.amount*100),0);
+    return (state.role==='adquiriente'?'*':'P')+padR(r,11).replace(/ /g,'0')+n+l+padL(String(total),15,'0');
+  }
+  function buildDetail(o){
+    const first=state.role==='adquiriente'?'6':o.docType;
+    const doc=state.role==='adquiriente'?padR(o.party,11).replace(/ /g,'0'):o.docType==='1'?padR(o.party,11):padR(o.party,11).replace(/ /g,'0');
+    const name=state.role==='adquiriente'?''.padEnd(35,' '):padR(o.name.toUpperCase(),35);
+    const proforma='0'.repeat(9);
+    const amount=amountField(o.amount);
+    return first+doc+name+proforma+o.service+padR(o.account,11).replace(/ /g,'0')+amount+o.operation+o.period+o.compType+o.series+padL(o.number,8,'0');
+  }
+  function byteLen(s){return new TextEncoder().encode(s).length}
+  window.detGenerateTxt=function(){
+    if(!detValidateAll())return;
+    const header=buildHeader(),rows=state.ops.map(buildDetail);
+    const bad=[];
+    if(byteLen(header)!==68)bad.push('Cabecera: '+byteLen(header)+' bytes, debe ser 68.');
+    rows.forEach((x,i)=>{if(byteLen(x)!==107)bad.push('Detalle '+(i+1)+': '+byteLen(x)+' bytes, debe ser 107.')});
+    if(bad.length){setMessage('det-validation','err','<strong>No se generó el archivo.</strong><ul>'+bad.map(x=>'<li>'+x+'</li>').join('')+'</ul>');return;}
+    const txt=header+'\\r\\n'+rows.join('\\r\\n');
+    $('det-preview-text').value=txt;
+    const r=clean($('det-payer-ruc').value),l=clean($('det-lot').value),filename='D'+r+l+'.TXT';
+    const blob=new Blob([txt],{type:'text/plain;charset=windows-1252'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000);
+    setMessage('det-validation','ok','<strong>TXT generado:</strong> '+filename+' · Cabecera 68 bytes · '+rows.length+' detalles de 107 bytes.');
+  };
+  function detUpdateFilename(){
+    const r=clean($('det-payer-ruc')?.value)||'XXXXXXXXXXX',l=clean($('det-lot')?.value)||'AANNNN';
+    $('det-filename').textContent='D'+r+l+'.TXT';
+  }
+  function detRender(){
+    const body=$('det-operations-body'); if(!body)return;
+    if(!state.ops.length){body.innerHTML='<tr><td colspan="9" class="det-empty">Aún no has agregado operaciones.</td></tr>';}
+    else body.innerHTML=state.ops.map((o,i)=>{
+      const counter=state.role==='adquiriente'?o.party:o.name+' · '+o.party;
+      const svc=(DET_CODES.find(x=>x[0]===o.service)||[o.service,''])[1];
+      return '<tr><td>'+String(i+1).padStart(2,'0')+'</td><td>'+counter+'</td><td>'+o.service+' · '+svc+'</td><td>'+o.operation+'</td><td>'+o.compType+' '+o.series+'-'+o.number+'</td><td>'+o.account+'</td><td class="amount">'+money.format(o.amount)+'</td><td><span class="det-status ok">LISTO</span></td><td><button class="det-btn secondary" type="button" onclick="detEditOperation('+i+')">Editar</button> <button class="det-btn danger" type="button" onclick="detDeleteOperation('+i+')">Eliminar</button></td></tr>';
+    }).join('');
+    const total=state.ops.reduce((s,o)=>s+Number(o.amount||0),0);
+    $('det-count').textContent=state.ops.length;$('det-total').textContent=money.format(total);detUpdateFilename();
+  }
+  window.detClearAll=function(){
+    if(!state.ops.length)return;
+    if(confirm('¿Vaciar todas las operaciones del lote?')){state.ops=[];$('det-preview-text').value='';detRender();setMessage('det-validation','ok','Lote vacío.');}
+  };
+  window.showDetracciones=function(){
+    ['portalView','calculatorView','sunatView','laboralView','planContableView','detraccionesMasivasView'].forEach(id=>{const e=$(id);if(e)e.style.display='none';});
+    const m=$('detraccionesMasivasView');if(m)m.style.display='block';
+    if(!$('det-operation').options.length)populate();
+    window.scrollTo(0,0);
+  };
+  const oldShowPortal=window.showPortal;
+  window.showPortal=function(){
+    if(typeof oldShowPortal==='function')oldShowPortal();
+    const m=$('detraccionesMasivasView');if(m)m.style.display='none';
+    const p=$('portalView');if(p)p.style.display='block';
+    window.scrollTo(0,0);
+  };
+  ['det-payer-ruc','det-payer-name','det-lot'].forEach(id=>$(id)?.addEventListener('input',detUpdateFilename));
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',populate);else populate();
+})();
+</script>
 </body>
 </html>
