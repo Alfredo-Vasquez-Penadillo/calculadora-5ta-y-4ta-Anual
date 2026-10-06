@@ -1571,6 +1571,21 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
 .det-op-title .det-op-number{flex:0 0 auto}
 @media(max-width:700px){.det-ruc-actions{align-items:stretch}.det-ruc-btn{width:auto}}
 </style>
+<style id="alvapen-portal-polish-v1">
+#portalView .portal-main{max-width:1320px;margin:0 auto;padding-left:clamp(18px,3vw,34px);padding-right:clamp(18px,3vw,34px)}
+#portalView .portal-grid{align-items:stretch}
+#portalView .portal-card.portal-available{order:1}
+#portalView .portal-card.portal-feature{order:0}
+#portalView .portal-card.soon{order:2}
+#portalView .portal-card{min-height:175px}
+#portalView .portal-card.portal-available{background:linear-gradient(180deg,#fff,#fbfcfd)}
+#portalView .portal-card.portal-available:hover{border-color:#9fb3c4}
+#portalView .portal-section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:18px}
+#portalView .portal-section-head p{max-width:650px}
+#portalView .portal-news-loading{min-height:130px;display:flex;flex-direction:column;justify-content:center}
+#portalView .portal-news-loading p{margin:6px 0 0;color:#6e6e73}
+@media(max-width:850px){#portalView .portal-section-head{display:block}}
+</style>
 </head>
 <body>
 
@@ -1587,8 +1602,8 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
       <div class="portal-hero-grid">
         <div>
           <div class="portal-eyebrow">Sistema profesional</div>
-          <h1>Contabilidad y gestión, más simple.</h1>
-          <p>Un espacio centralizado para calcular, analizar y preparar herramientas de uso contable, tributario y laboral.</p>
+          <h1>Tu centro profesional de contabilidad y gestión.</h1>
+          <p>Herramientas contables, tributarias y laborales en un solo lugar, con validaciones claras, accesos rápidos y actualización diaria de información oficial.</p>
           <div class="portal-search"><span>⌕</span><input id="portalSearch" placeholder="Buscar una herramienta..." oninput="filterPortal()"></div>
         </div>
         <div class="portal-side">
@@ -1598,16 +1613,16 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
           <div class="portal-kpi">Herramientas Profesionales</div>
           <p>Un espacio central para convertir tareas repetitivas en procesos claros, verificables y reutilizables.</p>
           <div class="portal-stats">
-            <div class="portal-stat"><b>2</b><span>Módulos disponibles</span></div>
-            <div class="portal-stat"><b>22</b><span>Herramientas proyectadas</span></div>
-            <div class="portal-stat"><b>4</b><span>Áreas de trabajo</span></div>
+            <div class="portal-stat"><b>6</b><span>Herramientas disponibles</span></div>
+            <div class="portal-stat"><b>8</b><span>En desarrollo</span></div>
+            <div class="portal-stat"><b>4</b><span>Áreas profesionales</span></div>
           </div>
         </div>
       </div>
     </div>
   </div>
   <div class="portal-main">
-    <div class="portal-section-head"><h2>Herramientas</h2><p>Selecciona un módulo para comenzar.</p></div>
+    <div class="portal-section-head"><h2>Herramientas profesionales</h2><p>Accede primero a las herramientas disponibles. Las demás se irán incorporando progresivamente.</p></div>
     <div class="portal-grid" id="portalCards">
 <a id="plan-contable-card" class="portal-card portal-available accounting-plan-card"
    data-name="plan contable actualizado empresarial gubernamental financiero PCGE PCG SBS NIC NIIF contabilidad"
@@ -1642,11 +1657,7 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
       <a class="portal-card soon" data-name="vinculacion economica" href="#" onclick="return false"><div class="portal-icon">🔗</div><h3>Vinculación económica</h3><p>Evaluación de supuestos y límites aplicables.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
       <a class="portal-card soon" data-name="retenciones percepciones" href="#" onclick="return false"><div class="portal-icon">📑</div><h3>Retenciones y percepciones</h3><p>Cálculo y revisión de operaciones sujetas a estos regímenes.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
       <a class="portal-card soon" data-name="contratos" href="#" onclick="return false"><div class="portal-icon">📄</div><h3>Contratos</h3><p>Plantillas y generadores de contratos laborales y de servicios.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
-      <a class="portal-card soon" data-name="memorandums" href="#" onclick="return false"><div class="portal-icon">📝</div><h3>Memorándums</h3><p>Generación de documentos internos con formatos reutilizables.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
-      <a class="portal-card soon" data-name="cartas escritos" href="#" onclick="return false"><div class="portal-icon">✉️</div><h3>Cartas y escritos</h3><p>Documentos y escritos para trámites y procedimientos.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
-      <a class="portal-card soon" data-name="fechas" href="#" onclick="return false"><div class="portal-icon">📅</div><h3>Cálculo de fechas</h3><p>Vencimientos, plazos y cálculo de períodos.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
       <a class="portal-card soon" data-name="conversores" href="#" onclick="return false"><div class="portal-icon">💵</div><h3>Conversores</h3><p>Conversiones y cálculos rápidos de uso diario.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
-      <a class="portal-card soon" data-name="excel csv" href="#" onclick="return false"><div class="portal-icon">📊</div><h3>Excel / CSV</h3><p>Utilidades para transformar y preparar información.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
     </div>
   </div>
 
@@ -1655,66 +1666,15 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
     <div>
       <div class="portal-eyebrow">Actualidad profesional</div>
       <h2>Noticias y novedades</h2>
-      <p>Un punto de control para revisar cambios de SUNAT y publicaciones del Diario Oficial El Peruano.</p>
+      <p>Información de SUNAT y del Diario Oficial El Peruano, actualizada automáticamente cada día.</p>
     </div>
-    <div class="portal-news-date">Actualizado · 01 set. 2026</div>
+    <div class="portal-news-date">Actualización automática diaria</div>
   </div>
-
   <div class="portal-news-grid">
-    <article class="portal-news-card">
-      <div class="portal-news-card-head">
-        <div class="portal-news-source">SUNAT</div>
-        <span>OFICIAL</span>
-      </div>
-      <div class="portal-news-items">
-        <a href="https://www.sunat.gob.pe/mensajes/mensajes-SUNAT.html" target="_blank" rel="noopener">
-          <strong>Comunicados SUNAT</strong>
-          <small>Últimos avisos operativos, mantenimientos e incidencias de servicios.</small>
-          <em>26 ago. 2026 · ver fuente ↗</em>
-        </a>
-        <a href="https://www.sunat.gob.pe/salaprensa/" target="_blank" rel="noopener">
-          <strong>Sala de Prensa SUNAT</strong>
-          <small>Noticias y comunicados institucionales para revisar novedades tributarias y aduaneras.</small>
-          <em>Fuente oficial · ver novedades ↗</em>
-        </a>
-        <a href="https://www.sunat.gob.pe/" target="_blank" rel="noopener">
-          <strong>Portal SUNAT</strong>
-          <small>Acceso a campañas, trámites, servicios y publicaciones de la administración tributaria.</small>
-          <em>Actualización directa ↗</em>
-        </a>
-      </div>
-      <a class="portal-news-more" href="https://www.sunat.gob.pe/" target="_blank" rel="noopener">Abrir centro SUNAT →</a>
+    <article class="portal-news-card portal-news-loading">
+      <div class="portal-news-source">Actualizando información oficial…</div>
+      <p>Consultando las últimas publicaciones disponibles.</p>
     </article>
-
-    <article class="portal-news-card">
-      <div class="portal-news-card-head">
-        <div class="portal-news-source">EL PERUANO</div>
-        <span>OFICIAL</span>
-      </div>
-      <div class="portal-news-items">
-        <a href="https://www.elperuano.pe/noticia/303781-el-peruano-te-informa-consulta-aqui-las-principales-normas-legales-para-hoy-martes-01-de-setiembre-del-2026" target="_blank" rel="noopener">
-          <strong>Principales normas legales de hoy</strong>
-          <small>El Peruano publicó el resumen de las normas relevantes correspondientes al 1 de setiembre.</small>
-          <em>01 set. 2026 · ver publicación ↗</em>
-        </a>
-        <a href="https://www.elperuano.pe/noticia/303790-nulidad-de-norma-sobre-ceses-colectivos-la-corte-suprema-frena-cambios-en-despidos-por-motivos-economicos" target="_blank" rel="noopener">
-          <strong>Actualidad laboral: ceses colectivos</strong>
-          <small>La Corte Suprema confirmó la nulidad de una disposición sobre “motivos económicos” para terminaciones colectivas.</small>
-          <em>01 set. 2026 · ver noticia ↗</em>
-        </a>
-        <a href="https://diariooficial.elperuano.pe/Normas" target="_blank" rel="noopener">
-          <strong>Normas Legales del día</strong>
-          <small>Consulta directamente las disposiciones publicadas y sus documentos oficiales.</small>
-          <em>Actualización diaria ↗</em>
-        </a>
-      </div>
-      <a class="portal-news-more" href="https://diariooficial.elperuano.pe/normas/" target="_blank" rel="noopener">Abrir normas →</a>
-    </article>
-  </div>
-
-  <div class="portal-news-note">
-    <strong>Cómo funcionará esta sección:</strong> el portal mostrará enlaces y novedades de fuentes oficiales. 
-    Como este archivo funciona localmente, los titulares no se “inventan” ni se guardan como una copia permanente; al abrir cada fuente se consulta la publicación oficial más reciente.
   </div>
 </section>
 
