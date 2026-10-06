@@ -1509,6 +1509,20 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
 .det-stat strong{display:block;margin-top:3px;font-size:17px;color:#163a5f}
 .det-operations-card{grid-column:1/-1}
 .det-table-wrap{overflow:visible;width:100%}
+.det-operations-list{display:grid;gap:12px;padding:16px 19px 4px}
+.det-op-card{border:1px solid #dfe7ef;border-radius:14px;background:#fbfcfe;padding:14px;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,.9fr) auto;gap:12px;align-items:center}
+.det-op-main{min-width:0}
+.det-op-number{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:24px;border-radius:8px;background:#eaf0f5;color:#163a5f;font-size:11px;font-weight:900;margin-right:7px}
+.det-op-title{font-size:13px;font-weight:900;color:#163a5f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.det-op-sub{font-size:11px;color:#667085;margin-top:4px;line-height:1.4}
+.det-op-meta{display:flex;flex-wrap:wrap;gap:5px}
+.det-op-chip{display:inline-flex;align-items:center;padding:5px 8px;border-radius:8px;background:#eef3f7;color:#344054;font-size:10px;font-weight:800}
+.det-op-amount{text-align:right;font-weight:900;color:#163a5f;white-space:nowrap}
+.det-op-actions{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}
+.det-op-actions .det-btn{padding:8px 10px;font-size:11px}
+@media(max-width:980px){.det-op-card{grid-template-columns:1fr 1fr}.det-op-amount{text-align:left}.det-op-actions{justify-content:flex-start}}
+@media(max-width:620px){.det-op-card{grid-template-columns:1fr}.det-op-actions{justify-content:flex-start}}
+@media(max-width:760px){.det-grid{grid-template-columns:1fr}.det-operations-card{grid-column:auto}}
 .det-table{width:100%;border-collapse:collapse;table-layout:fixed}
 .det-table th,.det-table td{padding:9px 8px;border-bottom:1px solid #e8edf2;text-align:left;font-size:10.5px;white-space:normal;overflow-wrap:anywhere;vertical-align:middle}
 .det-table th{background:#f8fafc;color:#475467;font-size:9.5px;text-transform:uppercase;letter-spacing:.03em}
@@ -2175,7 +2189,7 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
       <section class="det-card">
         <div class="det-card-head">
           <h2>2. Registrar operación</h2>
-          <p>Los campos cambian según el rol seleccionado. En <strong>Adquiriente</strong>, la cuenta de detracciones del proveedor se solicita en cada operación. En <strong>Proveedor</strong>, la cuenta del proveedor se registra una sola vez en los datos del lote y se reutiliza automáticamente en todas las operaciones.</p>
+          <p>Los campos cambian según el rol seleccionado. En <strong>Adquiriente</strong>, la cuenta de detracciones del proveedor se solicita en cada operación. En <strong>Proveedor</strong>, la cuenta del proveedor se registra una sola vez en los datos del lote y se reutiliza automáticamente en todas las operaciones. El nombre del adquiriente solo se solicita cuando SUNAT lo permite: código 040 y documento distinto de RUC.</p>
         </div>
         <div class="det-card-body">
           <div class="det-fields">
@@ -2210,11 +2224,8 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
           <h2>3. Operaciones del lote</h2>
           <p>Revisa, edita o elimina antes de generar el archivo.</p>
         </div>
-        <div class="det-table-wrap">
-          <table class="det-table">
-            <thead><tr><th>#</th><th>Contraparte</th><th>Bien/Servicio</th><th>Operación</th><th>Comprobante</th><th>Cuenta</th><th>Depósito</th><th>Estado</th><th></th></tr></thead>
-            <tbody id="det-operations-body"><tr><td colspan="9" class="det-empty">Aún no has agregado operaciones.</td></tr></tbody>
-          </table>
+        <div id="det-operations-body" class="det-operations-list">
+          <div class="det-empty">Aún no has agregado operaciones.</div>
         </div>
         <div class="det-card-body">
           <div id="det-validation" class="det-validation" style="display:none"></div>
@@ -3867,21 +3878,33 @@ function pcvTab(name,btn){
     $('det-lot').value=yy()+String(seq).padStart(4,'0');
     detUpdateFilename();
   };
+  function detSyncNameField(){
+    const isA=state.role==='adquiriente';
+    const service=clean($('det-service').value);
+    const docType=clean($('det-doc-type').value);
+    // SUNAT: in the provider/multiple-acquirers case, the acquiring party name
+    // is only allowed for service code 040 when the document is NOT an RUC.
+    const needsName=!isA && service==='040' && docType!=='6';
+    const label=$('det-counterparty-name-label');
+    if(!label)return;
+    label.style.display=needsName?'flex':'none';
+    $('det-counterparty-name').placeholder=needsName?'Apellidos y nombres o razón social':'No se usa para este código/documento';
+    if(!needsName) $('det-counterparty-name').value='';
+  }
   window.detSyncRole=function(){
     state.role=document.querySelector('input[name="det-role"]:checked')?.value||'adquiriente';
     const isA=state.role==='adquiriente';
     $('det-counterparty-label').firstChild.textContent=isA?'RUC del proveedor':'Número de documento del adquiriente';
     $('det-counterparty-doc').placeholder=isA?'RUC del proveedor':'Documento del adquiriente';
-    $('det-counterparty-doc').maxLength=isA?'11':'11';
-    $('det-counterparty-name-label').firstChild.textContent=isA?'Nombre / Razón Social del proveedor':'Nombre / Razón Social del adquiriente';
-    $('det-counterparty-name').placeholder=isA?'No se usa en el TXT; se reserva el campo':'Apellidos y nombres o razón social';
-    $('det-counterparty-name-label').style.display=isA?'none':'flex';
+    $('det-counterparty-doc').maxLength='11';
+    $('det-counterparty-name-label').firstChild.textContent='Nombre / Razón Social del adquiriente';
     $('det-doc-type-label').style.display=isA?'none':'flex';
     $('det-account-label').firstChild.textContent='Cuenta de detracciones del proveedor';
     $('det-account').placeholder='11 dígitos';
     $('det-account-label').style.display=isA?'flex':'none';
     $('det-payer-account-label').style.display=isA?'none':'flex';
     $('det-payer-account-label').querySelector('.det-hint').textContent=isA?'':'Se registra una sola vez y se aplica a todas las operaciones del lote';
+    detSyncNameField();
     detUpdateCompTypes();
     detRender();
   };
@@ -3898,7 +3921,8 @@ function pcvTab(name,btn){
     detUpdateFilename();
   };
   $('det-operation')?.addEventListener('change',window.detUpdateCompTypes);
-  $('det-service')?.addEventListener('change',function(){ if(this.value==='099') $('det-operation').value='09'; detUpdateCompTypes(); });
+  $('det-service')?.addEventListener('change',function(){ if(this.value==='099') $('det-operation').value='09'; detUpdateCompTypes(); detSyncNameField(); });
+  $('det-doc-type')?.addEventListener('change',detSyncNameField);
   function formData(){
     return {
       party:clean($('det-counterparty-doc').value),
@@ -3922,7 +3946,7 @@ function pcvTab(name,btn){
       if(!['1','6'].includes(o.docType)) e.push('Para Pago Masivo por Internet, el documento del adquiriente debe ser DNI o RUC.');
       if(o.docType==='6' && !rucValid(o.party)) e.push('El RUC del adquiriente no es válido.');
       if(o.docType==='1' && !/^\d{8}$/.test(o.party)) e.push('El DNI del adquiriente debe tener 8 dígitos.');
-      if(!o.name) e.push('Falta el nombre/razón social del adquiriente.');
+      if(o.service==='040' && o.docType!=='6' && !o.name) e.push('Para el código 040 y un documento distinto de RUC, debe registrarse el nombre/razón social del adquiriente.');
     }
     if(!/^\d{11}$/.test(o.account)) e.push(state.role==='proveedor'?'La cuenta de detracciones del proveedor debe tener 11 dígitos.':'La cuenta de detracciones del proveedor debe tener 11 dígitos.');
     if(!DET_CODES.some(x=>x[0]===o.service)) e.push('Código de bien/servicio no válido.');
@@ -3990,7 +4014,8 @@ function pcvTab(name,btn){
   function buildDetail(o){
     const first=state.role==='adquiriente'?'6':o.docType;
     const doc=state.role==='adquiriente'?padR(o.party,11).replace(/ /g,'0'):o.docType==='1'?padR(o.party,11):padR(o.party,11).replace(/ /g,'0');
-    const name=state.role==='adquiriente'?''.padEnd(35,' '):padR(o.name.toUpperCase(),35);
+    const providerNameAllowed=state.role==='proveedor' && o.service==='040' && o.docType!=='6';
+    const name=providerNameAllowed?padR(o.name.toUpperCase(),35):''.padEnd(35,' ');
     const proforma='0'.repeat(9);
     const amount=amountField(o.amount);
     return first+doc+name+proforma+o.service+padR(o.account,11).replace(/ /g,'0')+amount+o.operation+o.period+o.compType+o.series+padL(o.number,8,'0');
@@ -4016,14 +4041,37 @@ function pcvTab(name,btn){
   }
   function detRender(){
     const body=$('det-operations-body'); if(!body)return;
-    if(!state.ops.length){body.innerHTML='<tr><td colspan="9" class="det-empty">Aún no has agregado operaciones.</td></tr>';}
-    else body.innerHTML=state.ops.map((o,i)=>{
-      const counter=state.role==='adquiriente'?o.party:o.name+' · '+o.party;
-      const svc=(DET_CODES.find(x=>x[0]===o.service)||[o.service,''])[1];
-      return '<tr><td>'+String(i+1).padStart(2,'0')+'</td><td>'+counter+'</td><td>'+o.service+' · '+svc+'</td><td>'+o.operation+'</td><td>'+o.compType+' '+o.series+'-'+o.number+'</td><td>'+o.account+'</td><td class="amount">'+money.format(o.amount)+'</td><td><span class="det-status ok">LISTO</span></td><td><button class="det-btn secondary" type="button" onclick="detEditOperation('+i+')">Editar</button> <button class="det-btn danger" type="button" onclick="detDeleteOperation('+i+')">Eliminar</button></td></tr>';
-    }).join('');
+    if(!state.ops.length){
+      body.innerHTML='<div class="det-empty">Aún no has agregado operaciones.</div>';
+    }else{
+      body.innerHTML=state.ops.map((o,i)=>{
+        const counter=state.role==='adquiriente'?o.party:o.name+' · '+o.party;
+        const svc=(DET_CODES.find(x=>x[0]===o.service)||[o.service,''])[1];
+        const account=o.account||'—';
+        return '<article class="det-op-card">'+
+          '<div class="det-op-main">'+
+            '<div class="det-op-title"><span class="det-op-number">'+String(i+1).padStart(2,'0')+'</span>'+counter+'</div>'+
+            '<div class="det-op-sub">'+o.service+' · '+svc+'</div>'+
+          '</div>'+
+          '<div class="det-op-meta">'+
+            '<span class="det-op-chip">Op. '+o.operation+'</span>'+
+            '<span class="det-op-chip">CP '+o.compType+' '+o.series+'-'+padL(o.number,8,'0')+'</span>'+
+            '<span class="det-op-chip">Periodo '+o.period+'</span>'+
+            '<span class="det-op-chip">Cuenta '+account+'</span>'+
+          '</div>'+
+          '<div class="det-op-amount">'+money.format(o.amount)+'</div>'+
+          '<div class="det-op-actions">'+
+            '<span class="det-status ok">LISTO</span>'+
+            '<button class="det-btn secondary" type="button" onclick="detEditOperation('+i+')">Editar</button>'+
+            '<button class="det-btn danger" type="button" onclick="detDeleteOperation('+i+')">Eliminar</button>'+
+          '</div>'+
+        '</article>';
+      }).join('');
+    }
     const total=state.ops.reduce((s,o)=>s+Number(o.amount||0),0);
-    $('det-count').textContent=state.ops.length;$('det-total').textContent=money.format(total);detUpdateFilename();
+    $('det-count').textContent=state.ops.length;
+    $('det-total').textContent=money.format(total);
+    detUpdateFilename();
   }
   window.detClearAll=function(){
     if(!state.ops.length)return;
