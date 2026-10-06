@@ -1646,10 +1646,6 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
   <p>Una sola herramienta para rentas de 4ta y 5ta categoría, trabajador del hogar y planilla, organizada en subpáginas congruentes.</p>
   <span class="portal-action">ABRIR CENTRO DE TRABAJO →</span>
 </a>
-      <a class="portal-card soon" data-name="vacaciones" href="#" onclick="return false"><div class="portal-icon">🏖️</div><h3>Vacaciones</h3><p>Cálculo de vacaciones, días generados, gozados y truncos.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
-      
-      <a class="portal-card soon" data-name="cts" href="#" onclick="return false"><div class="portal-icon">🏦</div><h3>CTS</h3><p>Cálculo y proyección de depósitos de compensación por tiempo de servicios.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
-      <a class="portal-card soon" data-name="gratificaciones" href="#" onclick="return false"><div class="portal-icon">🎁</div><h3>Gratificaciones</h3><p>Proyección y cálculo de gratificaciones y bonificaciones correspondientes.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
       
       <a class="portal-card soon" data-name="igv" href="#" onclick="return false"><div class="portal-icon">🧾</div><h3>IGV</h3><p>Determinación y análisis de IGV mensual.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
       <a class="portal-card soon" data-name="renta" href="#" onclick="return false"><div class="portal-icon">📊</div><h3>Renta</h3><p>Herramientas para determinaciones y proyecciones del impuesto a la renta.</p><span class="portal-action">PRÓXIMAMENTE</span></a>
@@ -4190,6 +4186,31 @@ function pcvTab(name,btn){
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',populate);else populate();
 })();
 </script>
+
+<style id="alvapen-v41-home-refresh">
+#portalView .portal-main{position:relative}
+#portalView .portal-card{transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;will-change:transform}
+#portalView .portal-card:hover{transform:translateY(-5px);box-shadow:0 18px 42px rgba(16,42,67,.13);border-color:rgba(16,42,67,.16)}
+#portalView .portal-card.portal-available{background:linear-gradient(145deg,#fff 0%,#f7fafc 100%)}
+#portalView .portal-card.portal-feature{border:1px solid rgba(200,169,107,.34);background:linear-gradient(145deg,#fffdf8,#f5f8fb)}
+#portalView .portal-card .portal-action{letter-spacing:.35px}
+#portalView .portal-news{position:relative;overflow:hidden;background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(245,249,252,.94));border-color:rgba(16,42,67,.11)}
+#portalView .portal-news:before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,#102A43,#C8A96B,#102A43);opacity:.9}
+#portalView .portal-news-head{margin-bottom:24px}
+#portalView .portal-news-head h2{font-size:32px}
+#portalView .portal-news-live{display:inline-flex;align-items:center;gap:7px;margin-top:9px;font-size:11px;font-weight:900;color:#176b45;text-transform:uppercase;letter-spacing:.7px}
+#portalView .portal-news-live i{width:8px;height:8px;border-radius:50%;background:#25a66a;box-shadow:0 0 0 5px rgba(37,166,106,.12);animation:alvPulse 1.8s infinite}
+#portalView .portal-news-card{height:100%;display:flex;flex-direction:column}
+#portalView .portal-news-items{flex:1}
+#portalView .portal-news-items a{position:relative;overflow:hidden}
+#portalView .portal-news-items a:after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:#C8A96B;transform:scaleY(0);transform-origin:center;transition:transform .18s ease}
+#portalView .portal-news-items a:hover:after{transform:scaleY(1)}
+#portalView .portal-news-more{display:inline-flex!important;align-items:center;justify-content:center;margin-top:14px;padding:10px 13px!important;border-radius:12px!important;background:#102A43!important;color:#fff!important;font-size:12px;font-weight:800;text-decoration:none!important}
+#portalView .portal-news-more:hover{background:#163A5F!important;transform:none!important}
+#portalView .portal-news-note{border:1px solid rgba(16,42,67,.08)}
+@keyframes alvPulse{0%,100%{opacity:1}50%{opacity:.45}}
+@media(max-width:760px){#portalView .portal-news{padding:22px;border-radius:24px}#portalView .portal-news-head h2{font-size:27px}}
+</style>
 
 <script id="alvapen-live-news-v1">
 (function(){
