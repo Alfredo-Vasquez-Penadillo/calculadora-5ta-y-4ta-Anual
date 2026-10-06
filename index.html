@@ -1555,6 +1555,22 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
 @media(max-width:980px){.det-grid{grid-template-columns:1fr}}
 @media(max-width:650px){.det-fields,.det-role{grid-template-columns:1fr}.det-summary{grid-template-columns:1fr}.det-toolbar{position:static}.det-toolbar strong{display:none}}
 </style>
+<style id="alvapen-ruc-validator-v1">
+.det-ruc-box{margin-top:7px;padding:8px 10px;border-radius:9px;border:1px solid #d9e1e8;background:#f8fafc;font-size:11px;line-height:1.35}
+.det-ruc-box strong{color:#163a5f}
+.det-ruc-box.ok{border-color:#b9ddc7;background:#f3fbf6;color:#28613b}
+.det-ruc-box.warn{border-color:#e7d7a9;background:#fffaf0;color:#6d5a25}
+.det-ruc-box.err{border-color:#efc2c2;background:#fff5f5;color:#9b3030}
+.det-ruc-name{font-size:12px;font-weight:900;color:#163a5f}
+.det-ruc-meta{margin-top:2px;color:#667085}
+.det-ruc-actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-top:7px}
+.det-ruc-link{color:#163a5f;font-weight:800;text-decoration:none}
+.det-ruc-link:hover{text-decoration:underline}
+.det-ruc-btn{padding:7px 9px!important;font-size:11px!important}
+.det-op-title{display:flex;align-items:center;flex-wrap:wrap;gap:5px}
+.det-op-title .det-op-number{flex:0 0 auto}
+@media(max-width:700px){.det-ruc-actions{align-items:stretch}.det-ruc-btn{width:auto}}
+</style>
 </head>
 <body>
 
@@ -2234,7 +2250,8 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
         <div class="det-card-body">
           <div id="det-validation" class="det-validation" style="display:none"></div>
           <div class="det-actions">
-            <button class="det-btn secondary" type="button" onclick="detValidateAll()">✓ Validar todo</button>
+            <button class="det-btn secondary" type="button" onclick="detValidateAllRuc()">✓ Validar RUC de operaciones</button>
+            <button class="det-btn secondary" type="button" onclick="detValidateAll()">✓ Validar estructura</button>
             <button class="det-btn primary" type="button" onclick="detGenerateTxt()">⬇ Generar TXT para Pago Masivo SUNAT</button>
             <button class="det-btn danger" type="button" onclick="detClearAll()">Vaciar lote</button>
           </div>
@@ -3839,6 +3856,7 @@ function pcvTab(name,btn){
   const state={role:'adquiriente',ops:[]};
   const $=id=>document.getElementById(id);
   const clean=v=>String(v??'').trim();
+  const escHtml=v=>String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const padR=(v,n)=>clean(v).padEnd(n,' ').slice(0,n);
   const padL=(v,n,ch='0')=>clean(v).padStart(n,ch).slice(-n);
   const money=new Intl.NumberFormat('es-PE',{style:'currency',currency:'PEN',minimumFractionDigits:2});
@@ -3994,6 +4012,39 @@ function pcvTab(name,btn){
     if(hide){const e=$('det-form-message');e.style.display='none';}
     detUpdateCompTypes();
   };
+  window.detValidateRuc=async function(i){
+    const o=state.ops[i]; if(!o)return;
+    const ruc=(state.role==='adquiriente'||o.docType==='6')?clean(o.party):'';
+    if(!/^\d{11}$/.test(ruc)){
+      o.sunatStatus='error';o.sunatMessage='La consulta de razón social requiere un RUC de 11 dígitos.';detRender();return;
+    }
+    if(!rucValid(ruc)){
+      o.sunatStatus='error';o.sunatMessage='El RUC no supera el dígito verificador local. No se realizó una consulta externa.';detRender();return;
+    }
+    o.sunatStatus='loading';o.sunatMessage='Consultando datos públicos de RUC...';detRender();
+    try{
+      const response=await fetch('https://openruc.com/api/ruc/'+encodeURIComponent(ruc),{method:'GET',headers:{'Accept':'application/json'},cache:'no-store'});
+      if(!response.ok)throw new Error('HTTP '+response.status);
+      const data=await response.json();
+      const returned=clean(data.ruc);
+      const name=clean(data.razon_social);
+      if(returned!==ruc||!name)throw new Error('Respuesta sin razón social válida.');
+      o.sunatName=name;o.sunatStatus='ok';o.sunatMessage='';o.sunatSource=data.source||'SUNAT';o.sunatAsOf=data.as_of||'';
+      detRender();
+      setMessage('det-validation','ok','<strong>RUC '+escHtml(ruc)+' validado.</strong> Razón social: '+escHtml(name)+'. Esta consulta es informativa y no modifica ningún campo del TXT.');
+    }catch(err){
+      o.sunatStatus='error';o.sunatMessage='La consulta automática no estuvo disponible desde el navegador ('+(err?.message||'sin detalle')+'). Se mantiene el TXT intacto.';
+      detRender();
+      setMessage('det-validation','err','<strong>No se pudo completar la consulta automática.</strong> Usa el enlace "Abrir SUNAT" de la operación para verificarlo. El TXT no fue modificado.');
+    }
+  };
+  window.detValidateAllRuc=async function(){
+    const indexes=[];
+    state.ops.forEach((o,i)=>{const r=(state.role==='adquiriente'||o.docType==='6')?clean(o.party):'';if(r)indexes.push(i);});
+    if(!indexes.length){setMessage('det-validation','err','No hay operaciones con RUC disponibles para validar.');return;}
+    for(const i of indexes) await window.detValidateRuc(i);
+    detRender();
+  };
   window.detDeleteOperation=function(i){state.ops.splice(i,1);detRender();};
   window.detEditOperation=function(i){
     const o=state.ops[i]; $('det-counterparty-doc').value=o.party; $('det-counterparty-name').value=o.name; $('det-doc-type').value=o.docType||'6';
@@ -4065,14 +4116,29 @@ function pcvTab(name,btn){
         const counter=state.role==='adquiriente'?o.party:o.name+' · '+o.party;
         const svc=(DET_CODES.find(x=>x[0]===o.service)||[o.service,''])[1];
         const account=o.account||'—';
+        const ruc=(state.role==='adquiriente'||o.docType==='6')?o.party:'';
+        const sunatName=o.sunatName||'';
+        const sunatStatus=o.sunatStatus||'pending';
+        let rucBox='';
+        if(ruc){
+          const official='https://e-consultaruc.sunat.gob.pe/cl-ti-itmrconsruc/jcrS00Alias?accion=consPorRuc&nroRuc='+encodeURIComponent(ruc);
+          if(sunatStatus==='ok'){
+            rucBox='<div class="det-ruc-box ok"><div class="det-ruc-name">'+escHtml(sunatName)+'</div><div class="det-ruc-meta">Razón social consultada automáticamente · fuente de datos: SUNAT</div><div class="det-ruc-actions"><a class="det-ruc-link" href="'+official+'" target="_blank" rel="noopener">Ver consulta oficial SUNAT ↗</a><button class="det-btn secondary det-ruc-btn" type="button" onclick="detValidateRuc('+i+')">↻ Actualizar</button></div></div>';
+          }else if(sunatStatus==='error'){
+            rucBox='<div class="det-ruc-box err"><strong>No se pudo obtener la razón social automáticamente.</strong><div class="det-ruc-meta">'+escHtml(o.sunatMessage||'Verifica el RUC en SUNAT.')+'</div><div class="det-ruc-actions"><button class="det-btn secondary det-ruc-btn" type="button" onclick="detValidateRuc('+i+')">✓ Validar RUC</button><a class="det-ruc-link" href="'+official+'" target="_blank" rel="noopener">Abrir SUNAT ↗</a></div></div>';
+          }else{
+            rucBox='<div class="det-ruc-box"><strong>Razón social aún no validada</strong><div class="det-ruc-meta">RUC: '+escHtml(ruc)+' · esta validación es solo informativa y no modifica el TXT.</div><div class="det-ruc-actions"><button class="det-btn secondary det-ruc-btn" type="button" onclick="detValidateRuc('+i+')">✓ Validar RUC</button><a class="det-ruc-link" href="'+official+'" target="_blank" rel="noopener">Ver SUNAT ↗</a></div></div>';
+          }
+        }
         return '<article class="det-op-card">'+
           '<div class="det-op-main">'+
-            '<div class="det-op-title"><span class="det-op-number">'+String(i+1).padStart(2,'0')+'</span>'+counter+'</div>'+
-            '<div class="det-op-sub">'+o.service+' · '+svc+'</div>'+
+            '<div class="det-op-title"><span class="det-op-number">'+String(i+1).padStart(2,'0')+'</span>'+escHtml(counter)+'</div>'+
+            '<div class="det-op-sub">'+o.service+' · '+escHtml(svc)+'</div>'+
+            rucBox+
           '</div>'+
           '<div class="det-op-meta">'+
             '<span class="det-op-chip">Op. '+o.operation+'</span>'+
-            '<span class="det-op-chip">CP '+o.compType+' '+o.series+'-'+padL(o.number,8,'0')+'</span>'+
+            '<span class="det-op-chip">CP '+o.compType+' '+escHtml(o.series)+'-'+padL(o.number,8,'0')+'</span>'+
             '<span class="det-op-chip">Periodo '+o.period+'</span>'+
             '<span class="det-op-chip">Cuenta '+account+'</span>'+
           '</div>'+
