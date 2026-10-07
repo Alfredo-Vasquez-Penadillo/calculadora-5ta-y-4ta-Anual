@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-06T08:00:00-05:00",
+  "updated_at": "2026-10-07T14:26-05:00",
   "sources": [
     {
       "name": "SUNAT",
@@ -7,22 +7,10 @@
       "url": "https://www.sunat.gob.pe/mensajes/mensajes-SUNAT.html",
       "items": [
         {
-          "title": "SUNAT realizará mantenimiento de su plataforma informática",
-          "summary": "Se ha programado mantenimiento desde las 20:00 del 7 de octubre hasta las 06:00 del 8 de octubre; algunos servicios podrían no estar disponibles.",
-          "date": "05 oct. 2026",
-          "url": "https://www.sunat.gob.pe/mensajes/mensajes-SUNAT.html"
-        },
-        {
-          "title": "Comunicados SUNAT",
-          "summary": "Consulta los avisos operativos, mantenimientos e incidencias publicados por la administración tributaria.",
-          "date": "Fuente oficial",
-          "url": "https://www.sunat.gob.pe/mensajes/mensajes-SUNAT.html"
-        },
-        {
-          "title": "Sala de Prensa SUNAT",
-          "summary": "Noticias institucionales y novedades tributarias y aduaneras.",
-          "date": "Fuente oficial",
-          "url": "https://www.sunat.gob.pe/salaprensa/"
+          "title": "+",
+          "summary": "Comunicado oficial de SUNAT. Revise el detalle en la fuente.",
+          "date": "07/10/2026",
+          "url": "https://www.sunat.gob.pe/octubre/2026/aviso-ti-071026.html"
         }
       ]
     },
