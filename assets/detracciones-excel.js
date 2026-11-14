@@ -1,108 +1,135 @@
 (function(){
-  const section = document.querySelector('#detraccionesMasivasView .det-operations-card');
-  if (!section || document.getElementById('det-excel-tools')) return;
-  const card = document.createElement('section');
-  card.className = 'det-card';
-  card.id = 'det-excel-tools';
-  card.style.gridColumn = '1 / -1';
-  card.innerHTML = '<div class="det-card-head"><h2>3. Carga masiva desde Excel</h2><p>Descarga la plantilla, pega tus operaciones y vuelve a cargar el archivo para incorporarlas al lote.</p></div>'+
-    '<div class="det-card-body"><div class="det-excel-actions">'+
-    '<button class="det-btn secondary" type="button" id="det-excel-template">⬇ Descargar plantilla Excel</button>'+
-    '<label class="det-btn primary" for="det-excel-file" style="display:inline-flex;align-items:center;cursor:pointer">＋ Subir plantilla completada</label>'+
-    '<input id="det-excel-file" type="file" accept=".xlsx,.xls,.csv" style="display:none">'+
-    '</div><p class="det-note">Completa una fila por operación. No modifiques los encabezados. Los datos generales del lote (RUC, razón social, lote y cuenta del proveedor cuando corresponda) se completan previamente en “1. Datos del lote”.</p>'+
-    '<div id="det-excel-status" class="det-validation" style="display:none"></div></div>';
-  section.parentNode.insertBefore(card, section);
-  const $ = id => document.getElementById(id);
-  const headers = ['documento_contraparte','nombre_adquiriente','tipo_documento','cuenta_detracciones_proveedor','tipo_operacion','codigo_bien_servicio','monto_deposito','periodo_tributario','tipo_comprobante','serie_comprobante','numero_comprobante'];
-  const example = ['20123456789','','6','00012345678','01','037',1500,'202611','01','F001','123'];
-  function status(type, html){const e=$('det-excel-status');e.className='det-validation '+type;e.style.display='block';e.innerHTML=html;}
-  function loadXLSX(){
-    if(window.XLSX)return Promise.resolve(window.XLSX);
-    if(window.__alvapenXlsxPromise)return window.__alvapenXlsxPromise;
-    window.__alvapenXlsxPromise=new Promise((resolve,reject)=>{
-      const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
-      s.onload=()=>window.XLSX?resolve(window.XLSX):reject(new Error('No se pudo inicializar el lector Excel.'));
-      s.onerror=()=>reject(new Error('No se pudo cargar el componente Excel. Verifica tu conexión e inténtalo nuevamente.'));
-      document.head.appendChild(s);
+  function init(){
+    const root=document.querySelector('#detraccionesMasivasView');
+    const card=root?.querySelector('.det-paste-card');
+    if(!card||card.dataset.excelUnified==='1')return;
+    card.dataset.excelUnified='1';
+    document.getElementById('det-excel-tools')?.remove();
+
+    const head=card.querySelector('.det-card-head h2');
+    const desc=card.querySelector('.det-card-head p');
+    if(head)head.textContent='3. Carga masiva desde Excel';
+    if(desc)desc.textContent='Elige una sola forma de importar: pega directamente desde Excel o descarga y completa la plantilla. Ambas opciones usan las mismas validaciones.';
+    const body=card.querySelector('.det-card-body');
+    const guide=body.querySelector('#det-paste-guide');
+    const pasteLabel=body.querySelector('label[for="det-paste-input"]');
+    const pasteInput=body.querySelector('#det-paste-input');
+    const pasteActions=body.querySelector('.det-paste-actions');
+    const pasteMessage=body.querySelector('#det-paste-message');
+    const note=body.querySelector('.det-note');
+    if(!guide||!pasteInput||!pasteActions||!pasteMessage)return;
+
+    const style=document.createElement('style');
+    style.textContent='.det-import-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.det-import-tab{border:1px solid #d6e0e8;background:#f5f8fb;color:#24445f;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer}.det-import-tab[aria-selected="true"]{background:#163a5f;color:#fff;border-color:#163a5f}.det-import-panel{border:1px solid #e0e7ee;border-radius:13px;padding:15px;background:#fff}.det-import-panel[hidden]{display:none}.det-template-row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.det-template-help{font-size:11px;color:#667085;line-height:1.55;margin:10px 0}.det-file-label{display:inline-flex;align-items:center;gap:7px;border:1px solid #163a5f;background:#163a5f;color:#fff;border-radius:11px;padding:11px 14px;font-weight:900;cursor:pointer}.det-file-label input{display:none}.det-role-template{font-size:12px;font-weight:800;color:#163a5f;margin-bottom:10px}';
+    document.head.appendChild(style);
+
+    const tabs=document.createElement('div');
+    tabs.className='det-import-tabs';
+    tabs.innerHTML='<button type="button" class="det-import-tab" data-panel="paste" aria-selected="true">Pegar desde Excel</button><button type="button" class="det-import-tab" data-panel="file" aria-selected="false">Subir plantilla Excel</button>';
+    const pastePanel=document.createElement('div');pastePanel.className='det-import-panel';pastePanel.dataset.panel='paste';
+    const filePanel=document.createElement('div');filePanel.className='det-import-panel';filePanel.dataset.panel='file';filePanel.hidden=true;
+    [guide,pasteLabel,pasteInput,pasteActions,pasteMessage].forEach(n=>pastePanel.appendChild(n));
+    const roleText=document.createElement('div');roleText.className='det-role-template';roleText.id='det-excel-role-text';
+    const fileActions=document.createElement('div');fileActions.className='det-template-row';
+    fileActions.innerHTML='<button type="button" class="det-btn secondary" id="det-excel-template">⬇ Descargar plantilla Excel</button><label class="det-file-label">＋ Seleccionar plantilla completada<input id="det-excel-file" type="file" accept=".xlsx,.xls,.csv"></label>';
+    const fileMsg=document.createElement('div');fileMsg.id='det-excel-status';fileMsg.className='det-validation';fileMsg.style.display='none';fileMsg.style.marginTop='12px';
+    const fileHelp=document.createElement('p');fileHelp.className='det-template-help';fileHelp.textContent='La plantilla cambia según el rol seleccionado. No modifiques los encabezados. Al subirla, ALVAPEN valida todas las filas antes de incorporarlas al lote; si una fila tiene errores, no se importa ninguna.';
+    filePanel.append(roleText,fileActions,fileHelp,fileMsg);
+    body.insertBefore(tabs,body.firstChild);body.insertBefore(pastePanel,tabs.nextSibling);body.insertBefore(filePanel,pastePanel.nextSibling);
+    if(note)note.textContent='La carga masiva solo incorpora operaciones al lote. Después revisa las operaciones, valida RUC y estructura, y finalmente genera el TXT para Pago Masivo SUNAT.';
+
+    function role(){return root.querySelector('input[name="det-role"]:checked')?.value||'adquiriente';}
+    function headers(){
+      return role()==='proveedor'
+        ? ['Tipo documento adquiriente','Número documento adquiriente','Nombre/Razón social (solo código 040 y si no es RUC)','Tipo operación','Código bien/servicio','Monto depósito','Periodo AAAAMM','Tipo comprobante','Serie','Número']
+        : ['RUC proveedor','Cuenta detracciones proveedor','Tipo operación','Código bien/servicio','Monto depósito','Periodo AAAAMM','Tipo comprobante','Serie','Número'];
+    }
+    function updateRole(){
+      const r=role();
+      roleText.textContent=r==='proveedor'
+        ? 'Rol seleccionado: PROVEEDOR · 10 columnas. La cuenta del depositante se toma de “1. Datos del lote”.'
+        : 'Rol seleccionado: ADQUIRIENTE · 9 columnas. Incluye la cuenta de detracciones de cada proveedor.';
+      const strong=guide.querySelectorAll('strong');
+      strong.forEach(el=>{el.style.opacity=(r==='proveedor'?'1':'.65');});
+    }
+    function switchPanel(name){
+      tabs.querySelectorAll('button').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.panel===name)));
+      pastePanel.hidden=name!=='paste';filePanel.hidden=name!=='file';
+    }
+    tabs.addEventListener('click',e=>{const b=e.target.closest('button[data-panel]');if(b)switchPanel(b.dataset.panel);});
+    root.querySelectorAll('input[name="det-role"]').forEach(el=>el.addEventListener('change',updateRole));
+    updateRole();
+
+    function xlsx(){
+      if(window.XLSX)return Promise.resolve(window.XLSX);
+      if(window.__alvapenXlsxPromise)return window.__alvapenXlsxPromise;
+      window.__alvapenXlsxPromise=new Promise((resolve,reject)=>{
+        const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
+        s.onload=()=>window.XLSX?resolve(window.XLSX):reject(new Error('No se pudo inicializar el lector Excel.'));
+        s.onerror=()=>reject(new Error('No se pudo cargar el lector Excel. Verifica tu conexión.'));
+        document.head.appendChild(s);
+      });return window.__alvapenXlsxPromise;
+    }
+    function setStatus(kind,msg){fileMsg.className='det-validation '+kind;fileMsg.style.display='block';fileMsg.textContent=msg;}
+    document.getElementById('det-excel-template').addEventListener('click',async()=>{
+      try{
+        const X=await xlsx(),h=headers(),provider=role()==='proveedor';
+        const wb=X.utils.book_new();
+        const ws=X.utils.aoa_to_sheet([h]);
+        ws['!cols']=h.map(v=>({wch:Math.max(18,Math.min(48,v.length+5))}));
+        X.utils.book_append_sheet(wb,ws,'Operaciones');
+        const instructions=provider?[
+          ['PLANTILLA DE DETRACCIONES – ROL PROVEEDOR'],
+          ['Una fila por operación. No cambies los encabezados.'],
+          ['Tipo documento adquiriente: 1 para DNI o 6 para RUC.'],
+          ['Número documento adquiriente: número de documento del adquiriente.'],
+          ['Nombre/Razón social: completar solo cuando corresponda al código 040 y el documento no sea RUC.'],
+          ['Tipo operación: código permitido por el generador.'],
+          ['Código bien/servicio: código SUNAT de tres dígitos.'],
+          ['Monto depósito: importe positivo, sin S/ ni separador de miles.'],
+          ['Periodo: AAAAMM. Tipo comprobante: 01 factura, 03 boleta o 09 guía, sujeto a las reglas del generador.'],
+          ['Serie: cuatro caracteres. Número: hasta ocho dígitos.'],
+          ['La cuenta de detracciones del proveedor se registra una sola vez en Datos del lote.']
+        ]:[
+          ['PLANTILLA DE DETRACCIONES – ROL ADQUIRIENTE'],
+          ['Una fila por operación. No cambies los encabezados.'],
+          ['RUC proveedor: RUC de 11 dígitos del proveedor.'],
+          ['Cuenta detracciones proveedor: cuenta de 11 dígitos correspondiente a ese proveedor.'],
+          ['Tipo operación: código permitido por el generador.'],
+          ['Código bien/servicio: código SUNAT de tres dígitos.'],
+          ['Monto depósito: importe positivo, sin S/ ni separador de miles.'],
+          ['Periodo: AAAAMM. Tipo comprobante: 01 factura, 03 boleta o 09 guía, sujeto a las reglas del generador.'],
+          ['Serie: cuatro caracteres. Número: hasta ocho dígitos.']
+        ];
+        const wi=X.utils.aoa_to_sheet(instructions);wi['!cols']=[{wch:115}];X.utils.book_append_sheet(wb,wi,'Instrucciones');
+        X.writeFile(wb,provider?'Plantilla_Detracciones_Proveedor.xlsx':'Plantilla_Detracciones_Adquiriente.xlsx');
+        setStatus('ok','Plantilla descargada para el rol '+(provider?'Proveedor':'Adquiriente')+'. Completa la hoja Operaciones y súbela aquí.');
+      }catch(err){setStatus('err',err.message||String(err));}
     });
-    return window.__alvapenXlsxPromise;
+    document.getElementById('det-excel-file').addEventListener('change',async ev=>{
+      const file=ev.target.files?.[0];if(!file)return;
+      try{
+        const X=await xlsx(),data=await file.arrayBuffer(),wb=X.read(data,{type:'array'});
+        const ws=wb.Sheets['Operaciones']||wb.Sheets[wb.SheetNames[0]];
+        if(!ws)throw new Error('No se encontró la hoja Operaciones.');
+        const rows=X.utils.sheet_to_json(ws,{header:1,defval:'',raw:false});
+        const expected=headers();
+        if(!rows.length)throw new Error('La plantilla está vacía.');
+        const incoming=rows[0].map(v=>String(v??'').trim());
+        if(expected.some((h,i)=>incoming[i]!==h)||incoming.length!==expected.length)throw new Error('La plantilla no corresponde al rol actual o sus encabezados fueron modificados. Descarga la plantilla del rol '+(role()==='proveedor'?'Proveedor':'Adquiriente')+'.');
+        const dataRows=rows.slice(1).filter(row=>row.some(v=>String(v??'').trim()!==''));
+        if(!dataRows.length)throw new Error('No hay operaciones para importar.');
+        const tsv=dataRows.map(row=>expected.map((_,i)=>String(row[i]??'').replace(/\t|\r?\n/g,' ')).join('\t')).join('\n');
+        pasteInput.value=tsv;
+        switchPanel('paste');
+        if(typeof window.detImportPasted!=='function')throw new Error('No está disponible el validador de carga masiva.');
+        window.detImportPasted();
+        const msg=document.getElementById('det-paste-message');
+        if(msg&&msg.classList.contains('ok'))setStatus('ok','Archivo procesado. '+msg.innerText.replace(/\s+/g,' ').trim());
+        else setStatus('err','El archivo se leyó, pero la validación encontró observaciones. Revisa el detalle en “Pegar desde Excel”. No se incorporaron filas si hubo errores.');
+      }catch(err){setStatus('err',err.message||String(err));}
+      finally{ev.target.value='';}
+    });
   }
-  $('det-excel-template').addEventListener('click',async()=>{
-    try{
-      const X=await loadXLSX();
-      const wb=X.utils.book_new();
-      const ws=X.utils.aoa_to_sheet([headers,example]);
-      ws['!cols']=[{wch:23},{wch:32},{wch:17},{wch:30},{wch:18},{wch:22},{wch:18},{wch:20},{wch:18},{wch:18},{wch:22}];
-      X.utils.book_append_sheet(wb,ws,'Operaciones');
-      const info=X.utils.aoa_to_sheet([
-        ['INSTRUCCIONES – ALVAPEN / DETRACCIONES'],
-        ['Una fila representa una operación. No cambies ni elimines los encabezados.'],
-        ['documento_contraparte: RUC del proveedor si el rol es Adquiriente; DNI o RUC del adquiriente si el rol es Proveedor.'],
-        ['nombre_adquiriente: solo se utiliza para rol Proveedor, código 040 y documento distinto de RUC. En los demás casos dejar vacío.'],
-        ['tipo_documento: 6 para RUC; 1 para DNI.'],
-        ['cuenta_detracciones_proveedor: 11 dígitos. En rol Adquiriente, cuenta de cada proveedor; en rol Proveedor, puedes dejarla vacía porque se toma del encabezado del lote.'],
-        ['tipo_operacion: códigos permitidos en la herramienta: 01, 02, 03, 04, 05 o 09.'],
-        ['codigo_bien_servicio: código SUNAT de 3 dígitos, por ejemplo 037. Para operación 09 usar 099.'],
-        ['monto_deposito: número positivo, sin símbolo de moneda.'],
-        ['periodo_tributario: formato AAAAMM, por ejemplo 202611.'],
-        ['tipo_comprobante: 01 factura; 03 boleta; 09 guía de remisión.'],
-        ['serie_comprobante: 4 caracteres, por ejemplo F001, B001, E001 o G001.'],
-        ['numero_comprobante: número de hasta 8 dígitos.'],
-        ['Antes de cargar, selecciona el rol correcto y completa los datos generales del lote en ALVAPEN. La importación vuelve a validar cada fila con las reglas del generador.']
-      ]);
-      info['!cols']=[{wch:120}];X.utils.book_append_sheet(wb,info,'Instrucciones');
-      X.writeFile(wb,'Plantilla_Detracciones_ALVAPEN.xlsx');
-      status('ok','Plantilla Excel descargada. Completa la hoja “Operaciones” y luego súbela aquí.');
-    }catch(e){status('err',e.message);}
-  });
-  $('det-excel-file').addEventListener('change',async ev=>{
-    const file=ev.target.files&&ev.target.files[0];if(!file)return;
-    try{
-      const X=await loadXLSX();
-      const data=await file.arrayBuffer();
-      const wb=X.read(data,{type:'array',cellDates:false});
-      const ws=wb.Sheets['Operaciones']||wb.Sheets[wb.SheetNames[0]];
-      if(!ws)throw new Error('El archivo no contiene una hoja de operaciones.');
-      const rows=X.utils.sheet_to_json(ws,{defval:'',raw:false});
-      if(!rows.length)throw new Error('La plantilla no contiene filas para importar.');
-      const missing=headers.filter(h=>!Object.prototype.hasOwnProperty.call(rows[0],h));
-      if(missing.length)throw new Error('No se reconocen los encabezados: '+missing.join(', ')+'. Descarga la plantilla oficial y no modifiques sus encabezados.');
-      let added=0;const errors=[];
-      rows.forEach((r,i)=>{
-        const line=i+2;
-        if(headers.every(h=>String(r[h]??'').trim()===''))return;
-        const role=document.querySelector('input[name="det-role"]:checked')?.value||'adquiriente';
-        const set=(id,v)=>{const el=$(id);if(el)el.value=String(v??'').trim();};
-        set('det-counterparty-doc',r.documento_contraparte);
-        set('det-counterparty-name',r.nombre_adquiriente);
-        set('det-doc-type',r.tipo_documento||'6');
-        if(role==='adquiriente')set('det-account',r.cuenta_detracciones_proveedor);
-        set('det-operation',String(r.tipo_operacion||'').padStart(2,'0'));
-        set('det-service',String(r.codigo_bien_servicio||'').padStart(3,'0'));
-        set('det-amount',String(r.monto_deposito).replace(',','.'));
-        set('det-period',String(r.periodo_tributario).replace(/\.0$/,''));
-        set('det-comp-type',String(r.tipo_comprobante||'').padStart(2,'0'));
-        set('det-series',r.serie_comprobante);
-        set('det-number',String(r.numero_comprobante).replace(/\.0$/,'').padStart(8,'0'));
-        if(typeof window.detUpdateCompTypes==='function')window.detUpdateCompTypes();
-        const before=Number($('det-count')?.textContent||0);
-        if(typeof window.detAddOperation!=='function')throw new Error('No se encontró el generador de operaciones.');
-        window.detAddOperation();
-        const after=Number($('det-count')?.textContent||0);
-        if(after>before)added++;else{
-          const msg=$('det-form-message')?.innerText||'No se pudo validar la operación.';
-          errors.push('Fila '+line+': '+msg.replace(/\s+/g,' ').trim());
-        }
-      });
-      const safe=errors.map(x=>'<li>'+x.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))+'</li>').join('');
-      if(errors.length){
-        status('err','<strong>Importación terminada: '+added+' operación(es) agregada(s), '+errors.length+' fila(s) observada(s).</strong><ul>'+safe+'</ul><button type="button" class="det-btn secondary" id="det-excel-errors" style="margin-top:8px">Descargar reporte de errores</button>');
-        $('det-excel-errors').addEventListener('click',async()=>{
-          const X=await loadXLSX();const out=X.utils.aoa_to_sheet([['Observación'],...errors.map(x=>[x])]);const b=X.utils.book_new();X.utils.book_append_sheet(b,out,'Errores');X.writeFile(b,'Errores_Importacion_Detracciones.xlsx');
-        });
-      }else status('ok','<strong>Importación correcta.</strong> Se agregaron '+added+' operación(es). Revisa el lote y ejecuta “Validar estructura” antes de generar el TXT.');
-    }catch(e){status('err',String(e.message||e));}
-    finally{ev.target.value='';}
-  });
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
