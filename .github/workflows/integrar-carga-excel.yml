@@ -1,0 +1,38 @@
+name: Integrar carga Excel detracciones
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/detracciones-excel.js'
+      - '.github/workflows/integrar-carga-excel.yml'
+permissions:
+  contents: write
+jobs:
+  integrar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Insertar módulo de carga Excel en la página principal
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path("index.html")
+          s = p.read_text(encoding="utf-8")
+          tag = '<script src="./assets/detracciones-excel.js?v=1"></script>'
+          if tag not in s:
+              pos = s.lower().rfind("</body>")
+              if pos < 0:
+                  raise SystemExit("No se encontró el cierre body")
+              s = s[:pos] + tag + "\n" + s[pos:]
+              p.write_text(s, encoding="utf-8")
+      - name: Guardar integración
+        run: |
+          if git diff --quiet; then
+            echo "No hay cambios que guardar"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html
+            git commit -m "Integrar carga masiva desde Excel en detracciones"
+            git push
+          fi
