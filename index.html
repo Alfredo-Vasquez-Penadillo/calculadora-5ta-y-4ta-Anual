@@ -1592,6 +1592,18 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
 #portalView .portal-news-loading p{margin:6px 0 0;color:#6e6e73}
 @media(max-width:850px){#portalView .portal-section-head{display:block}}
 </style>
+
+<style id="det-paste-excel-ui">
+.det-paste-card{grid-column:1/-1}
+.det-paste-guide{display:grid;gap:7px;margin-bottom:16px;padding:15px;border:1px solid #d9e2ec;border-radius:14px;background:#f6f9fc}
+.det-paste-guide strong{font-size:12px;color:#163a5f}
+.det-paste-guide code{display:block;white-space:normal;line-height:1.6;color:#526579;font:11px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;overflow-wrap:anywhere}
+.det-paste-label{display:block;font-size:12px;font-weight:800;color:#243b53;margin:0 0 8px}
+.det-paste-input{display:block;width:100%;min-height:150px;padding:14px;border:1px solid #cbd5e1;border-radius:13px;background:#fff;color:#172b43;font:12px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;resize:vertical;outline:none}
+.det-paste-input:focus{border-color:#5b7896;box-shadow:0 0 0 3px rgba(91,120,150,.14)}
+.det-paste-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
+@media(max-width:700px){.det-paste-card{grid-column:auto}.det-paste-guide code{font-size:10px}}
+</style>
 </head>
 <body data-rmv-vigente="1230" data-rmv-vigencia="2026-10-01" data-rmv-futura="1300">
 
@@ -2203,7 +2215,30 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
         </div>
       </section>
 
-      <section class="det-card det-operations-card">
+      
+      <section class="det-card det-paste-card">
+        <div class="det-card-head">
+          <h2>3. Carga masiva desde Excel</h2>
+          <p>Copia un rango de Excel y pégalo aquí. Se importarán todas las filas en una sola operación, según el rol seleccionado. Usa columnas en el orden indicado; puedes incluir encabezados.</p>
+        </div>
+        <div class="det-card-body">
+          <div class="det-paste-guide" id="det-paste-guide">
+            <strong>Adquiriente · 9 columnas</strong>
+            <code>RUC proveedor | Cuenta detracciones | Tipo operación | Código bien/servicio | Monto depósito | Periodo AAAAMM | Tipo comprobante | Serie | Número</code>
+            <strong>Proveedor · 10 columnas</strong>
+            <code>Tipo documento adquiriente | N.º documento | Nombre/Razón social (solo código 040 y no RUC) | Tipo operación | Código bien/servicio | Monto depósito | Periodo AAAAMM | Tipo comprobante | Serie | Número</code>
+          </div>
+          <label class="det-paste-label" for="det-paste-input">Pega aquí las filas copiadas de Excel</label>
+          <textarea id="det-paste-input" class="det-paste-input" rows="7" spellcheck="false" placeholder="Pega aquí las columnas de Excel (separadas por tabulaciones)..."></textarea>
+          <div class="det-paste-actions">
+            <button class="det-btn primary" type="button" onclick="detImportPasted()">⇩ Importar todas las filas</button>
+            <button class="det-btn secondary" type="button" onclick="document.getElementById('det-paste-input').value='';document.getElementById('det-paste-message').style.display='none'">Limpiar pegado</button>
+          </div>
+          <div id="det-paste-message" class="det-validation" style="display:none"></div>
+          <p class="det-note">La importación no genera el TXT todavía: primero carga y valida las operaciones. Luego usa “Generar TXT para Pago Masivo SUNAT”. No se aceptarán filas incompletas o con errores para evitar archivos parciales.</p>
+        </div>
+      </section>
+<section class="det-card det-operations-card">
         <div class="det-card-head">
           <h2>3. Operaciones del lote</h2>
           <p>Revisa, edita o elimina antes de generar el archivo.</p>
@@ -4090,6 +4125,61 @@ function pcvTab(name,btn){
     if(o.compType==='09' && !(/^\d{4}$/.test(o.series)||o.series==='G001')) e.push('Serie de guía: 4 dígitos físicos o G001 electrónico.');
     return e;
   }
+
+  // Importación masiva desde Excel: una fila pegada equivale a una operación.
+  function detParsePastedAmount(raw){
+    let s=clean(raw).replace(/S\/?\s*/ig,'').replace(/\s/g,'');
+    if(!s)return NaN;
+    if(s.includes(',')&&s.includes('.')){
+      if(s.lastIndexOf(',')>s.lastIndexOf('.')) s=s.replace(/\./g,'').replace(',','.');
+      else s=s.replace(/,/g,'');
+    }else if(s.includes(',')){
+      const parts=s.split(',');
+      s=parts[parts.length-1].length<=2?parts.slice(0,-1).join('')+'.'+parts[parts.length-1]:parts.join('');
+    }else if((s.match(/\./g)||[]).length>1){
+      const parts=s.split('.');s=parts.slice(0,-1).join('')+'.'+parts[parts.length-1];
+    }
+    return Number(s);
+  }
+  function detLooksLikePasteHeader(row){
+    const t=row.join(' ').toLowerCase();
+    return /ruc|proveedor|adquiriente|adquirente|tipo documento|monto|periodo|comprobante/.test(t);
+  }
+  window.detImportPasted=function(){
+    const raw=clean($('det-paste-input')?.value);
+    if(!raw){setMessage('det-paste-message','err','Pega primero las filas copiadas de Excel.');return;}
+    const lines=raw.replace(/^\uFEFF/,'').split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+    const delimiter=lines.some(x=>x.includes('\t'))?'\t':';';
+    let rows=lines.map(line=>line.split(delimiter).map(v=>clean(v).replace(/^"(.*)"$/,'$1')));
+    if(rows.length && detLooksLikePasteHeader(rows[0])) rows=rows.slice(1);
+    if(!rows.length){setMessage('det-paste-message','err','No se encontraron filas de datos debajo de los encabezados.');return;}
+    const provider=state.role==='proveedor';
+    const expected=provider?10:9;
+    const imported=[],errors=[];
+    rows.forEach((r,i)=>{
+      const lineNo=i+1;
+      if(r.length!==expected){errors.push('Fila '+lineNo+': se esperaban '+expected+' columnas y se encontraron '+r.length+'.');return;}
+      let o;
+      if(!provider){
+        o={party:r[0],name:'',docType:'6',account:r[1],operation:r[2],service:r[3],amount:detParsePastedAmount(r[4]),period:r[5],compType:r[6],series:r[7].toUpperCase(),number:r[8]};
+      }else{
+        o={docType:r[0],party:r[1],name:r[2],account:clean($('det-payer-account').value),operation:r[3],service:r[4],amount:detParsePastedAmount(r[5]),period:r[6],compType:r[7],series:r[8].toUpperCase(),number:r[9]};
+      }
+      o.number=padL(o.number,8,'0');
+      const rowErrors=validateOp(o);
+      if(rowErrors.length) errors.push('Fila '+lineNo+': '+rowErrors.join(' '));
+      else imported.push(o);
+    });
+    if(errors.length){
+      setMessage('det-paste-message','err','<strong>No se importó ninguna fila.</strong> Se encontraron '+errors.length+' observaciones:<ul>'+errors.slice(0,30).map(e=>'<li>'+escHtml(e)+'</li>').join('')+(errors.length>30?'<li>Y '+(errors.length-30)+' observaciones adicionales.</li>':'')+'</ul>');
+      return;
+    }
+    state.ops.push(...imported);
+    detRender();
+    $('det-paste-input').value='';
+    setMessage('det-paste-message','ok','<strong>Importación correcta.</strong> Se agregaron '+imported.length+' operaciones al lote. Revisa el resumen y valida la cabecera antes de generar el TXT.');
+    setMessage('det-validation','ok','<strong>'+imported.length+' operaciones importadas desde Excel.</strong> Ya puedes validar la estructura y generar el TXT.');
+  };
   window.detAddOperation=function(){
     const o=formData(), errs=validateOp(o);
     if(errs.length){setMessage('det-form-message','err','<strong>Corrige:</strong><ul>'+errs.map(x=>'<li>'+x+'</li>').join('')+'</ul>');return;}
