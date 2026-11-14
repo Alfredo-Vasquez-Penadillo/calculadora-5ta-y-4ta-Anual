@@ -2142,7 +2142,7 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
     </div>
   </header>
   <main class="det-wrap">
-    <div class="det-alert"><strong>Importante:</strong> esta herramienta genera el archivo plano; el pago y las validaciones finales de cuenta, RUC y demás condiciones las realiza SUNAT al cargarlo. No necesitas importar Excel.</div>
+    <div class="det-alert"><strong>Importante:</strong> esta herramienta genera el archivo plano; el pago y las validaciones finales de cuenta, RUC y demás condiciones las realiza SUNAT al cargarlo. Puedes registrar operaciones manualmente o usar la carga masiva.</div>
     <div class="det-grid">
       <section class="det-card">
         <div class="det-card-head">
@@ -2240,7 +2240,7 @@ input[readonly][id="lab-rmv"],input[readonly][id="liq-rmv"]{
       </section>
 <section class="det-card det-operations-card">
         <div class="det-card-head">
-          <h2>3. Operaciones del lote</h2>
+          <h2>4. Operaciones del lote</h2>
           <p>Revisa, edita o elimina antes de generar el archivo.</p>
         </div>
         <div id="det-operations-body" class="det-operations-list">
@@ -4444,6 +4444,6 @@ function pcvTab(name,btn){
   document.querySelectorAll('.alv-lab-tab').forEach(function(btn){btn.addEventListener('click',function(){document.querySelectorAll('.alv-lab-tab').forEach(function(x){x.classList.remove('active');});document.querySelectorAll('.alv-lab-panel').forEach(function(x){x.classList.remove('active');});btn.classList.add('active');var p=document.querySelector('[data-labpanel="'+btn.getAttribute('data-labtab')+'"]');if(p)p.classList.add('active');});});
 })();
 </script>
-<script src="./assets/detracciones-excel.js?v=1"></script>
+<script src="./assets/detracciones-excel.js?v=2"></script>
 </body>
 </html>
