@@ -4145,6 +4145,8 @@ function pcvTab(name,btn){
     const t=row.join(' ').toLowerCase();
     return /ruc|proveedor|adquiriente|adquirente|tipo documento|monto|periodo|comprobante/.test(t);
   }
+  const detPasteCode=(value,width)=>padL(clean(value).replace(/[^0-9]/g,''),width,'0');
+  const detPasteDocType=value=>{const v=clean(value);return v==='01'?'1':v==='06'?'6':v;};
   window.detImportPasted=function(){
     const raw=clean($('det-paste-input')?.value);
     if(!raw){setMessage('det-paste-message','err','Pega primero las filas copiadas de Excel.');return;}
@@ -4161,9 +4163,9 @@ function pcvTab(name,btn){
       if(r.length!==expected){errors.push('Fila '+lineNo+': se esperaban '+expected+' columnas y se encontraron '+r.length+'.');return;}
       let o;
       if(!provider){
-        o={party:r[0],name:'',docType:'6',account:r[1],operation:r[2],service:r[3],amount:detParsePastedAmount(r[4]),period:r[5],compType:r[6],series:r[7].toUpperCase(),number:r[8]};
+        o={party:r[0],name:'',docType:'6',account:r[1],operation:detPasteCode(r[2],2),service:detPasteCode(r[3],3),amount:detParsePastedAmount(r[4]),period:r[5],compType:detPasteCode(r[6],2),series:r[7].toUpperCase(),number:r[8]};
       }else{
-        o={docType:r[0],party:r[1],name:r[2],account:clean($('det-payer-account').value),operation:r[3],service:r[4],amount:detParsePastedAmount(r[5]),period:r[6],compType:r[7],series:r[8].toUpperCase(),number:r[9]};
+        o={docType:detPasteDocType(r[0]),party:r[1],name:r[2],account:clean($('det-payer-account').value),operation:detPasteCode(r[3],2),service:detPasteCode(r[4],3),amount:detParsePastedAmount(r[5]),period:r[6],compType:detPasteCode(r[7],2),series:r[8].toUpperCase(),number:r[9]};
       }
       o.number=padL(o.number,8,'0');
       const rowErrors=validateOp(o);
