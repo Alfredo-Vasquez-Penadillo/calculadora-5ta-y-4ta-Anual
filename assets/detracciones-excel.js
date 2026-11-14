@@ -49,8 +49,8 @@
       roleText.textContent=r==='proveedor'
         ? 'Rol seleccionado: PROVEEDOR · 10 columnas. La cuenta del depositante se toma de “1. Datos del lote”.'
         : 'Rol seleccionado: ADQUIRIENTE · 9 columnas. Incluye la cuenta de detracciones de cada proveedor.';
-      const strong=guide.querySelectorAll('strong');
-      strong.forEach(el=>{el.style.opacity=(r==='proveedor'?'1':'.65');});
+      const items=Array.from(guide.children);
+      items.forEach((el,i)=>{const show=r==='proveedor'?i>=2:i<2;el.style.display=show?'':'none';});
     }
     function switchPanel(name){
       tabs.querySelectorAll('button').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.panel===name)));
